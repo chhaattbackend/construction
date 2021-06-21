@@ -18,28 +18,25 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->ajax()) {
-        if($request->page!=null && $request->keyword!=null){
-            $keyword=$request->keyword;
-            $services=Service::where('name','LIKE',"%{$request->keyword}%")->paginate(25);
-            $services->withPath('?keyword=' . $request->keyword);
-            return view('admin.service.index',compact('services','keyword'));
+        if (!$request->keyword) {
+            $services = Service::orderBy('created_at', 'desc')->paginate(25);
+        } else {
+
+            $seacrh = $request->keyword;
+            $services = Service::where('id', '!=', null)->orderBy('created_at', 'desc');
+
+            $services = $services->whereHas('ServiceType', function ($query) use ($seacrh) {
+                $query->where('name', 'like', '%' . $seacrh . '%');
+            })
+            ->orWhere('description', 'like', '%' . $seacrh . '%')
+            ->paginate(25)->setPath('');
+
+            $pagination = $services->appends(array(
+                'keyword' => $request->keyword
+            ));
         }
-    }
-        if ($request->ajax()){
-        if($request->keyword!=null){
-            $keyword=$request->keyword;
-            $services=Service::where('name','LIKE',"%{$request->keyword}%")->paginate(25);
-            $services->withPath('?keyword=' . $request->keyword);
-        }
-        else{
-            $keyword='';
-            $services=Service::paginate(25);
-        }
-        return view('admin.service.search',compact('services','keyword'));
-        }
-        $services=Service::paginate(25);
-        return view('admin.service.index',compact('services'));
+
+        return view('admin.service.index', compact('services',));
     }
 
     /**

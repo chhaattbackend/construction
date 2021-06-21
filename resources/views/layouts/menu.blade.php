@@ -421,6 +421,30 @@
 </li>
 <li class="nav-item has-treeview">
     <a href="#" class="nav-link">
+        <i class="nav-icon  fa fa-wrench"></i>
+        <p>
+            Service Types
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview" style="display: none;">
+        <li class="nav-item">
+            <a href="{{ route('servicetypes.index') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>List</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('servicetypes.create') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Create</p>
+            </a>
+        </li>
+
+    </ul>
+</li>
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
         <i class="nav-icon fas fa-store-slash"></i>
         <p>
             Store

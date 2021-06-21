@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Services</h1>
+                    <h1>Service Types</h1>
                 </div>
                 {{-- <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -41,8 +41,8 @@
                                     <button type="button" class="btn btn-default mr-2" onclick="search()"><i
                                             class="fas fa-search"></i></button>
 
-                                    <a href="{{ route('services.create') }}"><button class="btn btn-primary">Add
-                                            Service</button></a>
+                                    <a href="{{ route('servicetypes.create') }}"><button class="btn btn-primary">Add
+                                            Service Type</button></a>
                                 </div>
                             </div>
                         </div>
@@ -53,39 +53,29 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>service_type</th>
+
                                     <th>name</th>
-                                    <th>description</th>
-                                    <th>price</th>
-                                    <th>image</th>
-                                    <th>thumbnail</th>
-                                    <th>unit</th>
-                                    @if (auth()->user()->role->name == 'superadmin')
+
+
                                         <th>Action</th>
-                                    @endif
+
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($services as $item)
+                                @forelse ($servicetypes as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->service_type_id }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->description }}</td>
-                                        <td>{{ $item->price }}</td>
-                                        <td>{{ @$item->image }}</td>
-                                        <td>{{ $item->thumbnail }}</td>
-                                        <td>{{ @$item->unit_id }}</td>
 
-                                        @if (auth()->user()->role->name == 'superadmin')
+                                        <td>{{ $item->name }}</td>
+
                                             <td>
-                                                <a href="{{ route('services.edit', $item->id) }}" class="float-left"><i
+                                                <a href="{{ route('servicetypes.edit', $item->id) }}" class="float-left"><i
                                                         class="fas fa-edit"></i></a>
-                                                <form action="{{ route('services.destroy', $item->id) }}" method="POST">
+                                                <form action="{{ route('servicetypes.destroy', $item->id) }}" method="POST">
                                                     @method('delete') @csrf <button class="btn btn-link pt-0"><i
                                                             class="fas fa-trash-alt"></i></button> </form>
                                             </td>
-                                        @endif
+
                                     </tr>
                                 @empty
                                     <p>No Data Found</p>
@@ -94,7 +84,7 @@
                         </table>
                     </div>
                     <div class="align-right paginationstyle">
-                        {{ $services->links() }}
+                        {{-- {{ $servicetypes->links() }} --}}
                     </div>
                     <!-- /.card-body -->
                 </div>

@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>A Categories</h1>
+                    <h1> Store Service</h1>
                 </div>
                 {{-- <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -67,7 +67,7 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->store->name }}</td>
-                                        <td>{{ $item->service->name }}</td>
+                                        <td>{{ @$item->service->name }}</td>
                                         <td>{{ $item->store_price }}</td>
                                         <td>{{ $item->qty }}</td>
                                         <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>

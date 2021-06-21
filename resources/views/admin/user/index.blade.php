@@ -60,8 +60,8 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ optional($item->store)->name }}</td>
-                                        <td>{{ optional($item->store)->phone }}</td>
+                                        <td>{{ @$item->store->name }}</td>
+                                        <td>{{ @$item->store->phone }}</td>
                                         <td>
                                             <a href="{{ route('users.edit', $item->id) }}" class="float-left">
                                                 {{$item->status==1 ? 'Active' : 'InActive'}}
@@ -76,7 +76,7 @@
                         </table>
                     </div>
                     <div class="align-right paginationstyle">
-                        {{ $users->links() }}
+                        {{-- {{ $users->links() }} --}}
                     </div>
                     <!-- /.card-body -->
                 </div>

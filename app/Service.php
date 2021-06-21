@@ -19,5 +19,18 @@ class Service extends Model
         'image',
         'thumbnail',
         'unit_id',
+        
     ];
+
+    public function serviceType(){
+
+        return $this->belongsTo(ServiceType::class, 'service_type_id');
+    }
+    public function unit(){
+
+        return $this->belongsTo(Unit::class, 'unit_id');
+    }
+
+
+
 }

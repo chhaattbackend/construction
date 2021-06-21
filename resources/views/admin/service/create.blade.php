@@ -27,7 +27,7 @@
                                 <div class="form-group row">
 
 
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Service Type ID</label>
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Service Type </label>
                                     <div class="col-sm-6">
                                         <select class="form-control" name="service_type_id" id="service_type_id">
                                             <option value="">Select Category</option>
