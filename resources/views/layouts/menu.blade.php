@@ -5,8 +5,8 @@
         <p>Home</p>
     </a>
 </li>
+    @role('super admin|admin')
 
-@if (auth()->user()->role->name == 'superadmin')
     <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
             <i class="nav-icon fas fa-table"></i>
@@ -15,6 +15,7 @@
                 <i class="right fas fa-angle-left"></i>
             </p>
         </a>
+
         <ul class="nav nav-treeview" style="display: none;">
             <li class="nav-item">
                 <a href="{{ route('users.index') }}" class="nav-link">
@@ -31,6 +32,7 @@
 
         </ul>
     </li>
+
     <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
             <i class="nav-icon fas fa-table"></i>
@@ -55,6 +57,9 @@
 
         </ul>
     </li>
+    @can('edit')
+
+
     <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
             <i class="nav-icon fas fa-table"></i>
@@ -175,6 +180,7 @@
 
         </ul>
     </li>
+    @endcan
     <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
             <i class="nav-icon fas fa-table"></i>
@@ -199,6 +205,8 @@
 
         </ul>
     </li>
+
+
     <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
             <i class="nav-icon fa fa-list"></i>
@@ -295,7 +303,7 @@
 
         </ul>
     </li>
-@endif
+
 
 <li class="nav-item has-treeview">
     <a href="#" class="nav-link">
@@ -384,14 +392,14 @@
                 <p>List</p>
             </a>
         </li>
-        @if (auth()->user()->role->name == 'superadmin')
+
         <li class="nav-item">
             <a href="{{ route('productreviews.create') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Create</p>
             </a>
         </li>
-        @endif
+
 
     </ul>
 </li>
@@ -516,7 +524,7 @@
     </ul>
 </li>
 
-@if (auth()->user()->role->name == 'superadmin')
+
     <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
             <i class="nav-icon fa fa-users"></i>
@@ -565,4 +573,5 @@
 
         </ul>
     </li>
-@endif
+
+@endrole

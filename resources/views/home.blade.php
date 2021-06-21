@@ -121,16 +121,16 @@
 
         <tbody>
         <tr>
-            <td>Service Name: </td><td>{{$item->service->name}}</td>
+            <td>Service Name: </td><td>{{@$item->service->name}}</td>
         </tr>
         <tr>
-            <td>Service Price: </td><td>{{$item->service->price}}</td>
+            <td>Service Price: </td><td>{{@$item->service->price}}</td>
         </tr>
         <tr>
             <td>Store Name: </td><td>{{$store->name}}</td>
         </tr>
         <tr>
-            <td>Service Type: </td><td>{{$item->service->category->name}}</td>
+            <td>Service Type: </td><td>{{@$item->service->category->name}}</td>
         </tr>
     </tbody>
         </table>

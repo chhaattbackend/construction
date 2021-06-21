@@ -41,8 +41,12 @@
                                     <button type="button" class="btn btn-default mr-2" onclick="search()"><i
                                             class="fas fa-search"></i></button>
 
+                                         @can('create')
+
+
                                     <a href="{{ route('services.create') }}"><button class="btn btn-primary">Add
                                             Service</button></a>
+                                            @endcan
                                 </div>
                             </div>
                         </div>
@@ -60,9 +64,9 @@
                                     <th>image</th>
                                     <th>thumbnail</th>
                                     <th>unit</th>
-                                    @if (auth()->user()->role->name == 'superadmin')
+                                    @role('super admin')
                                         <th>Action</th>
-                                    @endif
+                                    @endrole
                                 </tr>
                             </thead>
                             <tbody>
@@ -77,15 +81,21 @@
                                         <td>{{ $item->thumbnail }}</td>
                                         <td>{{ @$item->unit_id }}</td>
 
-                                        @if (auth()->user()->role->name == 'superadmin')
-                                            <td>
+
+                                            <td>@can('edit')
+
                                                 <a href="{{ route('services.edit', $item->id) }}" class="float-left"><i
-                                                        class="fas fa-edit"></i></a>
-                                                <form action="{{ route('services.destroy', $item->id) }}" method="POST">
-                                                    @method('delete') @csrf <button class="btn btn-link pt-0"><i
+                                                    class="fas fa-edit"></i></a>
+                                                    @endcan
+                                                    @can('delete')
+
+                                                    <form action="{{ route('services.destroy', $item->id) }}" method="POST">
+                                                        @method('delete') @csrf <button class="btn btn-link pt-0"><i
                                                             class="fas fa-trash-alt"></i></button> </form>
+
+                                                            @endcan
                                             </td>
-                                        @endif
+
                                     </tr>
                                 @empty
                                     <p>No Data Found</p>

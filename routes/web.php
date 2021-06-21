@@ -55,3 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('saveimage', 'UserController@save_image');
 
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Store;
+use App\User;
 use Attribute;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class HomeController extends Controller
 {
@@ -26,24 +29,50 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        // $role = Role::create(['name' => 'super admin']);
+        // $permission = Permission::create(['name' => 'edit articles']);
+        // $role = Role::findById(1);
+        // $permissions = Permission::findById(1);
+        // $role->givePermissionTo($permissions);
+        // auth()->user()->givePermissionTo('edit articles'); {{model_has_permission}}
+        // auth()->user()->assignRole('super admin');   {{model_has_role}}
 
-        $store=Store::first();
-        return view('home',compact('store'));
+
+        // $permissions = Permission::create(['name' => 'Edit service']);
+        // $role = Role::findById(1);
+        // $role->givePermissionTo($permissions);
+        // return auth()->user()->getPermissionsViaRoles();
+        // $roles = Role::create(['name' => 'admin']);
+        // $permissions = Permission::create(['name' => 'create post']);
+        // $roles = Role::findById(2);
+        // $permissions = Permission::findById(3);
+        // $roles->givePermissionTo($permissions);
+
+
+        // return auth()->user()->getAllPermissions();
+        // return auth()->user()->getDirectPermissions();
+        // return auth()->user()->getPermissionsViaRoles();
+
+        
+
+
+        $store = Store::first();
+        return view('home', compact('store'));
         // dd($product->storeproducts1[0]->product);
         // dd($product->storeproducts1[0]->product->attributes[0]->desc);
-        $check1=\DB::table('store_products')
-        ->leftJoin('stores','store_products.store_id','stores.id')
-        ->leftJoin('products','store_products.product_id','products.id')
-        ->leftJoin('a_categories','a_categories.id','products.a_category_id')
-        ->leftJoin('b_categories','b_categories.id','products.b_category_id')
-        ->leftJoin('users','users.id','stores.user_id')
-        ->leftJoin('suppliers','suppliers.store_id','store_products.store_id')
-        ->leftJoin('product_attributes','store_products.product_id','product_attributes.product_id')
-        ->leftJoin('attributes','attributes.id','product_attributes.attribute_id')
-        ->select('products.*','a_categories.name as cat_a_name','b_categories.name  as cat_b_name','attributes.name as attribute_name','product_attributes.desc as attribute_description','stores.name as store_name')
-        ->where('product_attributes.product_id',1)
-        ->distinct()
-        ->first();
+        $check1 = \DB::table('store_products')
+            ->leftJoin('stores', 'store_products.store_id', 'stores.id')
+            ->leftJoin('products', 'store_products.product_id', 'products.id')
+            ->leftJoin('a_categories', 'a_categories.id', 'products.a_category_id')
+            ->leftJoin('b_categories', 'b_categories.id', 'products.b_category_id')
+            ->leftJoin('users', 'users.id', 'stores.user_id')
+            ->leftJoin('suppliers', 'suppliers.store_id', 'store_products.store_id')
+            ->leftJoin('product_attributes', 'store_products.product_id', 'product_attributes.product_id')
+            ->leftJoin('attributes', 'attributes.id', 'product_attributes.attribute_id')
+            ->select('products.*', 'a_categories.name as cat_a_name', 'b_categories.name  as cat_b_name', 'attributes.name as attribute_name', 'product_attributes.desc as attribute_description', 'stores.name as store_name')
+            ->where('product_attributes.product_id', 1)
+            ->distinct()
+            ->first();
 
         // $check2=\DB::table('store_products')
         // ->leftJoin('stores','store_products.store_id','stores.id')
