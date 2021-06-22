@@ -5,7 +5,7 @@
         <p>Home</p>
     </a>
 </li>
-    @role('super admin|admin')
+
 
     <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
@@ -57,7 +57,7 @@
 
         </ul>
     </li>
-    @can('edit')
+
 
 
     <li class="nav-item has-treeview">
@@ -574,4 +574,4 @@
         </ul>
     </li>
 
-@endrole
+
