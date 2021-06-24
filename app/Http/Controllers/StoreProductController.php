@@ -25,15 +25,13 @@ class StoreProductController extends Controller
     public function index(Request $request)
     {
         $storeproducts=StoreProduct::paginate(25);
-        if(auth()->user()->store==null){
-            return redirect()->route('stores.create');
-        }
-        if (auth()->user()->role->name=='admin'){
-            $storeproducts=StoreProduct::where('store_id',auth()->user()->store->id)->paginate(25);
-        }
-        $acat= ACategory::all();
-        $b = "a";
-        return view('admin.store_product.list',compact('storeproducts' , 'b', 'acat'));
+        // if(auth()->user()->store==null){
+        //     return redirect()->route('stores.create');
+        // }
+        // if (auth()->user()->role->name=='admin'){
+        //     $storeproducts=StoreProduct::where('store_id',auth()->user()->store->id)->paginate(25);
+        // }
+        return view('admin.store_product.index',compact('storeproducts'));
 
     }
 
@@ -134,12 +132,25 @@ class StoreProductController extends Controller
             $units = Unit::all();
             return view('admin.store_product.list',compact('acat','b','units'));
         }
+
         else {
 
             $b++;
             $acat= BCategory::where('a_category_id',$request->id)->get();
             return view('admin.store_product.list',compact('acat',$b));
         }
+
+        if($request->a == 'product'){
+
+
+
+        }
+
+
+
+
+
+
     }
 
     /**
