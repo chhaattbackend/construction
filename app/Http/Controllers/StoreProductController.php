@@ -63,7 +63,31 @@ class StoreProductController extends Controller
         // dd($storeproducts);
         return view('admin.store_product.create',compact('products','stores','brands','units','storeproducts'));
     }
+    // public function ajax(Request $request)
+    // {
 
+    //     return view('admin.store_product.show');
+    // }
+
+    public function save(Request $request)
+    {
+        dd($request->all());
+        for($i=0;$i<count($request->product_ids);$i++){
+            StoreProduct::create([
+                'store_id'=>$request->storeid,
+                'product_id'=>$request->product_ids[$i],
+                'store_price'=>$request->productprices[$i],
+                'qty'=>$request->productquantities[$i],
+                'status'=>1,
+                'unit_id'=>$request->unit_ids[$i]
+
+            ]);
+
+        }
+        return redirect()->route('storeproducts.index');
+
+
+    }
     public function prsonal()
     {
 
@@ -80,71 +104,82 @@ class StoreProductController extends Controller
         // // dd($storeproducts);
         // return view('admin.store_product.create',compact('products','stores','brands','units','storeproducts'));
 
-        $acat= ACategory::all();
+        $acat= Store::all();
         $b = "a";
+        $storeid = 2;
 
-        return view('admin.store_product.list',compact('acat','b'));
+        return view('admin.store_product.list',compact('acat','b','storeid'));
 
     }
+    public function productview(){
 
-    public function ajax(Request $request)
-    {
+        $stores = Store::all();
+        $b = 'a';
+        return view('admin.store_product.product' ,compact('stores','b'));
 
-        return view('admin.store_product.show');
     }
-
-    public function save(Request $request)
-    {
+    public function product(Request $request){
 
 
-        for($i=0;$i<count($request->product_ids);$i++){
-            StoreProduct::create([
-                'store_id'=>'1',
-                'product_id'=>$request->product_ids[$i],
-                'store_price'=>$request->productprices[$i],
-                'qty'=>$request->productquantities[$i],
-                'status'=>1,
-                'unit_id'=>$request->unit_ids[$i]
+        $b = $request->a;
+        if ($request->a == 'a') {
+            $b++;
+            $stores = StoreProduct::where('store_id' ,$request->category)->get();
 
-            ]);
-
+            return view('admin.store_product.product' ,compact('stores','b'));
         }
-        return redirect()->route('storeproducts.index');
 
+        if($request->a == 'b'){
+            $b++;
+            $stores = Product::where('id',$request->category)->get();
+            return view('admin.store_product.product' ,compact('stores','b'));
+        }
+        else
+        {
+            return view('admin.store_product.product' ,compact('stores','b'));
+        }
 
     }
+
+
+
     public function inner(Request $request)
     {
 
-        $a[] = 0;
 
-        $b = $request->a ;
-        if($request->a == "b"){
+        $b = $request->a;
+
+        if($request->a == "a"){
+            $acat= ACategory::all();
             $b++;
+            $storeid = $request->cat;
+            return view('admin.store_product.list',compact('acat','b','storeid'));
+        }
+        if($request->a == "c"){
+            $storeid = $request->storeid;
+            $b++;
+
             $acat= CCategory::where('b_category_id',$request->id)->get();
 
-            return view('admin.store_product.list',compact('acat','b'));
+            return view('admin.store_product.list',compact('acat','b','storeid'));
         }
-        else if ($request->a == "c") {
-
+        else if ($request->a == "d") {
+            $storeid = $request->storeid;
             $b = 'product';
+            $storeproducts = StoreProduct::all();
             $acat= Product::where('c_category_id',$request->id)->get();
             $units = Unit::all();
-            return view('admin.store_product.list',compact('acat','b','units'));
+            return view('admin.store_product.list',compact('acat','b','units','storeid','storeproducts'));
         }
 
         else {
-
+            $storeid = $request->storeid;
             $b++;
             $acat= BCategory::where('a_category_id',$request->id)->get();
-            return view('admin.store_product.list',compact('acat',$b));
+            return view('admin.store_product.list',compact('acat','b','storeid'));
         }
 
-        if($request->a == 'product'){
 
-
-
-        }
 
 
 

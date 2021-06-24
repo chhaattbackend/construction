@@ -472,6 +472,12 @@
                 <p>Create</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('store.productview') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Product View</p>
+            </a>
+        </li>
 
     </ul>
 </li>
@@ -502,6 +508,7 @@
                 <p>Personal</p>
             </a>
         </li>
+
 
     </ul>
 </li>

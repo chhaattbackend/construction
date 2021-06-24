@@ -2,19 +2,34 @@
 @section('content')
 
     @if ($b == 'product')
-
         <form action="{{ route('inner.save') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
             <div class="row position-relative">
                 @csrf
                 @forelse ($acat as $item)
+                    @php
+                        $same = false;
+                    @endphp
 
+
+                    @foreach ($storeproducts as $item2)
+
+                        @if ($item2->product_id == $item->id)
+                            @php $same=true; @endphp
+
+
+                        @endif
+                    @endforeach
                     <div class="col-md-3 p-4">
 
                         {{-- <option value="{{ $item->id }}">{{ $item->name }}</option> --}}
                         <meta name="csrf-token" content="{{ csrf_token() }}" />
                         <div class="card card1">
-
-                            <input type="checkbox" class="form-control" name="product_ids[]" value="{{ $item->id }}" /><br>
+                            @if ($same)
+                                <label for="" class="text-center text-danger">Already added</label>
+                            @endif
+                            <input type="checkbox" class="form-control" name="product_ids[]"
+                                value="{{ $item->id }}" /><br>
+                            <input hidden name="storeid" type="text" value="{{ $storeid }}">
                             <img style="height: 150px" src="{{ asset('images') }}/{{ $item->image }}" />
                             <p style="word-wrap:break-line;">
                                 {{ $item->name }}
@@ -40,7 +55,7 @@
 
                     </div>
 
-                   @empty
+                @empty
                 @endforelse
             </div>
             <div style="position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%);" class="text-center w-100">
@@ -64,18 +79,21 @@
             @csrf
             @forelse ($acat as $item)
                 <div class="col-md-3 p-4">
-
-
-
                     {{-- <option value="{{ $item->id }}">{{ $item->name }}</option> --}}
                     <meta name="csrf-token" content="{{ csrf_token() }}" />
-                    <div onclick="window.location='{{ route('inner.personal', ['a' => $b, 'cat' => $item->id, 'id' => $item->id]) }}'"
+                    <div onclick="window.location='{{ route('inner.personal', ['a' => $b, 'cat' => $item->id, 'id' => $item->id, 'storeid' => $storeid]) }}'"
                         class="card card1">
 
+                        <input hidden type="text" value="{{ $storeid }}">
 
                         <img style="height: 150px" src="{{ asset('images') }}/{{ $item->image }}" />
                         <p style="word-wrap:break-line;">
-                            {{ $item->name }}
+                            @if ($b == 'a')
+
+                                {{ $item->name }}
+                            @else
+                                {{ @$item->name }}
+                            @endif
                         </p>
 
                     </div>
@@ -96,52 +114,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     {{-- <input id="clickMe" type="button" value="clickme" /> --}}
-
-
-
 @endsection
 
 
-<script>
-    var arr = [];
-
-    function function12(param) {
-        arr.push(param)
-
-    };
-    // function add(){
-    //       $.ajax({
-    //                 type: "POST",
-    //                 url: "asdad/ajax",
-    //                 dataType: 'JSON',
-    //                 headers: {
-    //                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //                 },
-    //                 data: {
-    //                     arr : 'asda',
-    //                 },
-
-    //                 success: function(responese) {
-
-
-
-    //                 alert('success')
-    //                 },
-    //             });
-    // }
-</script>

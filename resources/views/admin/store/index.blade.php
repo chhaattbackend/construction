@@ -95,6 +95,8 @@
                                         <td>{{ $item->created_at }}</td>
                                         <td>{{ $item->updated_at }}</td>
                                         <td>
+                                            <a style="padding-right:20%" href="{{ route('store.productview') }}" class="float-left"><i
+                                                class="fas fa-eye"></i></a>
                                             <a href="{{ route('stores.edit', $item->id) }}" class="float-left"><i
                                                     class="fas fa-edit"></i></a>
                                             <form action="{{ route('stores.destroy', $item->id) }}" method="POST">
