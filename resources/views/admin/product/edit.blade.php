@@ -29,7 +29,7 @@
 
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Category A :</label>
                                     <div class="col-sm-6">
-                                        <select required class="form-control" name="a_category_id" id="a_category">
+                                        <select  class="form-control" name="a_category_id" id="a_category">
                                             @forelse ($acategories as $item)
                                                 <option @if ($item->id == $product->a_category_id) selected @endif value="{{ $item->id }}">
                                                     {{ $item->name }}</option>
@@ -46,7 +46,7 @@
 
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Category B :</label>
                                     <div class="col-sm-6">
-                                        <select required class="form-control" name="b_category_id" id="b_category">
+                                        <select  class="form-control" name="b_category_id" id="b_category">
                                             @forelse ($bcategories as $item)
                                                 <option @if ($item->id == $product->b_category_id) selected @endif value="{{ $item->id }}">
                                                     {{ $item->name }}</option>
@@ -63,7 +63,7 @@
 
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Category C :</label>
                                     <div class="col-sm-6">
-                                        <select required class="form-control" name="c_category_id" id="c_category_id">
+                                        <select  class="form-control" name="c_category_id" id="c_category_id">
                                             <option value="">Select Category</option>
                                             @forelse ($ccategories as $item)
                                                 <option @if($item->id==$product->c_category_id) selected @endif  value="{{ $item->id }}">{{ $item->name }}</option>
@@ -80,7 +80,7 @@
 
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Category D :</label>
                                     <div class="col-sm-6">
-                                        <select required class="form-control" name="d_category_id" id="d_category_id">
+                                        <select  class="form-control" name="d_category_id" id="d_category_id">
                                             <option value="">Select Category</option>
                                             @forelse ($dcategories as $item)
                                                 <option @if($item->id==$product->d_category_id) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
@@ -118,7 +118,7 @@
 
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Category F :</label>
                                     <div class="col-sm-6">
-                                        <select required class="form-control" name="f_category_id" id="f_category_id">
+                                        <select  class="form-control" name="f_category_id" id="f_category_id">
                                             <option value="">Select Category</option>
                                             @forelse ($fcategories as $item)
                                                 <option @if($item->id==$product->f_category_id) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
@@ -135,7 +135,7 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-6">
-                                        <input required type="text" class="form-control" value="{{ $product->name }}"
+                                        <input  type="text" class="form-control" value="{{ $product->name }}"
                                             id="name" name="name" placeholder="Enter Name">
 
                                     </div>
@@ -144,7 +144,7 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Description</label>
                                     <div class="col-sm-6">
-                                        <input required type="text" class="form-control" value="{{ $product->description }}"
+                                        <input  type="text" class="form-control" value="{{ $product->description }}"
                                             id="description" name="description" placeholder="Enter Name">
 
                                     </div>
@@ -154,7 +154,7 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Price</label>
                                     <div class="col-sm-6">
-                                        <input required type="text" class="form-control" value="{{ $product->price }}"
+                                        <input  type="text" class="form-control" value="{{ $product->price }}"
                                             id="price" name="price" placeholder="Enter Name">
 
                                     </div>
@@ -166,7 +166,7 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Quantity</label>
                                     <div class="col-sm-6">
-                                        <input required type="text" class="form-control" value="{{ $product->quantity }}"
+                                        <input  type="text" class="form-control" value="{{ $product->quantity }}"
                                             id="quantity" name="quantity" placeholder="Enter Name">
 
                                     </div>
@@ -175,7 +175,7 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Image</label>
                                     <div class="col-sm-6">
-                                        <input required type="file" accept="image/*" class="form-control" id="image"
+                                        <input  type="file" accept="image/*" class="form-control" id="image"
                                             name="image" placeholder="Enter Name">
 
                                     </div>
@@ -184,7 +184,7 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Unit ID</label>
                                     <div class="col-sm-6">
-                                        <select required class="form-control" value="{{ $product->unit_id }}" name="unit_id"
+                                        <select  class="form-control" value="{{ $product->unit_id }}" name="unit_id"
                                             id="unit_id">
                                             <option value="">Select Unit</option>
                                             @forelse ($units as $item)

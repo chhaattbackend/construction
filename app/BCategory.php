@@ -14,4 +14,8 @@ class BCategory extends Model
     public function category(){
         return $this->belongsTo(ACategory::class,'a_category_id');
     }
+
+    public function subcategories(){
+        return $this->hasMany('App\CCategory', 'b_category_id','id');
+    }
 }

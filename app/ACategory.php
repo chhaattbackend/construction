@@ -10,4 +10,17 @@ class ACategory extends Model
         'id',
         'name'
     ];
+
+
+    // public function subcategories(){
+    //     return $this->hasMany('App\BCategory', 'a_category_id','id');
+    // }
+
+
+
+
 }
+
+
+
+

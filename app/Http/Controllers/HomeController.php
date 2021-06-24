@@ -55,7 +55,6 @@ class HomeController extends Controller
 
         
 
-
         $store = Store::first();
         return view('home', compact('store'));
         // dd($product->storeproducts1[0]->product);

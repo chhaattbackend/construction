@@ -133,7 +133,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->all());
-        if (auth()->user()->role->name=='superadmin'){
+       
 
             $product = Product::find($id);
             if ($request->hasFile('image')) {
@@ -145,7 +145,7 @@ class ProductController extends Controller
             } else {
                 $product->update($request->all());
             }
-        }
+
         return redirect()->route('products.index');
     }
 

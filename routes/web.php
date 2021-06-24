@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    dd('adasdasdasda');
     return view('welcome');
 });
 
@@ -54,7 +53,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Route::post('/dp','UserController@userprofile');
     Route::post('saveimage', 'UserController@save_image');
-
+    Route::get('stor', 'StoreProductController@prsonal')->name('stor.personal');
+    Route::get('inner/{id}', 'StoreProductController@inner')->name('inner.personal');
+    Route::post('save', 'StoreProductController@save')->name('inner.save');
+    Route::post('inner/asdad/ajax', 'StoreProductController@ajax')->name('ajax');
 });
 
 Auth::routes();

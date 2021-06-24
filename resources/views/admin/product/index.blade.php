@@ -53,6 +53,9 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
+
+                                        <th>Action</th>
+
                                     <th>A Category</th>
                                     <th>B Category</th>
                                     <th>C Category</th>
@@ -66,9 +69,6 @@
                                     <th>Thumbnail</th>
                                     <th>Image</th>
                                     <th>Unit</th>
-                                    @if (auth()->user()->role->name == 'superadmin')
-                                        <th>Action</th>
-                                    @endif
 
 
                                 </tr>
@@ -77,6 +77,16 @@
                                 @forelse ($products as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
+                                        <td>
+
+
+                                            <a href="{{ route('products.edit', $item->id) }}" class="float-left"><i
+                                                    class="fas fa-edit"></i></a>
+                                            <form action="{{ route('products.destroy', $item->id) }}" method="POST">
+                                                @method('delete') @csrf <button class="btn btn-link pt-0"><i
+                                                        class="fas fa-trash-alt"></i></button> </form>
+
+                                    </td>
                                         <td>{{ optional($item->a_category)->name }}</td>
                                         <td>{{ optional($item->b_category)->name }}</td>
                                         <td>{{ optional($item->c_category)->name }}</td>
@@ -92,16 +102,6 @@
                                         <td>{{ $item->image }}</td>
                                         <td>{{ $item->unit_id }}</td>
 
-                                        <td>
-
-                                            @if (auth()->user()->role->name == 'superadmin')
-                                                <a href="{{ route('products.edit', $item->id) }}" class="float-left"><i
-                                                        class="fas fa-edit"></i></a>
-                                                <form action="{{ route('products.destroy', $item->id) }}" method="POST">
-                                                    @method('delete') @csrf <button class="btn btn-link pt-0"><i
-                                                            class="fas fa-trash-alt"></i></button> </form>
-                                            @endif
-                                        </td>
                                     </tr>
                                 @empty
                                     <p>No Data Found</p>

@@ -73,16 +73,16 @@
 
             <tbody>
             <tr>
-                <td>Product Name: </td><td>{{$item->product->name}}</td>
+                <td>Product Name: </td><td>{{@$item->product->name}}</td>
             </tr>
             <tr>
-                <td>Product Price: </td><td>{{$item->product->price}}</td>
+                <td>Product Price: </td><td>{{@$item->product->price}}</td>
             </tr>
             <tr>
-                <td>Store Name: </td><td>{{$store->name}}</td>
+                <td>Store Name: </td><td>{{@$store->name}}</td>
             </tr>
             <tr>
-                <td>Brand: </td><td>{{$item->brand->name}}</td>
+                <td>Brand: </td><td>{{@$item->brand->name}}</td>
             </tr>
         </tbody>
             </table>
@@ -101,10 +101,10 @@
 
             <tr>
                 <td class="bold">
-                    {{$attributes->attribute->name}}
+                    {{@$attributes->attribute->name}}
                 </td>
                 <td>
-                    {{$attributes->desc}}
+                    {{@$attributes->desc}}
                 </td>
             </tr>
             @endforeach

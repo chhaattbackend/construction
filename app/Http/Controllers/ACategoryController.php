@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ACategory;
+use App\BCategory;
 use Illuminate\Http\Request;
 
 class ACategoryController extends Controller
@@ -28,6 +29,9 @@ class ACategoryController extends Controller
             ) );
 
             }
+            // $b = ACategory::find(2)->subcategories;
+            // $c = BCategory::find(2)->subcategories;
+            // return $c;
 
         return view('admin.a_category.index', compact('acategories'));
     }

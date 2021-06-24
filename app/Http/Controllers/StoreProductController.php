@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\ACategory;
 use App\BCategory;
 use App\Brand;
+use App\CCategory;
 use App\Product;
 use App\Store;
 use App\StoreProduct;
 use App\Unit;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Global_;
 
 class StoreProductController extends Controller
 {
@@ -18,6 +20,8 @@ class StoreProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index(Request $request)
     {
         $storeproducts=StoreProduct::paginate(25);
@@ -27,8 +31,7 @@ class StoreProductController extends Controller
         if (auth()->user()->role->name=='admin'){
             $storeproducts=StoreProduct::where('store_id',auth()->user()->store->id)->paginate(25);
         }
-
-        return view('admin.store_product.index',compact('storeproducts'));
+        return view('admin.store_product.list',compact('storeproducts'));
 
     }
 
@@ -59,6 +62,94 @@ class StoreProductController extends Controller
         }
         // dd($storeproducts);
         return view('admin.store_product.create',compact('products','stores','brands','units','storeproducts'));
+    }
+
+    public function prsonal()
+    {
+
+        // $storeproducts=StoreProduct::all();
+        // $products=Product::all();
+        // $stores=Store::all();
+        // $brands=Brand::all();
+        // $units=Unit::all();
+
+        // if(auth()->user()->role->name=='admin'){
+        //     $storeproducts=StoreProduct::where('store_id',auth()->user()->store->id)->get();
+        //     $stores=Store::where('user_id',auth()->user()->id)->get();
+        // }
+        // // dd($storeproducts);
+        // return view('admin.store_product.create',compact('products','stores','brands','units','storeproducts'));
+
+        $acat= ACategory::all();
+        $b = "a";
+
+        return view('admin.store_product.list',compact('acat','b'));
+
+    }
+
+    public function ajax(Request $request)
+    {
+
+        return view('admin.store_product.show');
+    }
+
+    public function save(Request $request)
+    {
+
+
+        for($i=0;$i<count($request->product_ids);$i++){
+            StoreProduct::create([
+                'store_id'=>'1',
+                'product_id'=>$request->product_ids[$i],
+                'store_price'=>$request->productprices[$i],
+                'qty'=>$request->productquantities[$i],
+                'status'=>1,
+                'unit_id'=>$request->unit_ids[$i]
+
+            ]);
+
+        }
+        return redirect()->route('storeproducts.index');
+
+
+    }
+    public function inner(Request $request)
+    {
+
+        $a[] = 0;
+
+        $b = $request->a ;
+        if($request->a == "b"){
+            $b++;
+            $acat= CCategory::where('b_category_id',$request->id)->get();
+
+            return view('admin.store_product.list',compact('acat','b'));
+        }
+        else if ($request->a == "c") {
+
+            $b = 'product';
+            $acat= Product::where('c_category_id',$request->id)->get();
+            $units = Unit::all();
+            return view('admin.store_product.list',compact('acat','b','units'));
+        }
+        else {
+
+            $b++;
+            $acat= BCategory::where('a_category_id',$request->id)->get();
+            return view('admin.store_product.list',compact('acat',$b));
+        }
+
+        if($request->a == 'product'){
+
+
+
+        }
+
+
+
+
+
+
     }
 
     /**
