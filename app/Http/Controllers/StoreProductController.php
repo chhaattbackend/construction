@@ -31,7 +31,9 @@ class StoreProductController extends Controller
         if (auth()->user()->role->name=='admin'){
             $storeproducts=StoreProduct::where('store_id',auth()->user()->store->id)->paginate(25);
         }
-        return view('admin.store_product.list',compact('storeproducts'));
+        $acat= ACategory::all();
+        $b = "a";
+        return view('admin.store_product.list',compact('storeproducts' , 'b', 'acat'));
 
     }
 
@@ -138,18 +140,6 @@ class StoreProductController extends Controller
             $acat= BCategory::where('a_category_id',$request->id)->get();
             return view('admin.store_product.list',compact('acat',$b));
         }
-
-        if($request->a == 'product'){
-
-
-
-        }
-
-
-
-
-
-
     }
 
     /**

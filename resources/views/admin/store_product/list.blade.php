@@ -3,14 +3,6 @@
 
     @if ($b == 'product')
 
-
-
-
-
-
-
-
-
         <form action="{{ route('inner.save') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
             <div class="row position-relative">
                 @csrf
