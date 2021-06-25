@@ -30,10 +30,10 @@
                             <input type="checkbox" class="form-control" name="product_ids[]"
                                 value="{{ $item->id }}" /><br>
                             <input hidden name="storeid" type="text" value="{{ $storeid }}">
-                            @if ()
+
                             <img style="height: 150px" src="{{ asset('images') }}/{{ $item->image }}" />
 
-                            @endif
+                           
                             <p style="word-wrap:break-line;">
                                 {{ $item->name }}
                             </p>
