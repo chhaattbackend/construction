@@ -71,7 +71,8 @@ class StoreProductController extends Controller
 
     public function save(Request $request)
     {
-        dd($request->all());
+
+        
         for($i=0;$i<count($request->product_ids);$i++){
             StoreProduct::create([
                 'store_id'=>$request->storeid,

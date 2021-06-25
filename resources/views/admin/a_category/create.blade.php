@@ -29,6 +29,15 @@
                                         <input required type="text" class="form-control" id="name" name="name"
                                             placeholder="Enter Name">
                                     </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
+                                    <div class="col-sm-6">
+                                        <input  type="file"  class="form-control"
+                                            name="image" placeholder="Insert Image ">
+                                    </div>
+
                                 </div>
                                 {{--
                                 <div class="form-group row">
@@ -37,6 +46,8 @@
                                         <input type="password" class="form-control" id="inputPassword3"
                                             placeholder="Password">
                                     </div>
+                                    <input  type="file"  class="form-control"
+                                            name="image" placeholder="Insert Image ">
                                 </div>
                                 --}}
                                 <div class="form-group row">

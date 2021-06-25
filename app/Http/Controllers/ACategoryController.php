@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\ACategory;
 use App\BCategory;
 use Illuminate\Http\Request;
-
+use App\GlobalClass;
 class ACategoryController extends Controller
 {
     /**
@@ -13,6 +13,11 @@ class ACategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->globalclass = new GlobalClass;
+    }
+
     public function index(Request $request)
     {
 
@@ -54,7 +59,15 @@ class ACategoryController extends Controller
      */
     public function store(Request $request)
     {
-        ACategory::create($request->all());
+        if($request->file('image')){
+            $filename = $this->globalclass->storeS3($request->file('image'),'acategories');
+            ACategory::create($request->except('image') + ["image" => $filename]);
+
+        }
+        else{
+            Acategory::create($request->except('image'));
+        }
+        
         return redirect()->route('acategories.index');
     }
 
