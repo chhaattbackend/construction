@@ -23,6 +23,22 @@
                             enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
+
+                                <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">A Category</label>
+                                    <div class="col-sm-6">
+
+                                        <select required name="a_category_id" class="form-control" id="a_category_id">
+                                            <option value="">Select Category</option>
+                                            @forelse ($acategories as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @empty
+
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="form-group row">
 
 
@@ -32,28 +48,23 @@
                                             placeholder="Enter Name">
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">A Category</label>
+
+
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
                                     <div class="col-sm-6">
-
-                                        <select required name="a_category_id" class="form-control" id="a_category_id">
-                                            <option value="">Select Category</option>
-                                            @forelse ($acategories as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @empty
-
-                                            @endforelse
-                                        </select>
+                                        <input required type="file" class="form-control" id="image"
+                                            placeholder="Insert Image">
                                     </div>
                                 </div>
+
 
                                 <div class="form-group row">
                                     <div class="offset-sm-2 col-sm-10">
                                         {{--
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                            <label class="form-check-label" for="exampleCheck2">Remember me</label>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                                                <label class="form-check-label" for="exampleCheck2">Remember me</label>
                                         </div>
                                         --}}
                                         <button type="submit" class="btn btn-info">Submit</button>

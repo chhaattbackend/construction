@@ -9,7 +9,8 @@ class CCategory extends Model
     protected $fillable =[
         'id',
         'b_category_id',
-        'name'
+        'name',
+        'image'
     ];
     public function category(){
         return $this->belongsTo(BCategory::class,'b_category_id');

@@ -78,14 +78,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $img = $image->move($destinationPath, $name);
-            Product::create($request->except('image') + ['image' => $name]);
-        } else {
-            Product::create($request->all());
+        if($request->file('image')){
+
+            $filename = $this->globalclass->storeS3($request->file('image'),'construction/product');
+            Product::create($request->except('image') + ["image" => $filename]);
+
+        }
+        else{
+            Product::create($request->except('image'));
         }
 
         return redirect()->route('products.index');
@@ -133,7 +133,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->all());
-       
+
 
             $product = Product::find($id);
             if ($request->hasFile('image')) {

@@ -59,15 +59,21 @@ class ACategoryController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->file('image')){
-            $filename = $this->globalclass->storeS3($request->file('image'),'acategories');
-            ACategory::create($request->except('image') + ["image" => $filename]);
+        dd();
 
-        }
-        else{
-            Acategory::create($request->except('image'));
-        }
-        
+        ACategory::create([
+
+        ]);
+        // if($request->file('image')){
+
+        //     $filename = $this->globalclass->storeS3($request->file('image'),'construction/acategories');
+        //     ACategory::create($request->except('image') + ["image" => $filename]);
+
+        // }
+        // else{
+        //     Acategory::create($request->except('image'));
+        // }
+
         return redirect()->route('acategories.index');
     }
 

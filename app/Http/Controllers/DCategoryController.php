@@ -6,6 +6,7 @@ use App\ACategory;
 use App\BCategory;
 use App\CCategory;
 use App\DCategory;
+use App\GlobalClass;
 use Illuminate\Http\Request;
 
 class DCategoryController extends Controller
@@ -15,6 +16,10 @@ class DCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->globalclass = new GlobalClass();
+    }
     public function index(Request $request)
     {
         if(!$request->keyword){
@@ -54,7 +59,14 @@ class DCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        DCategory::create($request->all());
+        if($request->file('image')){
+            $filename = $this->globalclass->storeS3($request->file('image'),'construction/dcategories');
+            ACategory::create($request->except('image') + ["image" => $filename]);
+
+        }
+        else{
+            Acategory::create($request->except('image'));
+        }
         return redirect()->route('dcategories.index');
     }
 

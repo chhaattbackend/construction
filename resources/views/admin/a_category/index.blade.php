@@ -16,7 +16,7 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-    
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -47,9 +47,9 @@
                                             class="fas fa-search"></i></button>
                                         </form>
 
+                                    </div>
                                     <a href="{{ route('acategories.create') }}"><button class="btn btn-primary">Add
                                             Category</button></a>
-                                </div>
                             </div>
                         </div>
                     </div>

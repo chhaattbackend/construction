@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ACategory;
 use App\BCategory;
 use App\CCategory;
+use App\GlobalClass;
 use Illuminate\Http\Request;
 
 class CCategoryController extends Controller
@@ -14,6 +15,10 @@ class CCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->globalclass = new GlobalClass();
+    }
     public function index(Request $request)
     {
         if(!$request->keyword){
@@ -32,7 +37,7 @@ class CCategoryController extends Controller
 
         return view('admin.c_category.index', compact('ccategories'));
         }
-       
+
 
     /**
      * Show the form for creating a new resource.
@@ -53,7 +58,14 @@ class CCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        CCategory::create($request->all());
+        if($request->file('image')){
+            $filename = $this->globalclass->storeS3($request->file('image'),'construction/ccategories');
+            CCategory::create($request->except('image') + ["image" => $filename]);
+
+        }
+        else{
+            Ccategory::create($request->except('image'));
+        }
         return redirect()->route('ccategories.index');
     }
 

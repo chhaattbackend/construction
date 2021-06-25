@@ -8,7 +8,8 @@ class ACategory extends Model
 {
     protected $fillable=[
         'id',
-        'name'
+        'name',
+        'image'
     ];
 
 
