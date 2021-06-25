@@ -91,6 +91,7 @@ class CCategoryController extends Controller
     {
         $c_category=CCategory::find($id);
         $bcategories=BCategory::all();
+
         return view('admin.c_category.edit',compact('c_category','bcategories'));
     }
 
@@ -104,7 +105,15 @@ class CCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $c_category=CCategory::find($id);
-        $c_category->update($request->all());
+
+        if($request->file('image')){
+            $filename = $this->globalclass->storeS3($request->file('image'),'construction/ccategories');
+            $c_category->update($request->except('image') + ["image" => $filename]);
+
+        }
+        else{
+            $c_category->update($request->except('image'));
+        }
         return redirect()->route('ccategories.index');
     }
 

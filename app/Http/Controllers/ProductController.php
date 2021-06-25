@@ -136,14 +136,14 @@ class ProductController extends Controller
 
 
             $product = Product::find($id);
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('/images');
-                $img = $image->move($destinationPath, $name);
-                $product->update($request->except('image') + ['image' => $name]);
-            } else {
-                $product->update($request->all());
+            if($request->file('image')){
+
+                $filename = $this->globalclass->storeS3($request->file('image'),'construction/product');
+               $product->update($request->except('image') + ["image" => $filename]);
+
+            }
+            else{
+               $product->update($request->except('image'));
             }
 
         return redirect()->route('products.index');

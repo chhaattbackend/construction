@@ -103,7 +103,16 @@ class BCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $b_category=BCategory::find($id);
-        $b_category->update($request->all());
+        if($request->file('image')){
+            $filename = $this->globalclass->storeS3($request->file('image'),'construction/bcategories');
+            $b_category->update($request->except('image') + ["image" => $filename]);
+
+        }
+        else{
+            $b_category->update($request->except('image'));
+        }
+
+
         return redirect()->route('bcategories.index');
     }
 

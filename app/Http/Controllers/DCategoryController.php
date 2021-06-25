@@ -105,7 +105,14 @@ class DCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $d_category=DCategory::find($id);
-        $d_category->update($request->all());
+        if($request->file('image')){
+            $filename = $this->globalclass->storeS3($request->file('image'),'construction/dcategories');
+            $d_category->update($request->except('image') + ["image" => $filename]);
+
+        }
+        else{
+            $d_category->update($request->except('image'));
+        }
         return redirect()->route('dcategories.index');
     }
 
