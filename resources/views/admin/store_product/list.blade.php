@@ -30,17 +30,20 @@
                             <input type="checkbox" class="form-control" name="product_ids[]"
                                 value="{{ $item->id }}" /><br>
                             <input hidden name="storeid" type="text" value="{{ $storeid }}">
+                            @if ()
                             <img style="height: 150px" src="{{ asset('images') }}/{{ $item->image }}" />
+
+                            @endif
                             <p style="word-wrap:break-line;">
                                 {{ $item->name }}
                             </p>
-                            <label for="">Price: </label><input type="text" class="form-control" name="productprices[]"
+                            <label for="">Price: </label><input type="number" class="form-control" name="productprices[]"
                                 value="{{ $item->price }}" />
                             <label for="">Unit: </label>
                             <select required name="unit_ids[]" class="form-control" id="unit_id">
                                 {{-- <option value="">Select Unit</option> --}}
                                 @forelse ($units as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    <option  value="{{ $item->id }}">{{ $item->name }}</option>
                                 @empty
 
                                 @endforelse
