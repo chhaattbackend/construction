@@ -14,7 +14,7 @@
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">Add B Categories</h3>
+                    <h3 class="card-title">Add C Categories</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -52,7 +52,7 @@
                                 <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
                                 <div class="col-sm-6">
                                     <input  type="file"  class="form-control"
-                                    
+
                                         name="image" placeholder="Insert Image ">
                                 </div>
 
