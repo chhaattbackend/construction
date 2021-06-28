@@ -27,7 +27,7 @@ Route::get('/home', function () {
 });
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/ag', 'StoreProductController@index2')->name('ag');
+    // Route::get('/ag', 'StoreProductController@index2')->name('ag');
     Route::resource('attributes', 'AttributeController');
     Route::resource('brands', 'BrandController');
     Route::resource('customers', 'CustomerController');
