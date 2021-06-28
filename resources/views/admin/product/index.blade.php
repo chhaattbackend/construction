@@ -40,9 +40,10 @@
                                 <div class="input-group-append">
                                     <button type="button" onclick="search()" class="btn btn-default mr-2"><i
                                             class="fas fa-search"></i></button>
-
+                                            @can('create')
                                     <a href="{{ route('products.create') }}"><button class="btn btn-primary">Add
                                             Product</button></a>
+                                            @endcan
                                 </div>
                             </div>
                         </div>
@@ -54,7 +55,9 @@
                                 <tr>
                                     <th>ID</th>
 
-                                        <th>Action</th>
+                                    @role('super admin')
+                                    <th>Action</th>
+                                @endrole
 
                                     <th>A Category</th>
                                     <th>B Category</th>
@@ -77,14 +80,15 @@
                                 @forelse ($products as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>
-
-
+                                        <td>@can('edit')
                                             <a href="{{ route('products.edit', $item->id) }}" class="float-left"><i
                                                     class="fas fa-edit"></i></a>
+                                                @endcan
+                                                @can('delete')
                                             <form action="{{ route('products.destroy', $item->id) }}" method="POST">
                                                 @method('delete') @csrf <button class="btn btn-link pt-0"><i
                                                         class="fas fa-trash-alt"></i></button> </form>
+                                                        @endcan
 
                                     </td>
                                         <td>{{ optional($item->a_category)->name }}</td>

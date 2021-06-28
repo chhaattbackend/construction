@@ -45,8 +45,10 @@
                                             </form>
 
                                         </div>
+                                        @can('create')
                                         <a href="{{ route('bcategories.create') }}"><button class="btn btn-primary">Add
                                                 Category</button></a>
+                                                @endcan
                             </div>
                         </div>
                     </div>
@@ -58,7 +60,9 @@
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>A Category</th>
-                                    <th>Action</th>
+                                    @role('super admin')
+                                        <th>Action</th>
+                                    @endrole
                                 </tr>
                             </thead>
                             <tbody>
@@ -67,12 +71,15 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->category->name }}</td>
-                                        <td>
+                                        <td>@can('edit')
                                             <a href="{{ route('bcategories.edit', $item->id) }}" class="float-left"><i
                                                     class="fas fa-edit"></i></a>
+                                                    @endcan
+                                                    @can('delete')
                                             <form action="{{ route('bcategories.destroy', $item->id) }}" method="POST">
                                                 @method('delete') @csrf <button class="btn btn-link pt-0"><i
                                                         class="fas fa-trash-alt"></i></button> </form>
+                                                        @endcan
                                         </td>
                                     </tr>
                                 @empty

@@ -40,9 +40,10 @@
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-default mr-2" onclick="search()"><i
                                             class="fas fa-search"></i></button>
-
+                                            @can('create')
                                     <a href="{{ route('stores.create') }}"><button class="btn btn-primary">Add
                                             Store</button></a>
+                                            @endcan
                                 </div>
                             </div>
                         </div>
@@ -70,7 +71,9 @@
                                     <th>Featured</th>
                                     <th>Created_At</th>
                                     <th>Updated_At</th>
-                                    <th>Action</th>
+                                    @role('super admin')
+                                        <th>Action</th>
+                                    @endrole
                                 </tr>
                             </thead>
                             <tbody>
@@ -94,14 +97,16 @@
                                         <td>{{ $item->featured }}</td>
                                         <td>{{ $item->created_at }}</td>
                                         <td>{{ $item->updated_at }}</td>
-                                        <td>
+                                        <td>    @can('edit')
                                             <a style="padding-right:20%" href="{{ route('store.productview') }}" class="float-left"><i
                                                 class="fas fa-eye"></i></a>
                                             <a href="{{ route('stores.edit', $item->id) }}" class="float-left"><i
-                                                    class="fas fa-edit"></i></a>
+                                                    class="fas fa-edit"></i></a>@endcan
+                                                    @can('delete')
                                             <form action="{{ route('stores.destroy', $item->id) }}" method="POST">
                                                 @method('delete') @csrf <button class="btn btn-link pt-0"><i
                                                         class="fas fa-trash-alt"></i></button> </form>
+                                                        @endcan
                                         </td>
                                     </tr>
                                 @empty

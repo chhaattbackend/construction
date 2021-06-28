@@ -35,9 +35,10 @@
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-default mr-2" onclick="search()"><i
                                             class="fas fa-search"></i></button>
-
+                                            @can('create')
                                     <a href="{{ route('units.create') }}"><button class="btn btn-primary">Add
                                             Unit</button></a>
+                                            @endcan
                                 </div>
                             </div>
                         </div>
@@ -49,7 +50,9 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    @role('super admin')
                                     <th>Action</th>
+                                @endrole
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,12 +60,14 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td>
+                                        <td>@can('edit')
                                             <a href="{{ route('units.edit', $item->id) }}" class="float-left"><i
-                                                    class="fas fa-edit"></i></a>
+                                                    class="fas fa-edit"></i></a>@endcan
+                                                    @can('delete')
                                             <form action="{{ route('units.destroy', $item->id) }}" method="POST">
                                                 @method('delete') @csrf <button class="btn btn-link pt-0"><i
                                                         class="fas fa-trash-alt"></i></button> </form>
+                                                        @endcan
                                         </td>
                                     </tr>
                                 @empty

@@ -73,12 +73,12 @@
                                 @forelse ($services as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->service_type_id }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->description }}</td>
-                                        <td>{{ $item->price }}</td>
+                                        <td>{{ @$item->service_type_id }}</td>
+                                        <td>{{ @$item->name }}</td>
+                                        <td>{{ @$item->description }}</td>
+                                        <td>{{ @$item->price }}</td>
                                         <td>{{ @$item->image }}</td>
-                                        <td>{{ $item->thumbnail }}</td>
+                                        <td>{{ @$item->thumbnail }}</td>
                                         <td>{{ @$item->unit_id }}</td>
 
 

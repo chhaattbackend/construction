@@ -29,8 +29,7 @@
                     </div>
                     <div class="card-header">
                         <br>
-                        {{-- <h3 class="card-title">Responsive Hover Table</h3>
-                        --}}
+                        {{-- <h3 class="card-title">Responsive Hover Table</h3> --}}
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 335px;">
@@ -40,9 +39,10 @@
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-default mr-2" onclick="search()"><i
                                             class="fas fa-search"></i></button>
-
+                                            @can('create')
                                     <a href="{{ route('servicetypes.create') }}"><button class="btn btn-primary">Add
                                             Service Type</button></a>
+                                            @endcan
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,9 @@
                                     <th>name</th>
 
 
-                                        <th>Action</th>
+                                    @role('super admin')
+                                    <th>Action</th>
+                                    @endrole
 
                                 </tr>
                             </thead>
@@ -68,13 +70,16 @@
 
                                         <td>{{ $item->name }}</td>
 
-                                            <td>
-                                                <a href="{{ route('servicetypes.edit', $item->id) }}" class="float-left"><i
-                                                        class="fas fa-edit"></i></a>
-                                                <form action="{{ route('servicetypes.destroy', $item->id) }}" method="POST">
-                                                    @method('delete') @csrf <button class="btn btn-link pt-0"><i
-                                                            class="fas fa-trash-alt"></i></button> </form>
-                                            </td>
+                                        <td>@can('edit')
+                                            <a href="{{ route('servicetypes.edit', $item->id) }}" class="float-left"><i
+                                                    class="fas fa-edit"></i></a>
+                                                    @endcan
+                                                    @can('delete')
+                                            <form action="{{ route('servicetypes.destroy', $item->id) }}" method="POST">
+                                                @method('delete') @csrf <button class="btn btn-link pt-0"><i
+                                                        class="fas fa-trash-alt"></i></button> </form>
+                                                        @endcan
+                                        </td>
 
                                     </tr>
                                 @empty

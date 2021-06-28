@@ -42,9 +42,10 @@
                                         <button type="submit" class="btn btn-default mr-2" ><i
                                                 class="fas fa-search"></i></button>
                                             </form>
-
+                                            @can('create')
                                     <a href="{{ route('ccategories.create') }}"><button class="btn btn-primary">Add
                                             Category</button></a>
+                                            @endcan
                                 </div>
                             </div>
                         </div>
@@ -57,7 +58,9 @@
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>B Category</th>
+                                    @role('super admin')
                                     <th>Action</th>
+                                @endrole
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,12 +69,15 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->category->name }}</td>
-                                        <td>
+                                        <td>@can('edit')
                                             <a href="{{ route('ccategories.edit', $item->id) }}" class="float-left"><i
                                                     class="fas fa-edit"></i></a>
+                                                    @endcan
+                                                    @can('delete')
                                             <form action="{{ route('ccategories.destroy', $item->id) }}" method="POST">
                                                 @method('delete') @csrf <button class="btn btn-link pt-0"><i
                                                         class="fas fa-trash-alt"></i></button> </form>
+                                                        @endcan
                                         </td>
                                     </tr>
                                 @empty

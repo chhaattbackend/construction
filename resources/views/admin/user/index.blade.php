@@ -35,9 +35,10 @@
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-default mr-2" onclick="search()"><i
                                             class="fas fa-search"></i></button>
-
+                                            @can('create')
                                     <a href="{{ route('users.create') }}"><button class="btn btn-primary">Add
                                             Category</button></a>
+                                            @endcan
                                 </div>
                             </div>
                         </div>
@@ -51,8 +52,9 @@
                                     <th>Name</th>
                                     <th>Store</th>
                                     <th>Phone</th>
-
+                                    @role('super admin')
                                     <th>Action</th>
+                                @endrole
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,10 +64,11 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ @$item->store->name }}</td>
                                         <td>{{ @$item->store->phone }}</td>
-                                        <td>
+                                        <td>@can('edit')
                                             <a href="{{ route('users.edit', $item->id) }}" class="float-left">
                                                 {{$item->status==1 ? 'Active' : 'InActive'}}
                                             </a>
+                                            @endcan
 
                                         </td>
                                     </tr>
