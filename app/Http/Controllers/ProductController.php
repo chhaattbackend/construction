@@ -146,7 +146,7 @@ class ProductController extends Controller
                $product->update($request->except('image'));
             }
 
-        return redirect()->route('products.index');
+            return redirect()->away($request->previous_url);
     }
 
     /**

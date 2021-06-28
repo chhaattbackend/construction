@@ -29,6 +29,7 @@
 
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Category A :</label>
                                     <div class="col-sm-6">
+                                        <input type="hidden" value="{{ url()->previous() }}" name="previous_url">
                                         <select  class="form-control" name="a_category_id" id="a_category">
                                             @forelse ($acategories as $item)
                                                 <option @if ($item->id == $product->a_category_id) selected @endif value="{{ $item->id }}">
