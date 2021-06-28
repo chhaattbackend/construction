@@ -40,9 +40,10 @@
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-default mr-2" onclick="search()"><i
                                             class="fas fa-search"></i></button>
-
+                                            @can('create')
                                     <a href="{{ route('productattributes.create') }}"><button class="btn btn-primary">Add
                                             Product Attributes</button></a>
+                                            @endcan
                                 </div>
                             </div>
                         </div>
@@ -57,6 +58,9 @@
                                     <th>Product</th>
                                     <th>Attribute</th>
                                     <th>Value</th>
+                                    @role('super admin')
+                                    <th>Action</th>
+                                @endrole
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,12 +72,14 @@
                                         <td>{{ $item->product->name }}</td>
                                         <td>{{ $item->attribute->name }}</td>
                                         <td>{{ $item->desc }}</td>
-                                        <td>
+                                        <td>    @can('edit')
                                             <a href="{{ route('productattributes.edit', $item->id) }}" class="float-left"><i
-                                                    class="fas fa-edit"></i></a>
+                                                    class="fas fa-edit"></i></a>@endcan
+                                                    @can('delete')
                                             <form action="{{ route('productattributes.destroy', $item->id) }}" method="POST">
                                                 @method('delete') @csrf <button class="btn btn-link pt-0"><i
                                                         class="fas fa-trash-alt"></i></button> </form>
+                                                        @endcan
                                         </td>
                                     </tr>
                                 @empty

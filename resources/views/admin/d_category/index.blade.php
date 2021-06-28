@@ -42,11 +42,11 @@
                                         <button type="submit" class="btn btn-default mr-2" ><i
                                                 class="fas fa-search"></i></button>
                                             </form>
-                                            @can('create')
-                                    <a href="{{ route('dcategories.create') }}"><button class="btn btn-primary">Add
-                                            Category</button></a>
-                                            @endcan
-                                </div>
+                                        </div>
+                                        @can('create')
+                                <a href="{{ route('dcategories.create') }}"><button class="btn btn-primary">Add
+                                        Category</button></a>
+                                        @endcan
                             </div>
                         </div>
                     </div>
