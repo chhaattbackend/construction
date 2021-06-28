@@ -89,6 +89,7 @@ class BCategoryController extends Controller
     public function edit($id)
     {
         $b_category=BCategory::find($id);
+       
         $acategories=ACategory::all();
         return view('admin.b_category.edit',compact('b_category','acategories'));
     }
@@ -102,7 +103,9 @@ class BCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $b_category=BCategory::find($id);
+
         if($request->file('image')){
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/bcategories');
             $b_category->update($request->except('image') + ["image" => $filename]);
