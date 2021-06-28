@@ -72,7 +72,7 @@ class StoreProductController extends Controller
     public function save(Request $request)
     {
 
-
+        
         for($i=0;$i<count($request->product_ids);$i++){
             StoreProduct::create([
                 'store_id'=>$request->storeid,
@@ -107,7 +107,7 @@ class StoreProductController extends Controller
 
         $acat= Store::all();
         $b = "a";
-        
+
         $storeid = 2;
 
         return view('admin.store_product.list',compact('acat','b','storeid'));

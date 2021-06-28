@@ -1,6 +1,7 @@
 @extends('admin.layouts.app')
 @section('content')
 
+
     @if ($b == 'product')
         <form action="{{ route('inner.save') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
             <div class="row position-relative">
@@ -33,12 +34,14 @@
 
                             <img style="height: 150px" src="{{ asset('images') }}/{{ $item->image }}" />
 
-                           
+
                             <p style="word-wrap:break-line;">
                                 {{ $item->name }}
                             </p>
                             <label for="">Price: </label><input type="number" class="form-control" name="productprices[]"
                                 value="{{ $item->price }}" />
+                                <label for="">Quantity: </label><input type="text" class="form-control"
+                                                name="productquantities[]" value="{{ $item->quantity }}" />
                             <label for="">Unit: </label>
                             <select required name="unit_ids[]" class="form-control" id="unit_id">
                                 {{-- <option value="">Select Unit</option> --}}
