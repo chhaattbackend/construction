@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('content')                                                                                                                                                                                                                                   
+@section('content')
 
     <div class="container-fluid">
         <div class="row">
@@ -32,6 +32,13 @@
                                     <div class="col-sm-6">
                                         <input required type="text" class="form-control" value="{{ $b_category->name }}"
                                             id="name" name="name" placeholder="Enter Name">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputEmail3" class="col-sm-2 col-form-label">Roman Name</label>
+                                    <div class="col-sm-6">
+                                        <input required type="text" class="form-control" value="{{ $b_category->roman }}"
+                                            id="roman" name="roman" placeholder="Enter Roman Name">
                                     </div>
                                 </div>
 

@@ -51,17 +51,18 @@ class StoreProductController extends Controller
     {
 
         $storeproducts=StoreProduct::all();
-        $products=Product::all();
+        $products=Product::paginate(25);
         $stores=Store::all();
         $brands=Brand::all();
         $units=Unit::all();
+        $seacrh = null;
 
         if(auth()->user()->role->name=='admin'){
             $storeproducts=StoreProduct::where('store_id',auth()->user()->store->id)->get();
             $stores=Store::where('user_id',auth()->user()->id)->get();
         }
         // dd($storeproducts);
-        return view('admin.store_product.create',compact('products','stores','brands','units','storeproducts'));
+        return view('admin.store_product.create',compact('products','stores','brands','units','storeproducts' , 'seacrh'));
     }
     // public function ajax(Request $request)
     // {
@@ -72,7 +73,7 @@ class StoreProductController extends Controller
     public function save(Request $request)
     {
 
-        
+
         for($i=0;$i<count($request->product_ids);$i++){
             StoreProduct::create([
                 'store_id'=>$request->storeid,
@@ -200,6 +201,8 @@ class StoreProductController extends Controller
     {
         // dd(count($request->product_ids));
 
+        if (!$request->keyword) {
+
         for($i=0;$i<count($request->product_ids);$i++){
             StoreProduct::create([
                 'store_id'=>$request->store_id,
@@ -208,10 +211,24 @@ class StoreProductController extends Controller
                 'qty'=>$request->productquantities[$i],
                 'status'=>1,
                 'unit_id'=>$request->unit_ids[$i]
-
             ]);
 
         }
+    }
+        else {
+
+            $seacrh = $request->keyword;
+            $stores = Store::all();
+            $brands = Brand::all();
+            $units = Unit::all();
+            $storeproducts = StoreProduct::all();
+            $products = Product::where('name', 'like', '%' . $seacrh . '%')->paginate(25);
+
+                return view('admin.store_product.create',compact('products','stores','brands','units','storeproducts','seacrh'));
+
+
+        }
+
         return redirect()->route('storeproducts.index');
     }
 

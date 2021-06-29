@@ -49,6 +49,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Roman Name</label>
+                                    <div class="col-sm-6">
+                                        <input required type="text" class="form-control" id="roman" name="roman"
+                                            placeholder="Enter Roman Name">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
 
 
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>

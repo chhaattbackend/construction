@@ -18,24 +18,41 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
+
                     <div class="col-md-12">
                         <form action="{{ route('storeproducts.store') }}" method="POST" class="form-horizontal"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Store </label>
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Store</label>
                                     <div class="col-sm-6">
-                                        <select required name="store_id" class="form-control" id="store_id">
+                                        <select required  name="store_id" class="form-control" id="store_id">
                                             <option value="">Select Stores</option>
                                             @forelse ($stores as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option selected value="{{ $item->id }}">{{ $item->name }}</option>
                                             @empty
 
                                             @endforelse
                                         </select>
                                     </div>
+                                    <div class="card-tools">
+
+                                        <div class="input-group input-group-sm" style="width: 335px;">
+                                            <input type="text"  value="{{@$seacrh}}" name="keyword" id="keyword" class="form-control float-right"
+                                                placeholder="Search" style="height:37px;">
+
+                                            <div class="input-group-append">
+                                                <button type="submit"   class="btn btn-default mr-2"><i
+                                                        class="fas fa-search"></i></button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
+
+
                                 {{-- <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Product ID</label>
                                     <div class="col-sm-6">
@@ -73,10 +90,17 @@
                                             @if ($same)
                                                 <center><label for="" class="text-danger">Already added</label></center>
                                             @endif
-                                            <img style="height: 150px" src="{{ asset('images') }}/{{ $item->image }}" />
-                                            <p style="word-wrap:break-line;">
-                                                {{ $item->name }}
+                                            <img class="m-auto" style="height: 150px ; width: 200px ; object-fit: fill; " src="{{ asset('images') }}/{{ $item->image }}" />
+                                            <p class="text-center border-bottom border-3 border-dark pb-2" style="word-wrap:break-line;">
+                                               <strong> {{ $item->name }} </strong>
                                             </p>
+                                            <p style="word-wrap:break-line;">
+                                                <strong>  B Category: </strong> {{ @$item->b_category->name }}
+                                            </p>
+                                            <p style="word-wrap:break-line;">
+                                      <strong>  C Category: </strong>   {{ @$item->c_category->name }}
+                                            </p>
+
                                             <label for="">Price: </label><input type="text" class="form-control"
                                                 name="productprices[]" value="{{ $item->price }}" />
                                             <label for="">Quantity: </label><input type="text" class="form-control"
@@ -157,6 +181,9 @@
                                         </select>
                                     </div>
                                 </div> --}}
+                                <div class="align-right paginationstyle">
+                                    {{ $products->links() }}
+                                </div>
                                 <div class="form-group row">
                                     <div class="offset-sm-5 col-sm-12">
                                         {{-- <div class="form-check">
@@ -207,16 +234,21 @@
 
         .cards1 {
             display: flex;
+
             flex-wrap: wrap;
         }
 
         .card1 {
             position: relative;
+            object-fit: scale-down;
             margin: .5em;
             padding: 2em;
             min-height: 4em;
             background: white;
             border: 3px solid grey;
+            width: 100%;
+            max-width: 350px;
+            min-width: 350px;
         }
 
         .active {

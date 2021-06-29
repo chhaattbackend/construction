@@ -59,6 +59,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Roman Name</th>
                                     <th>A Category</th>
                                     @role('super admin')
                                         <th>Action</th>
@@ -70,6 +71,7 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
+                                        <td>{{ @$item->roman }}</td>
                                         <td>{{ $item->category->name }}</td>
                                         <td>@can('edit')
                                             <a href="{{ route('bcategories.edit', $item->id) }}" class="float-left"><i
