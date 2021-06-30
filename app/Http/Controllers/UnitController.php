@@ -55,8 +55,9 @@ class UnitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         Unit::create($request->all());
+    }
         return redirect()->route('units.index');
     }
 
@@ -92,9 +93,10 @@ class UnitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $unit=Unit::find($id);
         $unit->update($request->all());
+    }
         return redirect()->route('units.index');
     }
 

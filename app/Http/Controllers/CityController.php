@@ -33,7 +33,7 @@ class CityController extends Controller
 
         return view('admin.city.index', compact('cities'));
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -52,8 +52,9 @@ class CityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         City::create($request->all());
+    }
         return redirect()->route('cities.index');
     }
 
@@ -94,8 +95,10 @@ class CityController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (auth()->user()->role->name == 'super admin') {
         $city=City::find($id);
         $city->update($request->all());
+        }
         return redirect()->route('cities.index');
     }
 

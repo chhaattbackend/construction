@@ -58,7 +58,7 @@ class ServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $name = time() . '.' . $image->getClientOriginalExtension();
@@ -68,6 +68,7 @@ class ServiceController extends Controller
         } else {
             Service::create($request->all());
         }
+    }
         return redirect()->route('services.index');
     }
 
@@ -109,7 +110,7 @@ class ServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $service=Service::find($id);
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -120,6 +121,7 @@ class ServiceController extends Controller
         } else {
             $service->update($request->all());
         }
+    }
         return redirect()->route('services.index');
     }
 

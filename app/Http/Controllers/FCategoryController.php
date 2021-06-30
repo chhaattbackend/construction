@@ -61,8 +61,9 @@ class FCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         FCategory::create($request->all());
+    }
         return redirect()->route('fcategories.index');
     }
 
@@ -99,9 +100,10 @@ class FCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $f_category=FCategory::find($id);
         $f_category->update($request->all());
+    }
         return redirect()->route('fcategories.index');
     }
 

@@ -6,6 +6,8 @@ use App\ACategory;
 use App\BCategory;
 use Illuminate\Http\Request;
 use App\GlobalClass;
+use App\Role;
+
 class ACategoryController extends Controller
 {
     /**
@@ -20,6 +22,7 @@ class ACategoryController extends Controller
 
     public function index(Request $request)
     {
+
 
         if(!$request->keyword){
             $acategories=ACategory::paginate(10);
@@ -58,18 +61,17 @@ class ACategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
 
         if($request->file('image')){
 
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/acategories');
             ACategory::create($request->except('image') + ["image" => $filename]);
-
         }
         else{
             Acategory::create($request->except('image'));
         }
-
+    }
         return redirect()->route('acategories.index');
     }
 
@@ -89,7 +91,7 @@ class ACategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate \Http\Response
      */
     public function edit($id)
     {
@@ -105,9 +107,10 @@ class ACategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $a_category = ACategory::find($id);
         $a_category->update($request->all());
+    }
         return redirect()->route('acategories.index');
     }
 

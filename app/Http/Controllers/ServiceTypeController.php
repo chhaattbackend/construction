@@ -36,9 +36,10 @@ class ServiceTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
 
         ServiceType::create($request->all());
+    }
         return redirect()->route('servicetypes.index');
 
     }
@@ -74,10 +75,10 @@ class ServiceTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $servicetypes = ServiceType::find($id);
         $servicetypes->update($request->all());
-
+    }
         return redirect()->route('servicetypes.index');
     }
 

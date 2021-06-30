@@ -56,7 +56,7 @@ class BCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         if($request->file('image')){
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/bcategories');
             BCategory::create($request->except('image') + ["image" => $filename]);
@@ -65,6 +65,7 @@ class BCategoryController extends Controller
         else{
             Bcategory::create($request->except('image'));
         }
+    }
         return redirect()->route('bcategories.index');
     }
 
@@ -89,7 +90,7 @@ class BCategoryController extends Controller
     public function edit($id)
     {
         $b_category=BCategory::find($id);
-       
+
         $acategories=ACategory::all();
         return view('admin.b_category.edit',compact('b_category','acategories'));
     }

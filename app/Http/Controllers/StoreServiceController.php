@@ -49,8 +49,9 @@ class StoreServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         StoreService::create($request->all());
+    }
         return redirect()->route('storeservices.index');
     }
 
@@ -89,9 +90,10 @@ class StoreServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $storeservice=StoreService::find($id);
         $storeservice->update($request->all());
+    }
         return redirect()->route('storeservices.index');
     }
 

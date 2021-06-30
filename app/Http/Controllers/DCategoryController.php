@@ -59,14 +59,16 @@ class DCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        if (auth()->user()->role->name == 'super admin') {
         if($request->file('image')){
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/dcategories');
-            ACategory::create($request->except('image') + ["image" => $filename]);
+            DCategory::create($request->except('image') + ["image" => $filename]);
 
         }
         else{
-            Acategory::create($request->except('image'));
+            Dcategory::create($request->except('image'));
         }
+    }
         return redirect()->route('dcategories.index');
     }
 
@@ -103,7 +105,7 @@ class DCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $d_category=DCategory::find($id);
         if($request->file('image')){
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/dcategories');
@@ -113,6 +115,7 @@ class DCategoryController extends Controller
         else{
             $d_category->update($request->except('image'));
         }
+    }
         return redirect()->route('dcategories.index');
     }
 

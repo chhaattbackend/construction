@@ -83,7 +83,7 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $name = time() . '.' . $image->getClientOriginalExtension();
@@ -93,6 +93,7 @@ class StoreController extends Controller
         } else {
             Store::create($request->all());
         }
+    }
         return redirect()->route('stores.index');
     }
 
@@ -131,7 +132,7 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $store=Store::find($id);
         $store = Store::find($id);
         if ($request->hasFile('image')) {
@@ -143,6 +144,7 @@ class StoreController extends Controller
         } else {
             $store->update($request->all());
         }
+    }
         return redirect()->route('stores.index');
     }
 

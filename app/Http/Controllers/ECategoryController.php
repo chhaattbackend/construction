@@ -60,8 +60,9 @@ class ECategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         ECategory::create($request->all());
+    }
         return redirect()->route('ecategories.index');
     }
 
@@ -98,9 +99,10 @@ class ECategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $e_category=ECategory::find($id);
         $e_category->update($request->all());
+    }
         return redirect()->route('ecategories.index');
     }
 

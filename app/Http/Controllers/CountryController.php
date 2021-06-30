@@ -33,7 +33,7 @@ class CountryController extends Controller
 
         return view('admin.country.index', compact('countries'));
     }
-        
+
 
     /**
      * Show the form for creating a new resource.
@@ -52,8 +52,9 @@ class CountryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         Country::create($request->all());
+    }
         return redirect()->route('countries.index');
     }
 
@@ -93,9 +94,10 @@ class CountryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $country=Country::find($id);
         $country->update($request->all());
+    }
         return redirect()->route('countries.index');
     }
 

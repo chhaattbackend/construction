@@ -48,8 +48,9 @@ class BrandController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         Brand::create($request->all());
+    }
         return redirect()->route('brands.index');
     }
 
@@ -85,9 +86,10 @@ class BrandController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $brand = Brand::find($id);
         $brand->update($request->all());
+    }
         return redirect()->route('brands.index');
     }
 

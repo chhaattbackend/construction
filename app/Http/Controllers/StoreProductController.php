@@ -202,7 +202,7 @@ class StoreProductController extends Controller
         // dd(count($request->product_ids));
 
         if (!$request->keyword) {
-
+            if (auth()->user()->role->name == 'super admin') {
         for($i=0;$i<count($request->product_ids);$i++){
             StoreProduct::create([
                 'store_id'=>$request->store_id,
@@ -212,6 +212,7 @@ class StoreProductController extends Controller
                 'status'=>1,
                 'unit_id'=>$request->unit_ids[$i]
             ]);
+        }
 
         }
     }
@@ -269,9 +270,10 @@ class StoreProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $storeproduct=StoreProduct::find($id);
         $storeproduct->update($request->all());
+    }
         return redirect()->route('storeproducts.index');
     }
 

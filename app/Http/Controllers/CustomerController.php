@@ -35,7 +35,7 @@ class CustomerController extends Controller
             }
 
         return view('admin.customer.index', compact('customers'));
-        
+
     }
 
     /**
@@ -58,6 +58,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        if (auth()->user()->role->name == 'super admin') {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $name = time() . '.' . $image->getClientOriginalExtension();
@@ -67,6 +68,7 @@ class CustomerController extends Controller
         } else {
             Customer::create($request->all());
         }
+    }
         return redirect()->route('customers.index');
     }
 

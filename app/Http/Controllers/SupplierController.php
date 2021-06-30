@@ -69,8 +69,9 @@ class SupplierController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         Supplier::create($request->all());
+    }
         return redirect()->route('suppliers.index');
     }
 
@@ -110,9 +111,10 @@ class SupplierController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $supplier=Supplier::find($id);
         $supplier->update($request->all());
+    }
         return redirect()->route('suppliers.index');
     }
 

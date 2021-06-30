@@ -33,7 +33,7 @@ class AttributeController extends Controller
 
         return view('admin.attribute.index', compact('attributes'));
     }
-        
+
 
     /**
      * Show the form for creating a new resource.
@@ -52,8 +52,9 @@ class AttributeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         Attribute::create($request->all());
+    }
         return redirect()->route('attributes.index');
     }
 
@@ -92,9 +93,10 @@ class AttributeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $attribute=Attribute::find($id);
         $attribute->update($request->all());
+    }
         return redirect()->route('attributes.index');
     }
 

@@ -22,35 +22,33 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if (!$request->ajax()) {
-        if($request->page!=null && $request->keyword!=null){
-            $keyword=$request->keyword;
-            $products=Product::where('name','LIKE',"%{$request->keyword}%")
-            ->orWhere('price','LIKE',"%{$request->keyword}%")
-            ->paginate(25);
-            $products->withPath('?keyword=' . $request->keyword);
-            return view('admin.product.index',compact('products','keyword'));
+            if ($request->page != null && $request->keyword != null) {
+                $keyword = $request->keyword;
+                $products = Product::where('name', 'LIKE', "%{$request->keyword}%")
+                    ->orWhere('price', 'LIKE', "%{$request->keyword}%")
+                    ->paginate(25);
+                $products->withPath('?keyword=' . $request->keyword);
+                return view('admin.product.index', compact('products', 'keyword'));
+            }
         }
-    }
         if ($request->ajax()) {
 
-            if($request->keyword!=null){
-                $keyword=$request->keyword;
-                $products=Product::where('name','LIKE',"%{$request->keyword}%")
-                ->orWhere('price','LIKE',"%{$request->keyword}%")
-                ->paginate(25);
+            if ($request->keyword != null) {
+                $keyword = $request->keyword;
+                $products = Product::where('name', 'LIKE', "%{$request->keyword}%")
+                    ->orWhere('price', 'LIKE', "%{$request->keyword}%")
+                    ->paginate(25);
                 $products->withPath('?keyword=' . $request->keyword);
+            } else {
+                $keyword = '';
+                $products = Product::paginate(25);
+            }
+
+            return view('admin.product.search', compact('products', 'keyword'));
         }
-        else{
-            $keyword = '';
-            $products=Product::paginate(25);
-        }
+        $products = Product::paginate(25);
 
-        return view('admin.product.search',compact('products','keyword'));
-    }
-    $products=Product::paginate(25);
-
-        return view('admin.product.index',compact('products'));
-
+        return view('admin.product.index', compact('products'));
     }
 
     /**
@@ -67,7 +65,7 @@ class ProductController extends Controller
         $ecategories = ECategory::all();
         $fcategories = FCategory::all();
         $units = Unit::all();
-        return view('admin.product.create', compact('acategories', 'bcategories', 'units','ccategories','dcategories','ecategories','fcategories'));
+        return view('admin.product.create', compact('acategories', 'bcategories', 'units', 'ccategories', 'dcategories', 'ecategories', 'fcategories'));
     }
 
     /**
@@ -78,16 +76,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->file('image')){
+        if (auth()->user()->role->name == 'super admin') {
+            if ($request->file('image')) {
 
-            $filename = $this->globalclass->storeS3($request->file('image'),'construction/product');
-            Product::create($request->except('image') + ["image" => $filename]);
-
+                $filename = $this->globalclass->storeS3($request->file('image'), 'construction/product');
+                Product::create($request->except('image') + ["image" => $filename]);
+            } else {
+                Product::create($request->except('image'));
+            }
         }
-        else{
-            Product::create($request->except('image'));
-        }
-
         return redirect()->route('products.index');
     }
 
@@ -120,7 +117,7 @@ class ProductController extends Controller
         $fcategories = FCategory::all();
 
         $units = Unit::all();
-        return view('admin.product.edit', compact('product', 'acategories', 'bcategories', 'units','ccategories','dcategories','ecategories','fcategories'));
+        return view('admin.product.edit', compact('product', 'acategories', 'bcategories', 'units', 'ccategories', 'dcategories', 'ecategories', 'fcategories'));
     }
 
     /**
@@ -135,18 +132,16 @@ class ProductController extends Controller
         // dd($request->all());
 
 
-            $product = Product::find($id);
-            if($request->file('image')){
+        $product = Product::find($id);
+        if ($request->file('image')) {
 
-                $filename = $this->globalclass->storeS3($request->file('image'),'construction/product');
-               $product->update($request->except('image') + ["image" => $filename]);
+            $filename = $this->globalclass->storeS3($request->file('image'), 'construction/product');
+            $product->update($request->except('image') + ["image" => $filename]);
+        } else {
+            $product->update($request->except('image'));
+        }
 
-            }
-            else{
-               $product->update($request->except('image'));
-            }
-
-            return redirect()->away($request->previous_url);
+        return redirect()->away($request->previous_url);
     }
 
     /**

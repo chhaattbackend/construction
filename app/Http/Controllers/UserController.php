@@ -14,7 +14,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         $users = User::all();
         return view('admin.user.index', compact('users'));
     }
@@ -77,8 +77,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         User::create($request->all());
+    }
         return redirect()->route('users.index');
     }
 
@@ -124,9 +125,10 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $user = User::find($id);
         $user->update($request->all());
+    }
         return redirect()->route('users.index');
     }
 

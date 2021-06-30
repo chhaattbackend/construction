@@ -60,8 +60,9 @@ class ProductDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         ProductDetail::create($request->all());
+    }
         return redirect()->route('productdetails.index');
     }
 
@@ -101,9 +102,10 @@ class ProductDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $productdetail=ProductDetail::find($id);
         $productdetail->update($request->all());
+    }
         return redirect()->route('productdetails.index');
     }
 

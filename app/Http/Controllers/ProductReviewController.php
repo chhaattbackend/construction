@@ -88,9 +88,10 @@ class ProductReviewController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $productreview=ProductReview::find($id);
         $productreview->update($request->all());
+    }
         return redirect()->route('productreviews.index');
     }
 

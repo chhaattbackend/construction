@@ -73,7 +73,9 @@ class ProductAttributeController extends Controller
      */
     public function store(Request $request)
     {
+        if (auth()->user()->role->name == 'super admin') {
         ProductAttribute::create($request->all());
+        }
         return redirect()->route('productattributes.index');
     }
 
@@ -115,9 +117,10 @@ class ProductAttributeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $productattribute=ProductAttribute::find($id);
         $productattribute->update($request->all());
+    }
         return redirect()->route('productattributes.index');
     }
 

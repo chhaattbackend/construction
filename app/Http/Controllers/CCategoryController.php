@@ -57,7 +57,7 @@ class CCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         if($request->file('image')){
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/ccategories');
             CCategory::create($request->except('image') + ["image" => $filename]);
@@ -66,6 +66,7 @@ class CCategoryController extends Controller
         else{
             Ccategory::create($request->except('image'));
         }
+    }
         return redirect()->route('ccategories.index');
     }
 
@@ -103,7 +104,7 @@ class CCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   if (auth()->user()->role->name == 'super admin') {
         $c_category=CCategory::find($id);
 
         if($request->file('image')){
@@ -114,6 +115,7 @@ class CCategoryController extends Controller
         else{
             $c_category->update($request->except('image'));
         }
+    }
         return redirect()->route('ccategories.index');
     }
 
