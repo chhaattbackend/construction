@@ -37,7 +37,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('dcategories', 'DCategoryController');
     Route::resource('ecategories', 'ECategoryController');
     Route::resource('fcategories', 'FCategoryController');
-
+    Route::resource('areaones', 'AreaOneController');
+    Route::resource('areatwos', 'AreaTwoController');
+    Route::resource('areathrees', 'AreaThreeController');
 
     Route::resource('cities', 'CityController');
     Route::resource('countries', 'CountryController');

@@ -78,11 +78,13 @@ class AttributeController extends Controller
      */
     public function edit($id)
     {
+
         $attribute=Attribute::find($id);
         $acategories=ACategory::all();
         $bcategories=BCategory::all();
         $units=Unit::all();
         return view('admin.attribute.edit',compact('attribute','acategories','bcategories','units'));
+
     }
 
     /**

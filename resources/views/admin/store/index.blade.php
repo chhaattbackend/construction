@@ -61,6 +61,7 @@
                                     <th>Phone</th>
                                     <th>Mobile</th>
                                     <th>Address</th>
+                                    <th>Area</th>
                                     <th>Status</th>
                                     <th>NIC</th>
                                     <th>NTN</th>
@@ -87,6 +88,7 @@
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->mobile }}</td>
                                         <td>{{ $item->address }}</td>
+                                        <td>{{ @$item->areaThree->name }} {{ @$item->areaTwo->name }}</td>
                                         <td>{{ $item->status }}</td>
                                         <td>{{ $item->nic }}</td>
                                         <td>{{ $item->ntn }}</td>

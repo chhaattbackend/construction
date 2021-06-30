@@ -281,6 +281,102 @@
     </li>
     <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
+            <p>
+                Areas
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview" @if (url()->current() == route('areaones.index') || url()->current() == route('areaones.create') || url()->current() == route('areatwos.index') || url()->current() == route('areatwos.create') || url()->current() == route('areathrees.index') || url()->current() == route('areathrees.create')) style="display: block;" @else style="display: none;" @endif>
+            <li class="nav-item has-treeview @if (url()->current() == route('areaones.index') ||
+                url()->current() == route('areaones.create')) menu-open @endif" >
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>
+                        Area One
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('areaones.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon @if (url()->current() ==
+                                route('areaones.index')) far fa-dot-circle red @endif"></i>
+                            <p>List</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('areaones.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon @if (url()->current() ==
+                                route('areaones.create')) far fa-dot-circle red @endif"></i>
+                            <p>Create</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li class="nav-item has-treeview @if (url()->current() == route('areatwos.index') ||
+                url()->current() == route('areatwos.create')) menu-open @endif">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>
+                        Area Two
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('areatwos.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon @if (url()->current() ==
+                                route('areatwos.index')) far fa-dot-circle red @endif"></i>
+                            <p>List</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('areatwos.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon @if (url()->current() ==
+                                route('areatwos.create')) far fa-dot-circle red @endif"></i>
+                            <p>Create</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item has-treeview  @if (url()->current() == route('areathrees.index')
+                || url()->current() == route('areathrees.create')) menu-open @endif ">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>
+                        Area Three
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('areathrees.index') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon @if (url()->current() ==
+                                route('areathrees.index')) far fa-dot-circle red @endif"></i>
+                            <p>List</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('areathrees.create') }}" class="nav-link">
+                            <i class="far fa-circle nav-icon @if (url()->current() ==
+                                route('areathrees.create')) far fa-dot-circle red @endif"></i>
+                            <p>Create</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+
+        </ul>
+    </li>
+    <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
             <i class="nav-icon fas  fa-user-check"></i>
             <p>
                 Customers

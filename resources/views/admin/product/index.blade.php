@@ -6,6 +6,10 @@
         }
 
     </style>
+     {{-- @if (str_contains($bcategories[0], $product
+     ))
+     @dd('h')
+     @endif --}}
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -58,7 +62,6 @@
                                     @role('super admin')
                                     <th>Action</th>
                                 @endrole
-
                                     <th>A Category</th>
                                     <th>B Category</th>
                                     <th>C Category</th>

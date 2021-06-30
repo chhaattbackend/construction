@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\ACategory;
+use App\AreaOne;
+use App\AreaThree;
+use App\AreaTwo;
 use App\BCategory;
 use App\City;
 use App\Store;
@@ -70,10 +73,15 @@ class StoreController extends Controller
     {
         $users=User::all();
         $cities=City::all();
+        $areaones =AreaOne::all();
+        $areatwos =AreaTwo::all();
+        $areathrees =AreaThree::all();
+
+
         if(auth()->user()->role->name=='admin'){
             $users=User::where('id',auth()->user()->id)->get();
         }
-        return view("admin.store.create",compact('cities','users'));
+        return view("admin.store.create",compact('cities','users','areaones','areatwos','areathrees'));
     }
 
     /**
@@ -84,14 +92,18 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {   if (auth()->user()->role->name == 'super admin') {
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $img = $image->move($destinationPath, $name);
-            Store::create($request->except('image') + ['image' => $name]);
+        if ($request->file('image')) {
+            $filename = $this->globalclass->storeS3($request->file('image'), 'construction/store');
+            $area = AreaThree::where('id',$request->area_three_id)->get();
+
+            Store::create($request->except('image','area_two_id','area_one_id') + ['image' => $filename ,'area_one_id' => $area[0]->area_one_id , 'area_two_id' => $area[0]->area_two_id]);
         } else {
-            Store::create($request->all());
+
+            $area = AreaThree::where('id',$request->area_three_id)->get();
+            // $area_one_id = AreaTwo::where('id',$area_two_id->areaTwo()->id)->get();
+
+            Store::create($request->except('area_two_id','area_one_id') + ['area_one_id' => $area[0]->area_one_id , 'area_two_id' => $area[0]->area_two_id]);
+
         }
     }
         return redirect()->route('stores.index');
@@ -121,7 +133,8 @@ class StoreController extends Controller
         $units=Unit::all();
         $users=User::all();
         $cities=City::all();
-        return view('admin.store.edit',compact('store','users','cities'));
+        $areathree = AreaThree::all();
+        return view('admin.store.edit',compact('store','users','cities','areathree'));
     }
 
     /**
@@ -134,15 +147,15 @@ class StoreController extends Controller
     public function update(Request $request, $id)
     {   if (auth()->user()->role->name == 'super admin') {
         $store=Store::find($id);
-        $store = Store::find($id);
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $img = $image->move($destinationPath, $name);
-            $store->update($request->except('image') + ['image' => $name]);
+
+        if ($request->file('image')) {
+            $filename = $this->globalclass->storeS3($request->file('image'), 'construction/store');
+
+            $area = AreaThree::where('id',$request->area_three_id)->get();
+            $store->update($request->except('image','area_two_id','area_one_id') + ['image' => $filename , 'area_one_id' => $area[0]->area_one_id , 'area_two_id' => $area[0]->area_two_id]);
         } else {
-            $store->update($request->all());
+            $area = AreaThree::where('id',$request->area_three_id)->get();
+            $store->update($request->except('area_two_id','area_one_id') + ['area_one_id' => $area[0]->area_one_id , 'area_two_id' => $area[0]->area_two_id]);
         }
     }
         return redirect()->route('stores.index');

@@ -14,6 +14,9 @@ class Store extends Model
         'email',
         'phone',
         'mobile',
+        'area_one_id',
+        'area_two_id',
+        'area_three_id',
         'address',
         'status',
         'nic',
@@ -43,5 +46,17 @@ class Store extends Model
 
     public function storeservices(){
         return $this->hasMany(StoreService::class,'store_id');
+    }
+    public function areaOne()
+    {
+        return $this->belongsTo(AreaOne::class, 'area_one_id');
+    }
+    public function areaTwo()
+    {
+        return $this->belongsTo(AreaTwo::class, 'area_two_id');
+    }
+    public function areaThree()
+    {
+        return $this->belongsTo(AreaThree::class, 'area_three_id');
     }
 }

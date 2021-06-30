@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 @section('content')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js%22"></script>
     <div class="container-fluid">
         <div class="row">
             <!-- left column -->
@@ -46,6 +48,19 @@
                                             @empty
 
                                             @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Area</label>
+                                    <div class="col-sm-6">
+                                        <select  class="form-control js-example-basic-single" name="area_three_id" id="area_three_id">
+                                            <option disabled selected value="">Select Area</option>
+                                            @foreach ($areathrees as $item)
+                                                <option value="{{ $item->id }}">{{ @$item->name }} - {{@$item->areaTwo->name}} - {{@$item->areaOne->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -123,7 +138,7 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Image</label>
                                     <div class="col-sm-6">
-                                        <input required type="file" accept="image/*" class="form-control" id="image"
+                                        <input  type="file" accept="image/*" class="form-control" id="image"
                                             name="image" placeholder="Image">
                                     </div>
                                 </div>
@@ -165,4 +180,9 @@
         </div>
         <!-- /.row -->
     </div>
+    <script>
+        $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+        });
+    </script>
 @endsection
