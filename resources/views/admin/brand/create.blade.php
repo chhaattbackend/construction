@@ -14,12 +14,12 @@
                 <!-- Horizontal Form -->
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Add A Categories</h3>
+                        <h3 class="card-title">Brand</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
                     <div class="col-md-8">
-                        <form action="{{ route('acategories.store') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+                        <form action="{{ route('brands.store') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group row">

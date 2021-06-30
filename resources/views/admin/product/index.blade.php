@@ -65,6 +65,7 @@
                                     <th>D Category</th>
                                     <th>E Category</th>
                                     <th>F Category</th>
+                                    <th>Brand</th>
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>Price</th>
@@ -97,7 +98,7 @@
                                         <td>{{ optional($item->d_category)->name }}</td>
                                         <td>{{ optional($item->e_category)->name }}</td>
                                         <td>{{ optional($item->f_category)->name }}</td>
-
+                                        <td>{{ @$item->brand->name }}</td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->description }}</td>
                                         <td>{{ $item->price }}</td>

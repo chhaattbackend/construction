@@ -130,6 +130,23 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+
+
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Brand :</label>
+                                    <div class="col-sm-6">
+                                        <select  class="form-control" name="brand_id" id="brand_id">
+                                            <option value="">Select Category</option>
+                                            @forelse ($brand as $item)
+                                                <option @if($item->id==$product->brand_id) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @empty
+
+                                            @endforelse
+
+                                        </select>
+                                    </div>
+                                </div>
+
 
 
 

@@ -123,8 +123,10 @@ class ACategoryController extends Controller
     public function destroy($id)
     {
         // dd('h');
+        if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item = ACategory::find($id);
         $item->delete();
+        }
         return redirect()->back();
     }
 }

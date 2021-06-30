@@ -14,6 +14,7 @@ class Product extends Model
         'd_category_id',
         'e_category_id',
         'f_category_id',
+        'brand_id',
         'name',
         'description',
         'price',
@@ -45,5 +46,7 @@ class Product extends Model
     public function attributes(){
         return $this->hasMany(ProductAttribute::class,'product_id');
     }
-
+    public function brand(){
+        return $this->belongsTo(Brand::class,'brand_id');
+    }
 }

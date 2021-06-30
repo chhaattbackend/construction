@@ -107,9 +107,10 @@ class UnitController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item=Unit::find($id);
         $item->delete();
+    }
         return redirect()->back();
     }
 }

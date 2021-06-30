@@ -14,7 +14,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $users = User::all();
         return view('admin.user.index', compact('users'));
     }
@@ -141,8 +141,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         // dd('h');
+        if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item = User::find($id);
         $item->delete();
+        }
         return redirect()->back();
     }
 }

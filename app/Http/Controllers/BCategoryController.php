@@ -127,9 +127,10 @@ class BCategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item=BCategory::find($id);
         $item->delete();
+    }
         return redirect()->back();
     }
 }

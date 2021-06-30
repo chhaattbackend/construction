@@ -38,9 +38,9 @@
                                                 class="fas fa-search"></i></button>
                                             </form>
 
-                                    <a href="{{ route('brands.create') }}"><button class="btn btn-primary">Add
-                                            Category</button></a>
-                                </div>
+                                        </div>
+                                        <a href="{{ route('brands.create') }}"><button class="btn btn-primary">Add
+                                                Category</button></a>
                             </div>
                         </div>
                     </div>

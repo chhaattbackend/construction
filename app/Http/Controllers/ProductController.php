@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ACategory;
 use App\BCategory;
+use App\Brand;
 use App\CCategory;
 use App\DCategory;
 use App\ECategory;
@@ -65,7 +66,8 @@ class ProductController extends Controller
         $ecategories = ECategory::all();
         $fcategories = FCategory::all();
         $units = Unit::all();
-        return view('admin.product.create', compact('acategories', 'bcategories', 'units', 'ccategories', 'dcategories', 'ecategories', 'fcategories'));
+        $brand = Brand::all();
+        return view('admin.product.create', compact('acategories', 'bcategories', 'units', 'ccategories', 'dcategories', 'ecategories', 'fcategories','brand'));
     }
 
     /**
@@ -115,9 +117,10 @@ class ProductController extends Controller
         $dcategories = DCategory::all();
         $ecategories = ECategory::all();
         $fcategories = FCategory::all();
+        $brand = Brand::all();
 
-        $units = Unit::all();
-        return view('admin.product.edit', compact('product', 'acategories', 'bcategories', 'units', 'ccategories', 'dcategories', 'ecategories', 'fcategories'));
+        $units = Unit::all(); 
+        return view('admin.product.edit', compact('product', 'acategories', 'bcategories', 'units', 'ccategories', 'dcategories', 'ecategories', 'fcategories','brand'));
     }
 
     /**
@@ -151,9 +154,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
         $item = Product::find($id);
         $item->delete();
+    }
         return redirect()->back();
     }
 }
