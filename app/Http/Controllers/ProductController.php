@@ -9,6 +9,7 @@ use App\CCategory;
 use App\DCategory;
 use App\ECategory;
 use App\FCategory;
+use App\GlobalClass;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Unit;
@@ -20,6 +21,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function __construct()
+    {
+        $this->globalclass = new GlobalClass();
+    }
     public function index(Request $request)
     {
         if (!$request->ajax()) {
@@ -119,7 +126,7 @@ class ProductController extends Controller
         $fcategories = FCategory::all();
         $brand = Brand::all();
 
-        $units = Unit::all(); 
+        $units = Unit::all();
         return view('admin.product.edit', compact('product', 'acategories', 'bcategories', 'units', 'ccategories', 'dcategories', 'ecategories', 'fcategories','brand'));
     }
 

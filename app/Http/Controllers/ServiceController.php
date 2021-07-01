@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ACategory;
 use App\BCategory;
+use App\GlobalClass;
 use App\Service;
 use App\ServiceType;
 use App\Unit;
@@ -16,6 +17,11 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->globalclass = new GlobalClass();
+    }
+
     public function index(Request $request)
     {
         if (!$request->keyword) {
@@ -59,14 +65,12 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {   if (auth()->user()->role->name == 'super admin') {
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $img = $image->move($destinationPath, $name);
-            Service::create($request->except('image') + ['image' => $name]);
+        if ($request->file('image')) {
+
+            $filename = $this->globalclass->storeS3($request->file('image'), 'construction/service');
+            Service::create($request->except('image') + ["image" => $filename]);
         } else {
-            Service::create($request->all());
+            Service::create($request->except('image'));
         }
     }
         return redirect()->route('services.index');
@@ -112,14 +116,12 @@ class ServiceController extends Controller
     public function update(Request $request, $id)
     {   if (auth()->user()->role->name == 'super admin') {
         $service=Service::find($id);
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $img = $image->move($destinationPath, $name);
-            $service->update($request->except('image') + ['image' => $name]);
+        if ($request->file('image')) {
+
+            $filename = $this->globalclass->storeS3($request->file('image'), 'construction/service');
+            $service->update($request->except('image') + ["image" => $filename]);
         } else {
-            $service->update($request->all());
+            $service->update($request->except('image'));
         }
     }
         return redirect()->route('services.index');
