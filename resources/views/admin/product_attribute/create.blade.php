@@ -26,7 +26,8 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Store ID</label>
                                     <div class="col-sm-6">
-                                        <select required name="store_id" class="form-control" id="store_id">
+                                        <select  name="store_id" class="form-control" id="store_id">
+                                            <option value="">Select Store</option>
                                             @forelse ($stores as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @empty

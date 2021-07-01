@@ -65,9 +65,9 @@
                                 @forelse ($areathrees as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->area_two->name }}</td>
-                                        <td>{{ $item->area_one->name }}</td>
+                                        <td>{{ @$item->name }}</td>
+                                        <td>{{ @$item->area_two->name }}</td>
+                                        <td>{{ @$item->area_one->name }}</td>
 
                                         <td>
                                             <a href="{{ route('areathrees.edit', $item->id) }}" class="float-left"><i
@@ -97,5 +97,6 @@
     </div>
     </div>
     </div>
+
 
 @endsection

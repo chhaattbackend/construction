@@ -33,7 +33,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">D category</label>
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label ">D category</label>
                                     <div class="col-sm-6">
 
                                         <select required name="d_category_id" class="form-control" id="d_category_id">

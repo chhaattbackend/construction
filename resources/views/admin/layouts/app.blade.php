@@ -9,6 +9,8 @@
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
 
     <!-- Latest compiled JavaScript -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
@@ -167,6 +169,8 @@
     </div>
 
     <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
     @yield('third_party_scripts')
 
@@ -239,6 +243,14 @@
         }
 
     </script>
+
+<script type="text/javascript">
+
+    $(".form-control").select2({
+          placeholder: "Select",
+          allowClear: true
+      });
+</script>
 </body>
 
 </html>

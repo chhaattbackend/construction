@@ -42,6 +42,30 @@ class StoreProductController extends Controller
 
     }
 
+    public function ajax(Request $request){
+
+        if ($request->store_id == 0) {
+
+            $storeproducts=StoreProduct::all();
+            $show = 0;
+        }else{
+            $storeproducts=StoreProduct::where('store_id' , $request->store_id)->get();
+            $show = 1;
+        }
+        $products=Product::paginate(25);
+        $stores=Store::all();
+        $brands=Brand::all();
+        $units=Unit::all();
+        $seacrh = null;
+        $data = view('admin.store_product.ajaxcreate',compact('products','stores','brands','units','storeproducts' , 'seacrh' , 'show'))->render();
+        return response()->json([
+            'data' => $data,
+            'pagination' => (string) $products->links()
+        ]);
+
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -50,25 +74,22 @@ class StoreProductController extends Controller
     public function create()
     {
 
+
         $storeproducts=StoreProduct::all();
         $products=Product::paginate(25);
         $stores=Store::all();
         $brands=Brand::all();
         $units=Unit::all();
         $seacrh = null;
+        $show = 0;
 
         if(auth()->user()->role->name=='admin'){
             $storeproducts=StoreProduct::where('store_id',auth()->user()->store->id)->get();
             $stores=Store::where('user_id',auth()->user()->id)->get();
         }
         // dd($storeproducts);
-        return view('admin.store_product.create',compact('products','stores','brands','units','storeproducts' , 'seacrh'));
+        return view('admin.store_product.create',compact('products','stores','brands','units','storeproducts' , 'seacrh' ,'show'));
     }
-    // public function ajax(Request $request)
-    // {
-
-    //     return view('admin.store_product.show');
-    // }
 
     public function save(Request $request)
     {
@@ -223,9 +244,10 @@ class StoreProductController extends Controller
             $brands = Brand::all();
             $units = Unit::all();
             $storeproducts = StoreProduct::all();
+            $show = 0;
             $products = Product::where('name', 'like', '%' . $seacrh . '%')->paginate(25);
 
-                return view('admin.store_product.create',compact('products','stores','brands','units','storeproducts','seacrh'));
+                return view('admin.store_product.create',compact('products','stores','brands','units','storeproducts','seacrh','show'));
 
 
         }

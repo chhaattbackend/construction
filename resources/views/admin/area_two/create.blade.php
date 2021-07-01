@@ -26,8 +26,11 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Area One</label>
                                     <div class="col-sm-6">
+
                                      <select required class="form-control" name="area_one_id" id="area_one_id">
+                                      
                                         @foreach ($areaones as $item)
+
                                         <option value="{{$item->id}}">{{$item->name}}</option>
                                         @endforeach
                                     </select>

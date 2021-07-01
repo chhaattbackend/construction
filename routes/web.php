@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\StoreProductController;
+use App\StoreProduct;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,7 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('areaones', 'AreaOneController');
     Route::resource('areatwos', 'AreaTwoController');
     Route::resource('areathrees', 'AreaThreeController');
-
+    Route::post('storeproducts/ajax' , 'StoreProductController@ajax');
     Route::resource('cities', 'CityController');
     Route::resource('countries', 'CountryController');
     Route::resource('products', 'ProductController');

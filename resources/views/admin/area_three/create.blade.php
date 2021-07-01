@@ -1,5 +1,9 @@
 @extends('admin.layouts.app')
 @section('content')
+
+
+
+
     <div class="container-fluid">
         <div class="row">
             <!-- left column -->
@@ -38,8 +42,9 @@
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Area two</label>
                                     <div class="col-sm-6">
                                      <select required class="form-control" name="area_two_id" id="area_two_id">
+                                        <option disabled selected value="">Select Sub-Area</option>
                                         @foreach ($areatwos as $item)
-                                        <option value="{{$item->id}}">{{$item->name}} - {{$item->area_one->name}}</option>
+                                        <option value="{{$item->id}}">{{@$item->name}}</option>
                                         @endforeach
                                     </select>
                                     </div>
@@ -91,4 +96,5 @@
         </div>
         <!-- /.row -->
     </div>
+
 @endsection

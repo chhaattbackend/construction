@@ -27,10 +27,11 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Store</label>
                                     <div class="col-sm-6">
-                                        <select required  name="store_id" class="form-control" id="store_id">
-                                            <option value="">Select Stores</option>
+                                        <select required onchange="ajaxcall()" name="store_id" class="form-control"
+                                            id="store_id">
+                                            <option  value="0">Select Store</option>
                                             @forelse ($stores as $item)
-                                                <option selected value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option  value="{{ $item->id }}">{{ $item->name }}</option>
                                             @empty
 
                                             @endforelse
@@ -39,11 +40,11 @@
                                     <div class="card-tools">
 
                                         <div class="input-group input-group-sm" style="width: 335px;">
-                                            <input type="text"  value="{{@$seacrh}}" name="keyword" id="keyword" class="form-control float-right"
-                                                placeholder="Search" style="height:37px;">
+                                            <input type="text" value="{{ @$seacrh }}" name="keyword" id="keyword"
+                                                class="form-control float-right" placeholder="Search" style="height:37px;">
 
                                             <div class="input-group-append">
-                                                <button type="submit"   class="btn btn-default mr-2"><i
+                                                <button type="submit" class="btn btn-default mr-2"><i
                                                         class="fas fa-search"></i></button>
 
                                             </div>
@@ -68,69 +69,9 @@
                                 </div> --}}
 
                                 {{-- ----------------------------------------------------------------------------------------------------------------------------------------- --}}
-
-                                <div class="cards cards1">
-                                    @forelse ($products as $item)
-                                        @php $same=false; @endphp
-                                        @foreach ($storeproducts as $item2)
-                                            @if ($item2->product_id == $item->id)
-                                                @php $same=true; @endphp
-
-
-                                            @endif
-                                        @endforeach
-
-
-
-
-                                        {{-- <option value="{{ $item->id }}">{{ $item->name }}</option> --}}
-                                        <div class="card card1">
-                                            <input type="checkbox" class="form-control" name="product_ids[]"
-                                                value="{{ $item->id }}" /><br>
-                                            @if ($same)
-                                                <center><label for="" class="text-danger">Already added</label></center>
-                                            @endif
-                                            <img class="m-auto" style="height: 150px ; width: 200px ; object-fit: fill; " src="{{ asset('images') }}/{{ $item->image }}" />
-                                            <p class="text-center border-bottom border-3 border-dark pb-2" style="word-wrap:break-line;">
-                                               <strong> {{ $item->name }} </strong>
-                                            </p>
-                                            <p style="word-wrap:break-line;">
-                                                <strong>  B Category: </strong> {{ @$item->b_category->name }}
-                                            </p>
-                                            <p style="word-wrap:break-line;">
-                                      <strong>  C Category: </strong>   {{ @$item->c_category->name }}
-                                            </p>
-
-                                            <label for="">Price: </label><input type="text" class="form-control"
-                                                name="productprices[]" value="{{ $item->price }}" />
-                                            <label for="">Quantity: </label><input type="text" class="form-control"
-                                                name="productquantities[]" value="{{ $item->quantity }}" />
-                                            <label for="">Unit: </label>
-                                            <select required name="unit_ids[]" class="form-control" id="unit_id">
-                                                {{-- <option value="">Select Unit</option> --}}
-                                                @forelse ($units as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @empty
-
-                                                @endforelse
-                                            </select>
-                                        </div>
-
-
-                                    @empty
-
-                                    @endforelse
-
-                                    {{-- <div class="card">
-                            <input type="checkbox" name="checkedproducts[]" value="2" />
-                                            </div>
-
-                                                            <div class="card">
-                      <input type="checkbox" name="checkedproducts[]" value="3" />
-                                                    </div> --}}
-
-                                </div>
-
+                                <div id="table" class="cards cards1">
+                                @include('admin.store_product.ajaxcreate')
+                                    </div>
                                 {{-- ------------------------------------------------------------------------------------------------------------------------------------------ --}}
                                 {{-- <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Brand </label>
@@ -158,6 +99,7 @@
                                         <input required type="number" class="form-control" id="qty" name="qty"
                                             placeholder="Enter Quantity">
                                     </div>
+
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Status</label>
@@ -181,7 +123,7 @@
                                         </select>
                                     </div>
                                 </div> --}}
-                                <div class="align-right paginationstyle">
+                                <div id="pagination" class="align-right paginationstyle">
                                     {{ $products->links() }}
                                 </div>
                                 <div class="form-group row">
@@ -228,9 +170,9 @@
     <style>
         /* Cosmetics styles */
         /* body {
-            margin: .5em;
-            background: lightgrey;
-        } */
+                                                                        margin: .5em;
+                                                                        background: lightgrey;
+                                                                    } */
 
         .cards1 {
             display: flex;
@@ -283,4 +225,44 @@
         }
 
     </style>
+    <script>
+        $(document).on('click', '.pagination a', function(event) {
+            event.preventDefault();
+            var href = $(this).attr('href');
+            // console.log(href);
+            var page = $(this).attr('href').split('page=')[1];
+            var url = $(this).attr('href').split('?')[1];
+            var fullurl = "create?" + url;
+
+            $(this).html('<i class="fa fa-circle-notch fa-spin"></i>')
+            window.history.pushState('new', 'Title', fullurl);
+            ajaxcall(page)
+            // getMoreUsers(page);
+        });
+
+        function ajaxcall(page) {
+            var store_id = $('#store_id').find(":selected").val();
+
+            $.ajax({
+                type: "POST",
+                url: "ajax" + "?page=" + page,
+                dataType: 'JSON',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    'store_id': store_id,
+
+                },
+                success: function(responese) {
+
+
+                    // console.log(responese.pagination)
+                    $('#table').html(responese.data);
+                    $('#pagination').html(responese.pagination);
+
+                },
+            })
+        }
+    </script>
 @endsection
