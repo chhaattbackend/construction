@@ -19,7 +19,7 @@
             @if ($same)
                 <center><label for="" class="text-danger">Already added</label></center>
             @endif
-            <img class="m-auto" style="height: 150px ; width: 200px ; object-fit: fill; "
+            <img class="m-auto" style="height: 150px ; width: 200px ; object-fit: contain; "
                 src="{{ asset('images') }}/{{ $item->image }}" />
             <p class="text-center border-bottom border-3 border-dark pb-2"
                 style="word-wrap:break-line;">

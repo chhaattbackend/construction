@@ -26,7 +26,7 @@
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Store</label>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-3">
                                         <select required onchange="ajaxcall()" name="store_id" class="form-control"
                                             id="store_id">
                                             <option  value="0">Select Store</option>
@@ -50,107 +50,43 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class=" mx-3 my-1 d-flex ">
+                                        <label style="width: 30%">B Category:</label>
+                                        <select style="width: 70%" class="form-control " onchange="ajaxcall()" name="b_category_id" id="b_category_id">
+                                            <option @if (request()->get('b_category_id') == null) selected @endif value="">Select
+                                            </option>
+                                            @foreach ($bcategories as $item)
+                                                <option @if (request()->get('b_category_id') == $item->id) selected @endif value="{{ $item->id }}">
+                                                    {{ $item->name }}</option>
+                                            @endforeach
 
-                                </div>
-
-
-                                {{-- <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Product ID</label>
-                                    <div class="col-sm-6">
-                                        <select required name="product_id" class="form-control" id="product_id">
-                                            <option value="">Select Products</option>
-                                            @forelse ($products as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @empty
-
-                                            @endforelse
                                         </select>
                                     </div>
-                                </div> --}}
 
-                                {{-- ----------------------------------------------------------------------------------------------------------------------------------------- --}}
+                                </div>
                                 <div id="table" class="cards cards1">
                                 @include('admin.store_product.ajaxcreate')
                                     </div>
-                                {{-- ------------------------------------------------------------------------------------------------------------------------------------------ --}}
-                                {{-- <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Brand </label>
-                                    <div class="col-sm-6">
-                                        <select required name="brand_id" class="form-control" id="brand_id">
-                                            <option value="">Select Brands</option>
-                                            @forelse ($brands as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @empty
 
-                                            @endforelse
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Store Price</label>
-                                    <div class="col-sm-6">
-                                        <input required type="number" class="form-control" id="store_price"
-                                            name="store_price" placeholder="Enter Store Price">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Quantity</label>
-                                    <div class="col-sm-6">
-                                        <input required type="number" class="form-control" id="qty" name="qty"
-                                            placeholder="Enter Quantity">
-                                    </div>
-
-                                </div>
-                                <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Status</label>
-                                    <div class="col-sm-6">
-                                        <select required name="status" class="form-control" id="status">
-                                            <option value="1">Active</option>
-                                            <option value="0">Inactive</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Unit ID</label>
-                                    <div class="col-sm-6">
-                                        <select required name="unit_id" class="form-control" id="unit_id">
-                                            <option value="">Select Category</option>
-                                            @forelse ($units as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @empty
-
-                                            @endforelse
-                                        </select>
-                                    </div>
-                                </div> --}}
                                 <div id="pagination" class="align-right paginationstyle">
                                     {{ $products->links() }}
                                 </div>
                                 <div class="form-group row">
                                     <div class="offset-sm-5 col-sm-12">
-                                        {{-- <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                            <label class="form-check-label" for="exampleCheck2">Remember me</label>
-                                        </div> --}}
+
                                         <button type="submit" class="btn btn-info w-25">Submit</button>
                                     </div>
                                 </div>
                             </div>
-                            <!-- /.card-body -->
-                            {{-- <div class="card-footer">
-                                <button type="submit" class="btn btn-default float-right">Cancel</button>
-                            </div>
-                            <!-- /.card-footer --> --}}
+
                         </form>
                     </div>
                 </div>
-                <!-- /.card -->
+
             </div>
-            <!--/.col (left) -->
-            <!-- right column -->
-            <!--/.col (right) -->
+
         </div>
-        <!-- /.row -->
+
     </div>
 
 
@@ -168,11 +104,7 @@
     </script>
 
     <style>
-        /* Cosmetics styles */
-        /* body {
-                                                                        margin: .5em;
-                                                                        background: lightgrey;
-                                                                    } */
+
 
         .cards1 {
             display: flex;
@@ -242,7 +174,8 @@
 
         function ajaxcall(page) {
             var store_id = $('#store_id').find(":selected").val();
-
+            var b_category_id = $('#b_category_id').find(":selected").val();
+            console.log(b_category_id);
             $.ajax({
                 type: "POST",
                 url: "ajax" + "?page=" + page,
@@ -252,7 +185,7 @@
                 },
                 data: {
                     'store_id': store_id,
-
+                    'b_category_id': b_category_id,
                 },
                 success: function(responese) {
 
