@@ -1,5 +1,19 @@
 @extends('admin.layouts.app')
 @section('content')
+    <style>
+        .centerSelect {
+            width: 100%;
+        }
+
+        .centerSelect .left {
+            width: 16%;
+        }
+
+        .centerSelect .right {
+            width: 84%;
+        }
+
+    </style>
     <div class="container-fluid">
         <div class="row">
             <!-- left column -->
@@ -24,49 +38,73 @@
                             enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
+
                                 <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Store</label>
-                                    <div class="col-sm-3">
-                                        <select required onchange="ajaxcall()" name="store_id" class="form-control"
-                                            id="store_id">
-                                            <option  value="0">Select Store</option>
-                                            @forelse ($stores as $item)
-                                                <option  value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @empty
+                                    <div class="col-10">
+                                        <div class="row">
+                                            <div class="col-4 d-flex">
+                                                <div>
+                                                    <label for="inputPassword3" class="col-form-label">Store</label>
+                                                </div>
+                                                <div class="w-100 ml-2">
+                                                    <select required onchange="ajaxcall()" name="store_id"
+                                                        class="form-control" id="store_id">
+                                                        <option value="0">Select Store</option>
+                                                        @forelse ($stores as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                        @empty
 
-                                            @endforelse
-                                        </select>
-                                    </div>
-                                    <div class="card-tools">
+                                                        @endforelse
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="d-flex align-items-center h-100 centerSelect">
+                                                    <div class="left">
+                                                        <label class="mb-0">B Category:</label>
+                                                    </div>
+                                                    <div class="ml-3 right">
+                                                        <select class="form-control" onchange="ajaxcall()"
+                                                            name="b_category_id" id="b_category_id">
+                                                            <option @if (request()->get('b_category_id') == null) selected @endif value="">Select
+                                                            </option>
+                                                            @foreach ($bcategories as $item)
+                                                                <option @if (request()->get('b_category_id') == $item->id) selected @endif
+                                                                    value="{{ $item->id }}">
+                                                                    {{ $item->name }}</option>
+                                                            @endforeach
 
-                                        <div class="input-group input-group-sm" style="width: 335px;">
-                                            <input type="text" value="{{ @$seacrh }}" name="keyword" id="keyword"
-                                                class="form-control float-right" placeholder="Search" style="height:37px;">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                            <div class="input-group-append">
-                                                <button type="submit" class="btn btn-default mr-2"><i
-                                                        class="fas fa-search"></i></button>
+                                            <div class="col-2">
+                                                <div class="card-tools ">
 
+                                                    <div class="input-group">
+                                                        <input type="text" value="{{ @$seacrh }}" name="keyword"
+                                                            id="keyword" class="form-control float-right"
+                                                            placeholder="Search">
+
+                                                        <div class="input-group-append h-100">
+                                                            <button type="submit" class="btn btn-default mr-2"><i
+                                                                    class="fas fa-search"></i></button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class=" mx-3 my-1 d-flex ">
-                                        <label style="width: 30%">B Category:</label>
-                                        <select style="width: 70%" class="form-control " onchange="ajaxcall()" name="b_category_id" id="b_category_id">
-                                            <option @if (request()->get('b_category_id') == null) selected @endif value="">Select
-                                            </option>
-                                            @foreach ($bcategories as $item)
-                                                <option @if (request()->get('b_category_id') == $item->id) selected @endif value="{{ $item->id }}">
-                                                    {{ $item->name }}</option>
-                                            @endforeach
 
-                                        </select>
-                                    </div>
+
 
                                 </div>
+
                                 <div id="table" class="cards cards1">
-                                @include('admin.store_product.ajaxcreate')
-                                    </div>
+                                    @include('admin.store_product.ajaxcreate')
+                                </div>
 
                                 <div id="pagination" class="align-right paginationstyle">
                                     {{ $products->links() }}
@@ -80,6 +118,7 @@
                             </div>
 
                         </form>
+
                     </div>
                 </div>
 
@@ -104,8 +143,6 @@
     </script>
 
     <style>
-
-
         .cards1 {
             display: flex;
 
