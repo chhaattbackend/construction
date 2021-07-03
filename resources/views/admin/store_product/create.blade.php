@@ -10,9 +10,18 @@
         }
 
         .centerSelect .right {
-            width: 84%;
+            /* width: 84%; */
         }
 
+        .firstInp{
+            width: 100%;
+        }
+        .firstInp .first{
+            width: 12%;
+        }
+        .firstInp .second{
+            width: 88%;
+        }
     </style>
     <div class="container-fluid">
         <div class="row">
@@ -40,13 +49,13 @@
                             <div class="card-body">
 
                                 <div class="form-group row">
-                                    <div class="col-10">
+                                    <div class="col-12">
                                         <div class="row">
-                                            <div class="col-4 d-flex">
-                                                <div>
+                                            <div class="col-4 d-flex firstInp w-100">
+                                                <div class="first">
                                                     <label for="inputPassword3" class="col-form-label">Store</label>
                                                 </div>
-                                                <div class="w-100 ml-2">
+                                                <div class="second ml-2">
                                                     <select required onchange="ajaxcall()" name="store_id"
                                                         class="form-control" id="store_id">
                                                         <option value="0">Select Store</option>
@@ -58,12 +67,12 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-6">
-                                                <div class="d-flex align-items-center h-100 centerSelect">
+                                            <div class="col-6 w-100">
+                                                <div class="d-flex align-items-center h-100 w-100 centerSelect">
                                                     <div class="left">
                                                         <label class="mb-0">B Category:</label>
                                                     </div>
-                                                    <div class="ml-3 right">
+                                                    <div class="ml-3 right w-100">
                                                         <select class="form-control" onchange="ajaxcall()"
                                                             name="b_category_id" id="b_category_id">
                                                             <option @if (request()->get('b_category_id') == null) selected @endif value="">Select
@@ -110,7 +119,7 @@
                                     {{ $products->links() }}
                                 </div>
                                 <div class="form-group row">
-                                    <div class="offset-sm-5 col-sm-12">
+                                    <div class="col-sm-12 text-center">
 
                                         <button type="submit" class="btn btn-info w-25">Submit</button>
                                     </div>

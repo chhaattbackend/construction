@@ -67,7 +67,9 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Image</label>
                                     <div class="col-sm-6">
-                                        <input type="file" accept="image/*" class="form-control" id="latitude"
+                                        <img class="form-img"
+                                                            src="https://chhatt.s3.ap-south-1.amazonaws.com/construction/service/{{$service->image}}">
+                                        <input type="file" accept="image/*"  class="form-control" id="latitude"
                                             name="latitude" placeholder="Enter Name">
                                     </div>
                                 </div>
