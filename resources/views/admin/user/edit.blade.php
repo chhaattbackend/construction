@@ -19,27 +19,47 @@
                     <!-- /.card-header -->
                     <!-- form start -->
                     <div class="col-md-8">
-                        <form action="{{ route('acategories.update', $a_category->id) }}" method="POST"
+                        <form action="{{ route('users.update', $user->id) }}" method="POST"
                             class="form-horizontal" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-6">
                                         <input type="text" class="form-control" id="name" name="name"
-                                            placeholder="Enter Name" value="{{ $a_category->name }}">
+                                            placeholder="Enter Name" value="{{ $user->name }}">
                                     </div>
                                 </div>
-                                {{--
                                 <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-                                    <div class="col-sm-8">
-                                        <input type="password" class="form-control" id="inputPassword3"
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-6">
+                                        <input required type="text" class="form-control" value="{{$user->email}}" id="email" name="email"
+                                            placeholder="Enter Email">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label  class="col-sm-2 col-form-label">Password</label>
+                                    <div class="col-sm-6">
+                                        <input type="password" name="password"  class="form-control"
                                             placeholder="Password">
                                     </div>
                                 </div>
-                                --}}
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Roles</label>
+                                    <div class="col-sm-3">
+                                        <select required class="form-control" name="role_id" id="role_id">
+                                            @foreach ($roles as $item)
+                                                <option value="{{ $item->id }}">
+                                                    {{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                </div>
+
                                 <div class="form-group row">
                                     <div class="offset-sm-2 col-sm-10">
                                         {{--

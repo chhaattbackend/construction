@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -66,8 +68,11 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.user.create');
+    { if (auth()->user()->email == 'chhattofficial@chhatt.com'){
+        $roles = Role::all();
+        return view('admin.user.create',compact('roles'));
+    }
+    return redirect()->back();
     }
 
     /**
@@ -77,8 +82,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   if (auth()->user()->role->name == 'super admin') {
-        User::create($request->all());
+    {   if (auth()->user()->email == 'chhattofficial@chhatt.com') {
+        User::create($request->except('password')+['password' => Hash::make($request->password)]);
     }
         return redirect()->route('users.index');
     }
@@ -92,18 +97,6 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('admin.user.show', compact('user'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $user = User::find($id);
         if($user->status==0){
         $user->update([
             'status'=>1
@@ -115,6 +108,23 @@ class UserController extends Controller
             ]);
         }
         return redirect()->back();
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {   if (auth()->user()->email == 'chhattofficial@chhatt.com') {
+        $user = User::find($id);
+        $roles = Role::all();
+        return view('admin.user.edit', compact('user','roles'));
+    }
+    redirect()->route('users.index');
+
     }
 
     /**
@@ -125,9 +135,11 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   if (auth()->user()->role->name == 'super admin') {
+    {   if (auth()->user()->email == 'chhattofficial@chhatt.com') {
+
         $user = User::find($id);
-        $user->update($request->all());
+       
+        $user->update($request->except('password')+['password' => Hash::make($request->password)]);
     }
         return redirect()->route('users.index');
     }
