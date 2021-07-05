@@ -84,6 +84,7 @@
                                 @forelse ($products as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
+                                        @role('super admin')
                                         <td>@can('edit')
                                             <a href="{{ route('products.edit', $item->id) }}" class="float-left"><i
                                                     class="fas fa-edit"></i></a>
@@ -95,6 +96,7 @@
                                                         @endcan
 
                                     </td>
+                                    @endrole
                                         <td>{{ optional($item->a_category)->name }}</td>
                                         <td>{{ optional($item->b_category)->name }}</td>
                                         <td>{{ optional($item->c_category)->name }}</td>
