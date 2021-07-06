@@ -61,9 +61,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Descrption</label>
-                                    <div class="col-sm-6" row="3">
-                                        <textarea required class="form-control" name="desc" rows="6"></textarea>
+                                    <label for="inputEmail3" class="col-sm-2 ">Descrption</label>
+                                    <div class="col-sm-6 " row="3">
+                                        <textarea class ="w-100" required  name="desc" rows="6"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
