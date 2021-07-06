@@ -66,7 +66,7 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Descrption</label>
                                     <div class="col-sm-6" row="3">
-                                        <textarea required class="form-control" name="desc"
+                                        <textarea required class="w-100" name="desc"
                                             rows="6">{{ $productattribute->desc }}</textarea>
                                     </div>
                                 </div>

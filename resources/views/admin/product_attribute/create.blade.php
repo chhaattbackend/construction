@@ -41,7 +41,7 @@
                                     <div class="col-sm-6">
                                         <select required name="product_id" class="form-control" id="product_id">
                                             @forelse ($products as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option  value="{{ $item->id }}">{{ $item->name }}</option>
                                             @empty
 
                                             @endforelse
@@ -75,6 +75,7 @@
                                         </div>
                                         --}}
                                         <button type="submit" class="btn btn-info">Submit</button>
+                                        <a href="{{route('productattributes.index')}}"><button type="button" class="btn btn-danger">Done</button></a>
                                     </div>
                                 </div>
                             </div>

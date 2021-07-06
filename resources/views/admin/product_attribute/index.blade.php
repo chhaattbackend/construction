@@ -57,7 +57,7 @@
                                     {{-- <th>StoreID</th> --}}
                                     <th>Product</th>
                                     <th>Attribute</th>
-                                    <th>Value</th>
+                                    <th>Desc</th>
                                     @role('super admin')
                                     <th>Action</th>
                                 @endrole
@@ -72,7 +72,10 @@
                                         <td>{{ $item->product->name }}</td>
                                         <td>{{ $item->attribute->name }}</td>
                                         <td>{{ $item->desc }}</td>
-                                        <td>    @can('edit')
+                                        <td>
+                                            <a href="{{ route('attribute.list', $item->id) }}" class="float-left mx-2"><i
+                                                class="fas fa-eye"></i></a>
+                                            @can('edit')
                                             <a href="{{ route('productattributes.edit', $item->id) }}" class="float-left"><i
                                                     class="fas fa-edit"></i></a>@endcan
                                                     @can('delete')

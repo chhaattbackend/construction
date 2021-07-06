@@ -92,6 +92,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('inner/{id}', 'StoreProductController@inner')->name('inner.personal');
     Route::post('save', 'StoreProductController@save')->name('inner.save');
     // Route::post('inner/asdad/ajax', 'StoreProductController@ajax')->name('ajax');
+
+/////////////////////////////////////////////////////////
+Route::get('/attributelists/{id}','ProductAttributeController@attributelist')->name('attribute.list');
+Route::post('/storeattributelists/{product:id}','ProductAttributeController@attributelistStore')->name('attribute.list.store');
+Route::get('/attributeassign/{product:id}','ProductAttributeController@attributeAssign')->name('attribute.assign');
+/////////////////////////////////////////////////////////
 });
 Auth::routes();
 

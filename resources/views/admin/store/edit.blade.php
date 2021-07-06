@@ -60,7 +60,7 @@
                                             @forelse ($areathree as $item)
                                             <option disabled selected value="">Select Area</option>
                                                 <option @if ($item->id == $store->area_three_id) selected @endif value="{{ $item->id }}">
-                                                    {{ $item->name }} - {{@$item->areaTwo->name}}</option>
+                                                    {{ $item->name }} - {{@$item->areaTwo->name}} - {{@$item->areaOne->name}}</option>
                                             @empty
 
                                             @endforelse

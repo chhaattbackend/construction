@@ -10,6 +10,7 @@ use App\BCategory;
 use App\ProductAttribute;
 use App\Unit;
 use Illuminate\Http\Request;
+use SebastianBergmann\Environment\Console;
 
 class ProductAttributeController extends Controller
 {
@@ -22,34 +23,32 @@ class ProductAttributeController extends Controller
     {
         if (!$request->ajax()) {
 
-        if($request->page!=null && $request->keyword!=null){
-            $keyword=$request->keyword;
-            $productattributes=ProductAttribute::where('product','LIKE',"%{$request->keyword}%")
-            ->orWhere('attribute','LIKE',"%{$request->keyword}%")
-            ->orWhere('desc','LIKE',"%{$request->keyword}%")
-            ->paginate(25);
-            $productattributes->withPath('?keyword=' . $request->keyword);
-            return view('admin.product_attribute.index',compact('productattributes','keyword'));
+            if ($request->page != null && $request->keyword != null) {
+                $keyword = $request->keyword;
+                $productattributes = ProductAttribute::where('product', 'LIKE', "%{$request->keyword}%")
+                    ->orWhere('attribute', 'LIKE', "%{$request->keyword}%")
+                    ->orWhere('desc', 'LIKE', "%{$request->keyword}%")
+                    ->paginate(25);
+                $productattributes->withPath('?keyword=' . $request->keyword);
+                return view('admin.product_attribute.index', compact('productattributes', 'keyword'));
+            }
         }
-    }
-        if ($request->ajax()){
-        if($request->keyword!=null){
-            $keyword=$request->keyword;
-            $productattributes=ProductAttribute::where('product','LIKE',"%{$request->keyword}%")
-            ->orWhere('attribute','LIKE',"%{$request->keyword}%")
-            ->orWhere('desc','LIKE',"%{$request->keyword}%")
-            ->paginate(25);
-            $productattributes->withPath('?keyword=' . $request->keyword);
+        if ($request->ajax()) {
+            if ($request->keyword != null) {
+                $keyword = $request->keyword;
+                $productattributes = ProductAttribute::where('product', 'LIKE', "%{$request->keyword}%")
+                    ->orWhere('attribute', 'LIKE', "%{$request->keyword}%")
+                    ->orWhere('desc', 'LIKE', "%{$request->keyword}%")
+                    ->paginate(25);
+                $productattributes->withPath('?keyword=' . $request->keyword);
+            } else {
+                $keyword = '';
+                $productattributes = ProductAttribute::paginate(25);
+            }
+            return view('admin.product_attribute.search', compact('productattributes', 'keyword'));
         }
-        else{
-            $keyword = '';
-            $productattributes=ProductAttribute::paginate(25);
-        }
-        return view('admin.product_attribute.search',compact('productattributes','keyword'));
-    }
-        $productattributes=ProductAttribute::paginate(25);
-        return view('admin.product_attribute.index',compact('productattributes'));
-
+        $productattributes = ProductAttribute::paginate(25);
+        return view('admin.product_attribute.index', compact('productattributes'));
     }
 
     /**
@@ -59,10 +58,11 @@ class ProductAttributeController extends Controller
      */
     public function create()
     {
-        $stores=Store::all();
-        $products=Product::all();
-        $attributes=Attribute::all();
-        return view('admin.product_attribute.create',compact('stores','products','attributes'));
+        $stores = Store::all();
+        $products = Product::all();
+        $attributes = Attribute::all();
+
+        return view('admin.product_attribute.create', compact('stores', 'products', 'attributes'));
     }
 
     /**
@@ -74,9 +74,9 @@ class ProductAttributeController extends Controller
     public function store(Request $request)
     {
         if (auth()->user()->role->name == 'super admin') {
-        ProductAttribute::create($request->all());
+            ProductAttribute::create($request->all());
         }
-        return redirect()->route('productattributes.index');
+        return redirect()->route('productattributes.create');
     }
 
     /**
@@ -87,8 +87,8 @@ class ProductAttributeController extends Controller
      */
     public function show($id)
     {
-        $productattribute=ProductAttribute::find($id);
-        return view('admin.product_attribute.show',compact('productattribute'));
+        $productattribute = ProductAttribute::find($id);
+        return view('admin.product_attribute.show', compact('productattribute'));
     }
 
     /**
@@ -99,14 +99,14 @@ class ProductAttributeController extends Controller
      */
     public function edit($id)
     {
-        $productattribute=ProductAttribute::find($id);
-        $acategories=ACategory::all();
-        $bcategories=BCategory::all();
-        $units=Unit::all();
-        $stores=Store::all();
-        $products= Product::all();
-        $attributes =Attribute::all();
-        return view('admin.product_attribute.edit',compact('productattribute','acategories','attributes','products','bcategories','units','stores'));
+        $productattribute = ProductAttribute::find($id);
+        $acategories = ACategory::all();
+        $bcategories = BCategory::all();
+        $units = Unit::all();
+        $stores = Store::all();
+        $products = Product::all();
+        $attributes = Attribute::all();
+        return view('admin.product_attribute.edit', compact('productattribute', 'acategories', 'attributes', 'products', 'bcategories', 'units', 'stores'));
     }
 
     /**
@@ -117,10 +117,11 @@ class ProductAttributeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   if (auth()->user()->role->name == 'super admin') {
-        $productattribute=ProductAttribute::find($id);
-        $productattribute->update($request->all());
-    }
+    {
+        if (auth()->user()->role->name == 'super admin') {
+            $productattribute = ProductAttribute::find($id);
+            $productattribute->update($request->all());
+        }
         return redirect()->route('productattributes.index');
     }
 
@@ -131,10 +132,56 @@ class ProductAttributeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
-        $item=ProductAttribute::find($id);
-        $item->delete();
-    }
+    {
+        if (auth()->user()->email == 'chhattofficial@chhatt.com') {
+            $item = ProductAttribute::find($id);
+            $item->delete();
+        }
         return redirect()->back();
     }
+    public function attributelist($id)
+    {
+
+        $productattribute = ProductAttribute::find($id);
+        $stores = Store::all();
+        // dd($productattribute->product_id);
+        $products = Product::all();
+        $product = ProductAttribute::where('product_id', $productattribute->product_id)->get();
+        $attributes = Attribute::all();
+        return view('admin.product_attribute.show', compact('productattribute', 'products', 'stores', 'product', 'attributes'));
+    }
+
+
+    public function attributelistStore(Product $product, Request $request)
+    {
+        if ($request->product_id != $request->old_product_id) {
+            foreach ($request->attribute_id as $key => $item) {
+
+                error_log('Some message here.');
+                $des = $request->desc[$key];
+                ProductAttribute::create([
+                    'product_id' => $request->product_id,
+                    'attribute_id' => $item,
+                    'desc' => $des,
+                ]);
+            }
+
+            return redirect()->route('productattributes.index');
+        }
+        else{
+
+        foreach ($request->attribute_id as $key => $item) {
+
+            $des = $request->desc[$key];
+            $old_id = $request->old_id[$key];
+            $productattribute = ProductAttribute::where('product_id', $product->id)->where('attribute_id', $old_id)->first();
+            $productattribute->update([
+                'desc' => $des,
+                'attribute_id' => $item
+            ]);
+            return redirect()->route('productattributes.index');
+        }
+    }
+    }
+
 }

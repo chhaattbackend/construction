@@ -32,7 +32,7 @@
                                 value="{{ $item->id }}" /><br>
                             <input hidden name="storeid" type="text" value="{{ $storeid }}">
 
-                            <img style="height: 150px" src="{{ asset('images') }}/{{ $item->image }}" />
+                            <img style="height: 150px"  src="https://chhatt.s3.ap-south-1.amazonaws.com/construction/product/{{ $item->image }}" />
 
 
                             <p style="word-wrap:break-line;">
