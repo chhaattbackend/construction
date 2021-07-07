@@ -31,6 +31,16 @@
                                             placeholder="Enter Name" value="{{ $brand->name }}">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
+                                    <div class="col-sm-6">
+                                        <img class="form-img"
+                                                            src="https://chhatt.s3.ap-south-1.amazonaws.com/construction/product/{{$brand->image}}">
+                                        <input  type="file"  class="form-control"
+                                            name="image" placeholder="Insert Image ">
+                                    </div>
+
+                                </div>
                                 {{--
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\GlobalClass;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
@@ -12,6 +13,11 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->globalclass = new GlobalClass();
+    }
     public function index(Request $request)
     {
         if(!$request->keyword){
@@ -48,9 +54,16 @@ class BrandController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   if (auth()->user()->role->name == 'super admin') {
-        Brand::create($request->all());
-    }
+    {
+        if (auth()->user()->role->name == 'super admin') {
+            if ($request->file('image')) {
+
+                $filename = $this->globalclass->storeS3($request->file('image'), 'construction/brand');
+                Brand::create($request->except('image') + ["image" => $filename]);
+            } else {
+                Brand::create($request->except('image'));
+            }
+        }
         return redirect()->route('brands.index');
     }
 
@@ -86,10 +99,14 @@ class BrandController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   if (auth()->user()->role->name == 'super admin') {
-        $brand = Brand::find($id);
-        $brand->update($request->all());
-    }
+    {   $brand = Brand::find($id);
+        if ($request->file('image')) {
+
+            $filename = $this->globalclass->storeS3($request->file('image'), 'construction/brand');
+            $brand->update($request->except('image') + ["image" => $filename]);
+        } else {
+            $brand->update($request->except('image'));
+        }
         return redirect()->route('brands.index');
     }
 
