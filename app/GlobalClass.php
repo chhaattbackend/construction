@@ -9,9 +9,52 @@ use Intervention\Image\Facades\Image;
 
 class GlobalClass extends Model
 {
+    public $columnName;
+    public $search;
 
+    public function searchRelation($variable, $relationName, $columnName, $search)
+    {
+        $this->columnName = $columnName;
+        $variable = $variable->whereHas($relationName, function ($query) use ($search) {
+            $query->where($this->columnName, $search);
+        });
 
+        return $variable;
+    }
 
+    public function searchRelationIn($variable, $relationName, $columnName, $search)
+    {
+        $this->columnName = $columnName;
+        $variable = $variable->whereHas($relationName, function ($query) use ($search) {
+            $query->whereIn($this->columnName, $search);
+        });
+
+        return $variable;
+    }
+
+    public function searchRelationLike($variable, $relationName, $columnName, $search)
+    {
+        $this->columnName = $columnName;
+        $this->search = $search;
+
+        $variable = $variable->whereHas($relationName, function ($query) use ($search) {
+            $query->where($this->columnName, 'like', '%' . $this->search . '%');
+        });
+
+        return $variable;
+    }
+
+    public function searchRelationLike2($variable, $relationName, $columnName, $search)
+    {
+        $this->columnName = $columnName;
+        $this->search = $search;
+
+        $variable = $variable->orWhereHas($relationName, function ($query) use ($search) {
+            $query->where($this->columnName, 'like', '%' . $this->search . '%');
+        });
+
+        return $variable;
+    }
 
     public function storeS3($file, $path)
     {

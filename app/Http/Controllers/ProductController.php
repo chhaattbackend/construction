@@ -29,32 +29,24 @@ class ProductController extends Controller
     }
     public function index(Request $request)
     {
-        if (!$request->ajax()) {
-            if ($request->page != null && $request->keyword != null) {
-                $keyword = $request->keyword;
-                $products = Product::where('name', 'LIKE', "%{$request->keyword}%")
-                    ->orWhere('price', 'LIKE', "%{$request->keyword}%")
-                    ->paginate(25);
-                $products->withPath('?keyword=' . $request->keyword);
-                return view('admin.product.index', compact('products', 'keyword'));
-            }
-        }
-        if ($request->ajax()) {
 
-            if ($request->keyword != null) {
-                $keyword = $request->keyword;
-                $products = Product::where('name', 'LIKE', "%{$request->keyword}%")
-                    ->orWhere('price', 'LIKE', "%{$request->keyword}%")
-                    ->paginate(25);
-                $products->withPath('?keyword=' . $request->keyword);
-            } else {
-                $keyword = '';
-                $products = Product::paginate(25);
-            }
+        if (!$request->keyword) {
 
-            return view('admin.product.search', compact('products', 'keyword'));
-        }
-        $products = Product::paginate(25);
+            $products = Product::paginate(25);
+    }
+    else {
+
+
+        $seacrh = $request->keyword;
+                $products = Product::where('name', 'like', '%' . $seacrh . '%')
+                ->orWhere('id',$seacrh)->paginate(25)->setPath('');
+
+
+                $pagination = $products->appends(array(
+                    'keyword' => $request->keyword
+                ));
+
+            }
 
         return view('admin.product.index', compact('products'));
     }
@@ -85,6 +77,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
         if (auth()->user()->role->name == 'super admin') {
             if ($request->file('image')) {
 
@@ -139,19 +134,32 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+        if ($request->bool12 == 1) {
+            if ($request->file('image')) {
 
+                $filename = $this->globalclass->storeS3($request->file('image'), 'construction/product');
+                Product::create($request->except('image') + ["image" => $filename]);
+            } else {
+                Product::create($request->except('image'));
+            }
+        }
+        if ($request->bool12 == 0) {
+            $product = Product::find($id);
+            if ($request->file('image')) {
 
-        $product = Product::find($id);
-        if ($request->file('image')) {
+                $filename = $this->globalclass->storeS3($request->file('image'), 'construction/product');
+                $product->update($request->except('image') + ["image" => $filename]);
+            } else {
+                $product->update($request->except('image'));
+            }
 
-            $filename = $this->globalclass->storeS3($request->file('image'), 'construction/product');
-            $product->update($request->except('image') + ["image" => $filename]);
-        } else {
-            $product->update($request->except('image'));
         }
 
         return redirect()->away($request->previous_url);
+
+
+
+
     }
 
     /**
@@ -167,4 +175,32 @@ class ProductController extends Controller
     }
         return redirect()->back();
     }
-}
+    public function list(Request $request){
+            dd($request->all);
+        // $product = Product::find();
+
+        // Product::create([
+        //     'a_category_id' => $product->a_category_id,
+        //     'b_category_id' => $product->b_category_id,
+        //     'c_category_id' => $product->c_category_id,
+        //     'd_category_id' => $product->d_category_id,
+        //     'name' => $request->name,
+        //     'brand_id' => $request->brand_id,
+        //     'quantity' => $request->quantity,
+
+
+
+
+
+        // ]);
+        if ($request->file('image')) {
+
+            $filename = $this->globalclass->storeS3($request->file('image'), 'construction/product');
+            Product::create($request->except('image') + ["image" => $filename]);
+        } else {
+            Product::create($request->except('image'));
+        }
+    }
+
+    }
+

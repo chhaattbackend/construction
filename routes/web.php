@@ -99,6 +99,7 @@ Route::post('/storeattributelists/{product:id}','ProductAttributeController@attr
 Route::get('/attributeassign/{product:id}','ProductAttributeController@attributeAssign')->name('attribute.assign');
 /////////////////////////////////////////////////////////
 });
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

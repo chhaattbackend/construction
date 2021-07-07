@@ -19,7 +19,7 @@
                     <!-- /.card-header -->
                     <!-- form start -->
                     <div class="col-md-8">
-                        <form action="{{ route('products.update', $product->id) }}" method="POST" class="form-horizontal"
+                        <form action="{{ route('products.update',[ $product->id , 'bool12' =>0]) }}" method="POST" class="form-horizontal"
                             enctype="multipart/form-data">
                             @csrf
                             @method('put')
@@ -235,17 +235,22 @@
                                         </div>
                                         --}}
                                         <button type="submit" class="btn btn-info">Submit</button>
+
+                                        <form action="{{ route('products.update',[ $product->id , 'bool12' =>1]) }}" method="POST"class="form-horizontal"
+                                        enctype="multipart/form-data">
+                                            @csrf <button class="btn btn-danger pt-0">ASSIGN</button> </form>
                                     </div>
 
                                 </div>
                             </div>
                             <!-- /.card-body -->
                             {{--
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-default float-right">Cancel</button>
-                            </div>
-                            <!-- /.card-footer --> --}}
-                        </form>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-default float-right">Cancel</button>
+                                </div>
+                                <!-- /.card-footer --> --}}
+                            </form>
+
                     </div>
                 </div>
                 <!-- /.card -->

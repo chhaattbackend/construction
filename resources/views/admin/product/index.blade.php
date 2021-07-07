@@ -38,12 +38,13 @@
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 335px;">
-                                <input type="text" name="table_search" id="table_search" class="form-control float-right"
+                               <form action="{{ route('products.index') }}" style="display: flex;">
+                                <input type="text" name="keyword" id="keyword" class="form-control float-right"
                                     placeholder="Search" style="height:37px;">
-
                                 <div class="input-group-append">
-                                    <button type="button" onclick="search()" class="btn btn-default mr-2"><i
+                                    <button type="submit"  class="btn btn-default mr-2"><i
                                             class="fas fa-search"></i></button>
+                                        </form>
                                             @can('create')
                                     <a href="{{ route('products.create') }}"><button class="btn btn-primary">Add
                                             Product</button></a>

@@ -43,9 +43,9 @@
                                                 class="fas fa-search"></i></button>
                                             </form>
 
-                                    <a href="{{ route('attributes.create') }}"><button class="btn btn-primary">Add
-                                            Attributes</button></a>
-                                </div>
+
+                                        </div>
+                                        <a href="{{ route('attributes.create') }}"><button class="btn btn-primary">Add </button></a>
                             </div>
                         </div>
                     </div>

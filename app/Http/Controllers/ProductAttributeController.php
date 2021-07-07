@@ -157,7 +157,7 @@ class ProductAttributeController extends Controller
         if ($request->product_id != $request->old_product_id) {
             foreach ($request->attribute_id as $key => $item) {
 
-                error_log('Some message here.');
+                
                 $des = $request->desc[$key];
                 ProductAttribute::create([
                     'product_id' => $request->product_id,
