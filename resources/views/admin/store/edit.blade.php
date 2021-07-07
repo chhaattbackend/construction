@@ -55,10 +55,10 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Area</label>
                                     <div class="col-sm-6">
-                                        <select required name="area_three" class="form-control" id="area_three_id">
+                                        <select required name="area_three_id" class="form-control" id="area_three_id">
                                             <option value="">Select Category</option>
                                             @forelse ($areathree as $item)
-                                            <option disabled selected value="">Select Area</option>
+                                            <option disabled  value="">Select Area</option>
                                                 <option @if ($item->id == $store->area_three_id) selected @endif value="{{ $item->id }}">
                                                     {{ $item->name }} - {{@$item->areaTwo->name}} - {{@$item->areaOne->name}}</option>
                                             @empty

@@ -96,13 +96,13 @@ class StoreController extends Controller
             $filename = $this->globalclass->storeS3($request->file('image'), 'construction/store');
             $area = AreaThree::where('id',$request->area_three_id)->get();
 
-            Store::create($request->except('image','area_two_id','area_one_id') + ['image' => $filename ,'area_one_id' => $area[0]->area_one_id , 'area_two_id' => $area[0]->area_two_id]);
+            Store::create($request->except('image','area_two_id','area_one_id') + ['image' => $filename ,'area_one_id' => $area->area_one_id , 'area_two_id' => $area->area_two_id]);
         } else {
 
             $area = AreaThree::where('id',$request->area_three_id)->get();
             // $area_one_id = AreaTwo::where('id',$area_two_id->areaTwo()->id)->get();
 
-            Store::create($request->except('area_two_id','area_one_id') + ['area_one_id' => $area[0]->area_one_id , 'area_two_id' => $area[0]->area_two_id]);
+            Store::create($request->except('area_two_id','area_one_id') + ['area_one_id' => $area->area_one_id , 'area_two_id' => $area->area_two_id]);
 
         }
     }
@@ -151,11 +151,12 @@ class StoreController extends Controller
         if ($request->file('image')) {
             $filename = $this->globalclass->storeS3($request->file('image'), 'construction/store');
 
-            $area = AreaThree::where('id',$request->area_three_id)->get();
-            $store->update($request->except('image','area_two_id','area_one_id') + ['image' => $filename , 'area_one_id' => $area[0]->area_one_id , 'area_two_id' => $area[0]->area_two_id]);
+            $area = AreaThree::where('id',$request->area_three_id)->first();
+            $store->update($request->except('image','area_two_id','area_one_id') + ['image' => $filename , 'area_one_id' => $area->area_one_id , 'area_two_id' => $area->area_two_id]);
         } else {
-            $area = AreaThree::where('id',$request->area_three_id)->get();
-            $store->update($request->except('area_two_id','area_one_id') + ['area_one_id' => $area[0]->area_one_id , 'area_two_id' => $area[0]->area_two_id]);
+            $area = AreaThree::where('id',$request->area_three_id)->first();
+            
+            $store->update($request->except('area_two_id','area_one_id') + ['area_one_id' => $area->area_one_id , 'area_two_id' => $area->area_two_id]);
         }
     }
         return redirect()->route('stores.index');
