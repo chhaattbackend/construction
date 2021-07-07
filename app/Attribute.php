@@ -10,5 +10,5 @@ class Attribute extends Model
         'id',
         'name'
     ];
-    public $timestamps=false;
+   
 }

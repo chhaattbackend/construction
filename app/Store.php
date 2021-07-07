@@ -24,6 +24,7 @@ class Store extends Model
         'open_timing',
         'close_timing',
         'image',
+        'slug',
         'thumbnail',
         'featured',
     ];

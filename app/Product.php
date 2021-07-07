@@ -23,7 +23,6 @@ class Product extends Model
         'image',
         'unit_id',
     ];
-    public $timestamps=false;
 
     public function a_category(){
         return $this->belongsTo(ACategory::class,'a_category_id');

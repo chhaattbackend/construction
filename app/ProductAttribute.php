@@ -13,8 +13,6 @@ class ProductAttribute extends Model
         'attribute_id',
         'desc',
     ];
-    public $timestamps=false;
-
     public function attribute(){
         return $this->belongsTo(Attribute::class,'attribute_id');
     }
