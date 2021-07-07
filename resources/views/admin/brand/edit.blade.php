@@ -19,7 +19,7 @@
                     <!-- /.card-header -->
                     <!-- form start -->
                     <div class="col-md-8">
-                        <form action="{{ route('acategories.update', $a_category->id) }}" method="POST"
+                        <form action="{{ route('brands.update', $brand->id) }}" method="POST"
                             class="form-horizontal" enctype="multipart/form-data">
                             @csrf
                             @method('put')
@@ -28,7 +28,7 @@
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="name" name="name"
-                                            placeholder="Enter Name" value="{{ $a_category->name }}">
+                                            placeholder="Enter Name" value="{{ $brand->name }}">
                                     </div>
                                 </div>
                                 {{--
