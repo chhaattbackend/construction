@@ -17,6 +17,7 @@ class Store extends Model
         'area_one_id',
         'area_two_id',
         'area_three_id',
+        'description',
         'address',
         'status',
         'nic',

@@ -60,6 +60,7 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Mobile</th>
+                                    <th>Description</th>
                                     <th>Address</th>
                                     <th>Area</th>
                                     <th>Status</th>
@@ -87,6 +88,7 @@
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->mobile }}</td>
+                                        <td>{{ $item->description }}</td>
                                         <td>{{ $item->address }}</td>
                                         <td>{{ @$item->areaThree->name }} {{ @$item->areaTwo->name }}</td>
                                         <td>{{ $item->status }}</td>

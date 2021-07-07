@@ -92,9 +92,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+                                    <div class="col-sm-6" row="3">
+                                        <textarea required class="form-control" name="description" rows="4"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Address</label>
                                     <div class="col-sm-6" row="3">
-                                        <textarea required class="form-control" name="address" rows="6"></textarea>
+                                        <textarea required class="form-control" name="address" rows="4"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -179,5 +185,5 @@
         </div>
         <!-- /.row -->
     </div>
-    
+
 @endsection

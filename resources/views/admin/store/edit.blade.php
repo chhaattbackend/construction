@@ -96,6 +96,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+                                    <div class="col-sm-6" row="3">
+                                        <textarea required class="form-control" value="" name="description"
+                                            rows="6">{{ $store->description }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Address</label>
                                     <div class="col-sm-6" row="3">
                                         <textarea required class="form-control" value="" name="address"
