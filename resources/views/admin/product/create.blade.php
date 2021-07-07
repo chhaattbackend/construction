@@ -214,7 +214,7 @@
                                         </div>
                                         --}}
                                         <button type="submit" class="btn btn-info">Submit</button>
-                                        <a href="{{route('productattributes.index')}}"><button type="button" class="btn btn-danger">Done</button></a>
+                                        <a href="{{route('products.index')}}"><button type="button" class="btn btn-danger">Done</button></a>
                                     </div>
 
                                 </div>
