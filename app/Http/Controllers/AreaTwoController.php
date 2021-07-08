@@ -22,7 +22,7 @@ class AreaTwoController extends Controller
             $seacrh = $request->keyword;
             $areatwos = AreaTwo::where('id','!=',null)->orderBy('created_at','desc');
 
-            $areatwos = $areatwos->WhereHas('area_one', function ($query) use ($seacrh) {
+            $areatwos = $areatwos->WhereHas('areaone', function ($query) use ($seacrh) {
                 $query->where('name', 'like', '%' . $seacrh . '%');
             })->orWhere('name', 'like', '%' . $seacrh . '%')->paginate(25)->setPath('');
 
