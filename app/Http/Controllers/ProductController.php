@@ -136,7 +136,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
         if ($request->bool12 == 1) {
             if ($request->file('image')) {
 
