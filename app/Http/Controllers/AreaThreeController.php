@@ -24,9 +24,9 @@ class AreaThreeController extends Controller
             $seacrh = $request->keyword;
             $areathrees = AreaThree::where('id','!=',null)->orderBy('created_at','desc');
 
-            $areathrees = $areathrees->whereHas('area_one', function ($query) use ($seacrh) {
+            $areathrees = $areathrees->whereHas('areaOne', function ($query) use ($seacrh) {
                 $query->where('name', 'like', '%' . $seacrh . '%');
-            })->orWhereHas('area_two', function ($query) use ($seacrh) {
+            })->orWhereHas('areaTwo', function ($query) use ($seacrh) {
                 $query->where('name', 'like', '%' . $seacrh . '%');
             })->orWhere('name', 'like', '%' . $seacrh . '%')->paginate(25)->setPath('');
 
