@@ -38,14 +38,20 @@ class ProductController extends Controller
 
 
         $seacrh = $request->keyword;
-                $products = Product::where('name', 'like', '%' . $seacrh . '%')
+                $products = Product::whereHas('a_category', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('b_category', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('c_category', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhereHas('d_category', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                })->orWhere('name', 'like', '%' . $seacrh . '%')
                 ->orWhere('id',$seacrh)->paginate(25)->setPath('');
-
 
                 $pagination = $products->appends(array(
                     'keyword' => $request->keyword
                 ));
-
             }
 
         return view('admin.product.index', compact('products'));
@@ -77,9 +83,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
         if (auth()->user()->role->name == 'super admin') {
             if ($request->file('image')) {
 

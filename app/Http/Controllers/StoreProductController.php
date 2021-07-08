@@ -93,7 +93,7 @@ class StoreProductController extends Controller
         $storeproducts = StoreProduct::all();
         $products = Product::paginate(25);
         $stores = Store::all();
-        $brands = Brand::all();
+        $brand = Brand::all();
         $units = Unit::all();
         $seacrh = null;
         $show = 0;
@@ -104,7 +104,7 @@ class StoreProductController extends Controller
             $stores = Store::where('user_id', auth()->user()->id)->get();
         }
         // dd($storeproducts);
-        return view('admin.store_product.create', compact('products', 'stores', 'brands', 'units', 'storeproducts', 'seacrh', 'show', 'bcategories'));
+        return view('admin.store_product.create', compact('products', 'stores', 'brand', 'units', 'storeproducts', 'seacrh', 'show', 'bcategories'));
     }
 
     public function save(Request $request)
@@ -196,8 +196,10 @@ class StoreProductController extends Controller
      */
     public function store(Request $request)
     {
+
         if (!$request->keyword) {
             if (auth()->user()->role->name == 'super admin') {
+
                 for ($i = 0; $i < count($request->product_ids); $i++) {
                     StoreProduct::create([
                         'store_id' => $request->store_id,
@@ -205,21 +207,22 @@ class StoreProductController extends Controller
                         'store_price' => $request->productprices[$i],
                         'qty' => $request->productquantities[$i],
                         'status' => 1,
+                        'brand_id' => $request->brand_id,
                         'unit_id' => $request->unit_ids[$i]
                     ]);
                 }
             }
         } else {
-
+            
             $seacrh = $request->keyword;
             $stores = Store::all();
-            $brands = Brand::all();
+            $brand = Brand::all();
             $units = Unit::all();
             $storeproducts = StoreProduct::where('store_id', $request->store_id)->get();
             $show = 1;
             $products = Product::where('name', 'like', '%' . $seacrh . '%')->paginate(25);
             $bcategories = BCategory::all();
-            return view('admin.store_product.create', compact('products', 'stores', 'brands', 'units', 'storeproducts', 'seacrh', 'show', 'bcategories'));
+            return view('admin.store_product.create', compact('products', 'stores', 'brand', 'units', 'storeproducts', 'seacrh', 'show', 'bcategories'));
         }
 
         return redirect()->route('storeproducts.index');

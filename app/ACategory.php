@@ -12,10 +12,10 @@ class ACategory extends Model
         'image'
     ];
 
-
     // public function subcategories(){
     //     return $this->hasMany('App\BCategory', 'a_category_id','id');
     // }
+    
 
 
 

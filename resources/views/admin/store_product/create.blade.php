@@ -67,7 +67,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-6 w-100">
+                                            <div class="col-3 w-100">
                                                 <div class="d-flex align-items-center h-100 w-100 centerSelect">
                                                     <div class="left">
                                                         <label class="mb-0">B Category:</label>
@@ -78,6 +78,26 @@
                                                             <option @if (request()->get('b_category_id') == null) selected @endif value="">Select
                                                             </option>
                                                             @foreach ($bcategories as $item)
+                                                                <option @if (request()->get('b_category_id') == $item->id) selected @endif
+                                                                    value="{{ $item->id }}">
+                                                                    {{ $item->name }}</option>
+                                                            @endforeach
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 w-100">
+                                                <div class="d-flex align-items-center h-100 w-100 centerSelect">
+                                                    <div class="left">
+                                                        <label class="mb-0">Brand</label>
+                                                    </div>
+                                                    <div class="ml-3 right w-100">
+                                                        <select class="form-control"
+                                                            name="brand_id" >
+                                                            <option @if (request()->get('b_category_id') == null) selected @endif value="">Select
+                                                            </option>
+                                                            @foreach ($brand as $item)
                                                                 <option @if (request()->get('b_category_id') == $item->id) selected @endif
                                                                     value="{{ $item->id }}">
                                                                     {{ $item->name }}</option>

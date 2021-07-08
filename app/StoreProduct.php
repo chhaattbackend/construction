@@ -13,6 +13,7 @@ class StoreProduct extends Model
         'store_price',
         'qty',
         'status',
+        'brand_id',
         'unit_id',
     ];
 
