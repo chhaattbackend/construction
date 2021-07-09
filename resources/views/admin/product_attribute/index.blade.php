@@ -34,19 +34,20 @@
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 335px;">
-                                <input type="text" name="table_search" id="table_search" class="form-control float-right"
-                                    placeholder="Search" style="height:37px;">
-
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-default mr-2" onclick="search()"><i
-                                            class="fas fa-search"></i></button>
-                                            @can('create')
-                                    <a href="{{ route('productattributes.create') }}"><button class="btn btn-primary">Add
-                                            Product Attributes</button></a>
-                                            @endcan
-                                </div>
+                                <form action="{{ route('productattributes.index') }}" style="display: flex;">
+                                    <input type="text" name="keyword" id="keyword" class="form-control float-right"
+                                        placeholder="Search" style="height:37px;">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default mr-2"><i
+                                                class="fas fa-search"></i></button>
+                                </form>
                             </div>
+                            @can('create')
+                                <a href="{{ route('productattributes.create') }}"><button class="btn btn-primary">Add
+                                    Product Attribute</button></a>
+                            @endcan
                         </div>
+                        
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">

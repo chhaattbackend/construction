@@ -42,8 +42,23 @@ class StoreProductController extends Controller
 
     public function ajax(Request $request)
     {
-        if (isset($request->b_category_id)) {
+        if ($request->b_category_id != null && $request->brand_id != null && $request->store_id > 0) {
+            // dd('1');
+            $products = Product::where('b_category_id', $request->b_category_id)
+            ->where('brand_id', $request->brand_id)->paginate(25);
+            $storeproducts = StoreProduct::where('store_id', $request->store_id)->get();
+            $show = 1;
 
+        }
+        if ($request->b_category_id == null && $request->store_id == 0 && $request->brand_id != null) {
+            // dd('2');
+            $products = Product::where('brand_id', $request->brand_id)->paginate(25);
+            $storeproducts = StoreProduct::where('store_id', $request->store_id)->get();
+            $show = 0;
+
+        }
+        if ($request->b_category_id != null && $request->store_id > 0 && $request->brand_id == null) {
+            // dd('3');
             $products = Product::where('b_category_id', $request->b_category_id)->paginate(25);
             $show = 0;
             if ($request->store_id >0) {
@@ -52,19 +67,23 @@ class StoreProductController extends Controller
 
             }
         }
-        if ($request->store_id == 0) {
-
+        if ($request->store_id == 0 && $request->b_category_id == null && $request->brand_id == null) {
+            // dd('4');
             $storeproducts = StoreProduct::all();
             $show = 0;
             $products = Product::paginate(25);
 
-        } if($request->b_category_id == null && $request->store_id > 0){
-
+        }
+         if($request->b_category_id == null && $request->store_id > 0 && $request->brand_id == null){
+            // dd('5');
             $storeproducts = StoreProduct::where('store_id', $request->store_id)->get();
             $show = 1;
             $products = Product::paginate(25);
 
         }
+
+
+
 
         $stores = Store::all();
         $brands = Brand::all();
@@ -213,7 +232,7 @@ class StoreProductController extends Controller
                 }
             }
         } else {
-            
+
             $seacrh = $request->keyword;
             $stores = Store::all();
             $brand = Brand::all();

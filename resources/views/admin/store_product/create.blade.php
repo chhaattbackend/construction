@@ -25,6 +25,8 @@
     </style>
     <div class="container-fluid">
         <div class="row">
+        <meta hidden name="csrf-token" content="{{ csrf_token() }}" />
+
             <!-- left column -->
             <div class="col-md-12">
                 <!-- general form elements -->
@@ -93,12 +95,12 @@
                                                         <label class="mb-0">Brand</label>
                                                     </div>
                                                     <div class="ml-3 right w-100">
-                                                        <select class="form-control"
-                                                            name="brand_id" >
-                                                            <option @if (request()->get('b_category_id') == null) selected @endif value="">Select
+                                                        <select class="form-control"    onchange="ajaxcall()"
+                                                            name="brand_id" id="brand_id" >
+                                                            <option @if (request()->get('brand_id') == null) selected @endif value="">Select
                                                             </option>
                                                             @foreach ($brand as $item)
-                                                                <option @if (request()->get('b_category_id') == $item->id) selected @endif
+                                                                <option  @if (request()->get('brand_id') == $item->id) selected @endif
                                                                     value="{{ $item->id }}">
                                                                     {{ $item->name }}</option>
                                                             @endforeach
@@ -241,7 +243,8 @@
         function ajaxcall(page) {
             var store_id = $('#store_id').find(":selected").val();
             var b_category_id = $('#b_category_id').find(":selected").val();
-            console.log(b_category_id);
+            var brand_id = $('#brand_id').find(":selected").val();
+
             $.ajax({
                 type: "POST",
                 url: "ajax" + "?page=" + page,
@@ -252,6 +255,7 @@
                 data: {
                     'store_id': store_id,
                     'b_category_id': b_category_id,
+                    'brand_id' : brand_id,
                 },
                 success: function(responese) {
 

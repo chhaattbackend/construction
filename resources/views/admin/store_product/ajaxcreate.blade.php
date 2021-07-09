@@ -9,7 +9,6 @@
     @endif
     @endforeach
     @endif
-        <meta hidden name="csrf-token" content="{{ csrf_token() }}" />
 
 
         {{-- <option value="{{ $item->id }}">{{ $item->name }}</option> --}}
