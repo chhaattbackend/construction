@@ -91,18 +91,23 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   if (auth()->user()->role->name == 'super admin') {
-        if ($request->file('image')) {
-            $filename = $this->globalclass->storeS3($request->file('image'), 'construction/store');
-            $area = AreaThree::where('id',$request->area_three_id)->get();
+    {
 
+            if (auth()->user()->role->name == 'super admin') {
+        if ($request->file('image')) {
+            // $slugname = strtolower($request->name);
+            // dd($slugname);
+
+            $filename = $this->globalclass->storeS3($request->file('image'), 'construction/store');
+            $area = AreaThree::where('id',$request->area_three_id)->first();
             Store::create($request->except('image','area_two_id','area_one_id') + ['image' => $filename ,'area_one_id' => $area->area_one_id , 'area_two_id' => $area->area_two_id]);
         } else {
+            // $slugname = strtolower($request->name);
+            // dd($slugname);
 
-            $area = AreaThree::where('id',$request->area_three_id)->get();
+            $area = AreaThree::where('id',$request->area_three_id)->first();
             // $area_one_id = AreaTwo::where('id',$area_two_id->areaTwo()->id)->get();
-
-            Store::create($request->except('area_two_id','area_one_id') + ['area_one_id' => $area->area_one_id , 'area_two_id' => $area->area_two_id]);
+            Store::create($request->except('area_two_id','area_one_id') + ['area_one_id' => $area->areaOne , 'area_two_id' => $area->areaTwo]);
 
         }
     }
@@ -155,7 +160,7 @@ class StoreController extends Controller
             $store->update($request->except('image','area_two_id','area_one_id') + ['image' => $filename , 'area_one_id' => $area->area_one_id , 'area_two_id' => $area->area_two_id]);
         } else {
             $area = AreaThree::where('id',$request->area_three_id)->first();
-            
+
             $store->update($request->except('area_two_id','area_one_id') + ['area_one_id' => $area->area_one_id , 'area_two_id' => $area->area_two_id]);
         }
     }

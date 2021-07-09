@@ -115,28 +115,28 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">NIC</label>
                                     <div class="col-sm-6">
-                                        <input required type="number" class="form-control" id="nic" name="nic"
+                                        <input  type="number" class="form-control" id="nic" name="nic"
                                             placeholder="Enter NIC">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">ntn</label>
                                     <div class="col-sm-6">
-                                        <input required type="number" class="form-control" id="ntn" name="ntn"
+                                        <input  type="number" class="form-control" id="ntn" name="ntn"
                                             placeholder="Enter ntn">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Open Timing</label>
                                     <div class="col-sm-6">
-                                        <input required type="number" class="form-control" id="open_timing"
+                                        <input  type="number" class="form-control" id="open_timing"
                                             name="open_timing" placeholder="Enter Open Timing">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Close Timing</label>
                                     <div class="col-sm-6">
-                                        <input required type="number" class="form-control" id="close_timing"
+                                        <input  type="number" class="form-control" id="close_timing"
                                             name="close_timing" placeholder="Enter Close Timing">
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Featured</label>
                                     <div class="col-sm-6">
-                                        <select required name="featured" class="form-control" id="feautured">
+                                        <select  name="featured" class="form-control" id="feautured">
                                             <option value="1">Active</option>
                                             <option value="0">Inactive</option>
                                         </select>
