@@ -81,7 +81,7 @@ class StoreProductController extends Controller
             $products = Product::paginate(25);
 
         }
-
+    
 
 
 
