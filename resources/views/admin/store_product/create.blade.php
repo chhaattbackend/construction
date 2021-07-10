@@ -13,19 +13,26 @@
             /* width: 84%; */
         }
 
-        .firstInp{
+        .firstInp {
             width: 100%;
         }
-        .firstInp .first{
+
+        .firstInp .first {
             width: 12%;
         }
-        .firstInp .second{
+
+        .firstInp .second {
             width: 88%;
         }
+
+        .form-control {
+            width: 100% !important;
+        }
+
     </style>
     <div class="container-fluid">
         <div class="row">
-        <meta hidden name="csrf-token" content="{{ csrf_token() }}" />
+            <meta hidden name="csrf-token" content="{{ csrf_token() }}" />
 
             <!-- left column -->
             <div class="col-md-12">
@@ -50,32 +57,35 @@
                             @csrf
                             <div class="card-body">
 
-                                <div class="form-group row">
+                                <div class="row mb-4">
                                     <div class="col-12">
                                         <div class="row">
-                                            <div class="col-4 d-flex firstInp w-100">
-                                                <div class="first">
-                                                    <label for="inputPassword3" class="col-form-label">Store</label>
-                                                </div>
-                                                <div class="second ml-2">
-                                                    <select required onchange="ajaxcall()" name="store_id"
-                                                        class="form-control" id="store_id">
-                                                        <option value="0">Select Store</option>
-                                                        @forelse ($stores as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                        @empty
+                                            <div class="col-12 col-lg-6 w-100">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <label for="inputPassword3" class="col-form-label">Store</label>
+                                                    </div>
+                                                    <div class="col-10 w-100">
+                                                        <select required onchange="ajaxcall()" name="store_id"
+                                                            class="w-100 form-control" id="store_id">
+                                                            <option value="0" class="w-100">Select Store</option>
+                                                            @forelse ($stores as $item)
+                                                                <option value="{{ $item->id }}">{{ $item->name }}
+                                                                </option>
+                                                            @empty
 
-                                                        @endforelse
-                                                    </select>
+                                                            @endforelse
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-3 w-100">
-                                                <div class="d-flex align-items-center h-100 w-100 centerSelect">
-                                                    <div class="left">
+                                            <div class="col-12 col-lg-6 mt-4 mt-lg-0 w-100">
+                                                <div class="row w-100 centerSelect">
+                                                    <div class="col-3">
                                                         <label class="mb-0">B Category:</label>
                                                     </div>
-                                                    <div class="ml-3 right w-100">
-                                                        <select class="form-control" onchange="ajaxcall()"
+                                                    <div class="col-9 w-100">
+                                                        <select class="w-100 form-control" onchange="ajaxcall()"
                                                             name="b_category_id" id="b_category_id">
                                                             <option @if (request()->get('b_category_id') == null) selected @endif value="">Select
                                                             </option>
@@ -89,18 +99,18 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-3 w-100">
-                                                <div class="d-flex align-items-center h-100 w-100 centerSelect">
-                                                    <div class="left">
+                                            <div class="col-12 col-md-6 w-100 mt-3">
+                                                <div class="row w-100">
+                                                    <div class="col-2">
                                                         <label class="mb-0">Brand</label>
                                                     </div>
-                                                    <div class="ml-3 right w-100">
-                                                        <select class="form-control"    onchange="ajaxcall()"
-                                                            name="brand_id" id="brand_id" >
+                                                    <div class="col-10 w-100">
+                                                        <select class="form-control" onchange="ajaxcall()" name="brand_id"
+                                                            id="brand_id">
                                                             <option @if (request()->get('brand_id') == null) selected @endif value="">Select
                                                             </option>
                                                             @foreach ($brand as $item)
-                                                                <option  @if (request()->get('brand_id') == $item->id) selected @endif
+                                                                <option @if (request()->get('brand_id') == $item->id) selected @endif
                                                                     value="{{ $item->id }}">
                                                                     {{ $item->name }}</option>
                                                             @endforeach
@@ -110,10 +120,10 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-2">
-                                                <div class="card-tools ">
+                                            <div class="col-6 mt-3">
+                                                <div class="card-tools">
 
-                                                    <div class="input-group">
+                                                    <div class="input-group flex-nowrap">
                                                         <input type="text" value="{{ @$seacrh }}" name="keyword"
                                                             id="keyword" class="form-control float-right"
                                                             placeholder="Search">
@@ -128,7 +138,6 @@
                                             </div>
                                         </div>
                                     </div>
-
 
 
                                 </div>
@@ -255,7 +264,7 @@
                 data: {
                     'store_id': store_id,
                     'b_category_id': b_category_id,
-                    'brand_id' : brand_id,
+                    'brand_id': brand_id,
                 },
                 success: function(responese) {
 

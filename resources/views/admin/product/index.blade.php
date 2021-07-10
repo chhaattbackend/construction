@@ -3,12 +3,13 @@
     <style>
         .align-right {
             text-align: right;
-        }
 
+        }
     </style>
     {{-- @if (str_contains($bcategories[0], $product))
      @dd('h')
      @endif --}}
+    
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -57,7 +58,6 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-
                                 @role('super admin')
                                 <th>Action</th>
                                 @endrole
@@ -127,4 +127,6 @@
         </div>
     </div>
     </div>
+
+
 @endsection

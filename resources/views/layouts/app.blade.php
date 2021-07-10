@@ -9,6 +9,8 @@
           integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
           crossorigin="anonymous"/>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     @yield('third_party_stylesheets')
@@ -82,7 +84,31 @@
     </footer> --}}
 </div>
 
-<script src="{{ mix('js/app.js') }}" defer></script>
+<script src="{{ mix('js/app.js') }}" defer> </script>
+
+<script>
+$('.fa-trash-alt').click(function(event) {
+ var form = $(this).closest("form");
+ var name = $(this).data("name");
+ event.preventDefault();
+
+ swal({
+         title: `Are you sure you want to delete?`,
+         text: "If you delete this, it will be gone forever.",
+         icon: "warning",
+         buttons: true,
+         dangerMode: true,
+     })
+     .then((willDelete) => {
+         if (willDelete) {
+             form.submit();
+             swal("Your  file has been deleted!", {
+                 icon: "success",
+             });
+         }
+     });
+});
+ </script>
 
 @yield('third_party_scripts')
 
