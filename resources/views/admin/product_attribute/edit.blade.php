@@ -24,7 +24,7 @@
                             @csrf
                             @method('put')
                             <div class="card-body">
-                                
+
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Product ID</label>
                                     <div class="col-sm-6">
@@ -40,6 +40,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Attribute ID</label>
+                                    <input type="hidden" value="{{ url()->previous() }}" name="previous_url">
                                     <div class="col-sm-6">
                                         <select required name="attribute_id" class="form-control" id="attribute_id">
                                             @forelse ($attributes as $item)

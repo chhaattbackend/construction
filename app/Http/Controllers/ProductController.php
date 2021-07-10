@@ -29,14 +29,10 @@ class ProductController extends Controller
     }
     public function index(Request $request)
     {
-
         if (!$request->keyword) {
-
             $products = Product::paginate(25);
     }
     else {
-
-
         $seacrh = $request->keyword;
                 $products = Product::whereHas('a_category', function ($query) use ($seacrh) {
                     $query->where('name', 'like', '%' . $seacrh . '%');
@@ -123,7 +119,6 @@ class ProductController extends Controller
         $ecategories = ECategory::all();
         $fcategories = FCategory::all();
         $brand = Brand::all();
-
         $units = Unit::all();
         return view('admin.product.edit', compact('product', 'acategories', 'bcategories', 'units', 'ccategories', 'dcategories', 'ecategories', 'fcategories','brand'));
     }
@@ -136,7 +131,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
         if ($request->bool12 == 1) {
             if ($request->file('image')) {
 

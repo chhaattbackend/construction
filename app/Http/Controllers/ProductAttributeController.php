@@ -122,7 +122,7 @@ class ProductAttributeController extends Controller
             $productattribute = ProductAttribute::find($id);
             $productattribute->update($request->all());
         }
-        return redirect()->route('productattributes.index');
+        return redirect()->away($request->previous_url);
     }
 
     /**
@@ -157,7 +157,7 @@ class ProductAttributeController extends Controller
         if ($request->product_id != $request->old_product_id) {
             foreach ($request->attribute_id as $key => $item) {
 
-                
+
                 $des = $request->desc[$key];
                 ProductAttribute::create([
                     'product_id' => $request->product_id,
