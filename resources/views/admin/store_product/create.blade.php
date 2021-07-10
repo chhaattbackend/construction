@@ -124,12 +124,12 @@
                                                 <div class="card-tools">
 
                                                     <div class="input-group flex-nowrap w-100">
-                                                        <input type="text" value="{{ @$seacrh }}" name="keyword"
+                                                        <input type="text"  onchange="ajaxcall()" name="keyword"
                                                             id="keyword" class="form-control float-right"
                                                             placeholder="Search">
 
                                                         <div class="input-group-append h-100">
-                                                            <button type="submit" class="btn btn-default mr-2"><i
+                                                            <button type="button" class="btn btn-default mr-2"><i
                                                                     class="fas fa-search"></i></button>
 
                                                         </div>
@@ -141,8 +141,11 @@
 
 
                                 </div>
-
                                 <div id="table" class="cards cards1">
+                                    <div id='loader' style='display: none;'>
+                                        <img src="{{ asset('images/bars.svg') }}" width='32px' height='32px'>
+                                    </div>
+
                                     @include('admin.store_product.ajaxcreate')
                                 </div>
 
@@ -152,7 +155,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12 text-center">
 
-                                        <button type="submit" class="btn btn-info w-25">Submit</button>
+                                        <button type="button" class="btn btn-info w-25">Submit</button>
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +241,6 @@
         $(document).on('click', '.pagination a', function(event) {
             event.preventDefault();
             var href = $(this).attr('href');
-            // console.log(href);
             var page = $(this).attr('href').split('page=')[1];
             var url = $(this).attr('href').split('?')[1];
             var fullurl = "create?" + url;
@@ -246,13 +248,15 @@
             $(this).html('<i class="fa fa-circle-notch fa-spin"></i>')
             window.history.pushState('new', 'Title', fullurl);
             ajaxcall(page)
-            // getMoreUsers(page);
         });
 
         function ajaxcall(page) {
+
             var store_id = $('#store_id').find(":selected").val();
             var b_category_id = $('#b_category_id').find(":selected").val();
             var brand_id = $('#brand_id').find(":selected").val();
+            var keyword =  $('#keyword').val();
+
 
             $.ajax({
                 type: "POST",
@@ -265,16 +269,28 @@
                     'store_id': store_id,
                     'b_category_id': b_category_id,
                     'brand_id': brand_id,
+                    'keyword' : keyword,
+                },
+                beforeSend: function() {
+                    // Show image container
+                    $("#loader").show();
                 },
                 success: function(responese) {
-
 
                     // console.log(responese.pagination)
                     $('#table').html(responese.data);
                     $('#pagination').html(responese.pagination);
 
                 },
+                complete: function(data) {
+                    // Hide image container
+                    $("#loader").hide();
+                }
+
             })
         }
+
+
+
     </script>
 @endsection

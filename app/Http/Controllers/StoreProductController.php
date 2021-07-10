@@ -40,39 +40,54 @@ class StoreProductController extends Controller
         return view('admin.store_product.create2');
     }
 
+
     public function ajax(Request $request)
     {
+
         if ($request->b_category_id != null && $request->brand_id != null && $request->store_id > 0) {
-            // dd('1');
+
             $products = Product::where('b_category_id', $request->b_category_id)
-            ->where('brand_id', $request->brand_id)->paginate(25);
+                ->where('brand_id', $request->brand_id)->paginate(25);
+            // dd($products);
             $storeproducts = StoreProduct::where('store_id', $request->store_id)->get();
             $show = 1;
+            if ($request->keyword) {
 
+                $products = Product::where('b_category_id', $request->b_category_id)
+                    ->where('brand_id', $request->brand_id)->where('name', 'like', '%' . $request->keyword . '%')->paginate(25);
+            }
         }
         if ($request->b_category_id != null && $request->brand_id != null && $request->store_id == 0) {
             // dd('1');
             $products = Product::where('b_category_id', $request->b_category_id)
-            ->where('brand_id', $request->brand_id)->paginate(25);
+                ->where('brand_id', $request->brand_id)->paginate(25);
+
             $storeproducts = StoreProduct::where('store_id', $request->store_id)->get();
             $show = 1;
-
+            if ($request->keyword) {
+                $products = Product::where('b_category_id', $request->b_category_id)
+                    ->where('brand_id', $request->brand_id)->where('name', 'like', '%' . $request->keyword . '%')->paginate(25);
+            }
         }
         if ($request->b_category_id == null && $request->store_id == 0 && $request->brand_id != null) {
             // dd('2');
             $products = Product::where('brand_id', $request->brand_id)->paginate(25);
             $storeproducts = StoreProduct::where('store_id', $request->store_id)->get();
             $show = 0;
-
+            if ($request->keyword) {
+                $products = Product::where('brand_id', $request->brand_id)->where('name', 'like', '%' . $request->keyword . '%')->paginate(25);
+            }
         }
         if ($request->b_category_id != null && $request->store_id > 0 && $request->brand_id == null) {
             // dd('3');
             $products = Product::where('b_category_id', $request->b_category_id)->paginate(25);
             $show = 0;
-            if ($request->store_id >0) {
+            if ($request->store_id > 0) {
                 $storeproducts = StoreProduct::where('store_id', $request->store_id)->get();
                 $show = 1;
-
+            }
+            if ($request->keyword) {
+                $products = Product::where('brand_id', $request->brand_id)->where('name', 'like', '%' . $request->keyword . '%')->paginate(25);
             }
         }
         if ($request->store_id == 0 && $request->b_category_id == null && $request->brand_id == null) {
@@ -81,13 +96,19 @@ class StoreProductController extends Controller
             $show = 0;
             $products = Product::paginate(25);
 
+            if ($request->keyword) {
+                $products = Product::where('name', 'like', '%' . $request->keyword . '%')->paginate(25);
+                // dd($products->count());
+            }
         }
-         if($request->b_category_id == null && $request->store_id > 0 && $request->brand_id == null){
+        if ($request->b_category_id == null && $request->store_id > 0 && $request->brand_id == null) {
             // dd('5');
             $storeproducts = StoreProduct::where('store_id', $request->store_id)->get();
             $show = 1;
             $products = Product::paginate(25);
-
+            if ($request->keyword) {
+                $products = Product::where('name', 'like', '%' . $request->keyword . '%')->paginate(25);
+            }
         }
 
 
@@ -223,7 +244,7 @@ class StoreProductController extends Controller
      */
     public function store(Request $request)
     {
-
+        dd('h');
         if (!$request->keyword) {
             if (auth()->user()->role->name == 'super admin') {
 
