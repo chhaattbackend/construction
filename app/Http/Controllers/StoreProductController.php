@@ -253,7 +253,7 @@ class StoreProductController extends Controller
             $pagination = $products->appends(array(
                 'keyword' => $request->keyword
             ));
-
+            
             return view('admin.store_product.create', compact('products', 'stores', 'brand', 'units', 'storeproducts', 'seacrh', 'show', 'bcategories'));
         }
         return redirect()->route('storeproducts.index');
