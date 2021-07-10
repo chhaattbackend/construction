@@ -55,7 +55,7 @@ class AreaTwoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   if (auth()->user()->role->name == 'Administrator'){
+    {   if (auth()->user()->role->name == 'super admin'){
         AreaTwo::create($request->all());
     }
         return redirect()->route('areatwos.index');
