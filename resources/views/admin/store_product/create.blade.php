@@ -79,12 +79,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-lg-6 mt-4 mt-lg-0 w-100">
+                                            <div class="col-12 col-lg-6 mt-4 mt-lg-0 w-100 px-0">
                                                 <div class="row w-100 centerSelect">
-                                                    <div class="col-3">
+                                                    <div class="col-5 col-sm-3">
                                                         <label class="mb-0">B Category:</label>
                                                     </div>
-                                                    <div class="col-9 w-100">
+                                                    <div class="col-7 col-sm-9 w-100 px-0">
                                                         <select class="w-100 form-control" onchange="ajaxcall()"
                                                             name="b_category_id" id="b_category_id">
                                                             <option @if (request()->get('b_category_id') == null) selected @endif value="">Select
@@ -99,12 +99,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-md-6 w-100 mt-3">
+                                            <div class="col-12 col-md-6 w-100 mt-3 px-0">
                                                 <div class="row w-100">
-                                                    <div class="col-2">
+                                                    <div class="col-3 col-sm-2">
                                                         <label class="mb-0">Brand</label>
                                                     </div>
-                                                    <div class="col-10 w-100">
+                                                    <div class="col-9 col-sm-10 w-100 px-0">
                                                         <select class="form-control" onchange="ajaxcall()" name="brand_id"
                                                             id="brand_id">
                                                             <option @if (request()->get('brand_id') == null) selected @endif value="">Select
@@ -120,10 +120,10 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-6 mt-3">
+                                            <div class="col-12 col-sm-2 ml-sm-auto mt-3 px-0">
                                                 <div class="card-tools">
 
-                                                    <div class="input-group flex-nowrap">
+                                                    <div class="input-group flex-nowrap w-100">
                                                         <input type="text" value="{{ @$seacrh }}" name="keyword"
                                                             id="keyword" class="form-control float-right"
                                                             placeholder="Search">

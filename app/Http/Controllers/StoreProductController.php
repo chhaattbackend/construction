@@ -247,13 +247,13 @@ class StoreProductController extends Controller
             $units = Unit::all();
             $storeproducts = StoreProduct::where('store_id', $request->store_id)->get();
             $show = 1;
-            $products = Product::where('name', 'like', '%' . $seacrh . '%')->paginate(100);
+            $products = Product::where('name', 'like', '%' . $seacrh . '%')->paginate(25)->setPath('');
             $bcategories = BCategory::all();
 
             $pagination = $products->appends(array(
                 'keyword' => $request->keyword
             ));
-            
+
             return view('admin.store_product.create', compact('products', 'stores', 'brand', 'units', 'storeproducts', 'seacrh', 'show', 'bcategories'));
         }
         return redirect()->route('storeproducts.index');
