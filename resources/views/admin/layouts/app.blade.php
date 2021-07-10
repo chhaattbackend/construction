@@ -10,6 +10,7 @@
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
     <!-- Latest compiled JavaScript -->
@@ -251,6 +252,29 @@
           allowClear: true
       });
 </script>
+<script>
+    $('.fa-trash-alt').click(function(event) {
+     var form = $(this).closest("form");
+     var name = $(this).data("name");
+     event.preventDefault();
+
+     swal({
+             title: `Are you sure you want to delete?`,
+             text: "If you delete this, it will be gone forever.",
+             icon: "warning",
+             buttons: true,
+             dangerMode: true,
+         })
+         .then((willDelete) => {
+             if (willDelete) {
+                 form.submit();
+                 swal("Your  file has been deleted!", {
+                     icon: "success",
+                 });
+             }
+         });
+    });
+     </script>
 </body>
 
 </html>

@@ -47,7 +47,7 @@
                                     Product Attribute</button></a>
                             @endcan
                         </div>
-                        
+
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
@@ -70,9 +70,9 @@
                                         <td>{{ $item->id }}</td>
                                         {{-- <td>{{ $item->store->name }}</td>
                                         --}}
-                                        <td>{{ $item->product->name }}</td>
-                                        <td>{{ $item->attribute->name }}</td>
-                                        <td>{{ $item->desc }}</td>
+                                        <td>{{ @$item->product->name }}</td>
+                                        <td>{{ @$item->attribute->name }}</td>
+                                        <td>{{ @$item->desc }}</td>
                                         <td>
                                             <a href="{{ route('attribute.list', $item->id) }}" class="float-left mx-2"><i
                                                 class="fas fa-eye"></i></a>
