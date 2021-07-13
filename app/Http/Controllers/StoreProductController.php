@@ -244,15 +244,19 @@ class StoreProductController extends Controller
      */
     public function store(Request $request)
     {
-    
+
         if (!$request->keyword) {
             if (auth()->user()->role->name == 'super admin') {
 
                 for ($i = 0; $i < count($request->product_ids); $i++) {
+                    $va = explode(' ',$request->product_ids[$i]);
+
+
+
                     StoreProduct::create([
                         'store_id' => $request->store_id,
-                        'product_id' => $request->product_ids[$i],
-                        'store_price' => $request->productprices[$i],
+                        'product_id' => $va[0],
+                        'store_price' => $request->productprices[$va[1]],
                         'qty' => $request->productquantities[$i],
                         'status' => 1,
                         'brand_id' => $request->brand_id,
