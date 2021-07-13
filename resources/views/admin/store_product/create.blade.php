@@ -155,7 +155,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-12 text-center">
 
-                                        <button type="button" class="btn btn-info w-25">Submit</button>
+                                        <button type="submit" class="btn btn-info w-25">Submit</button>
                                     </div>
                                 </div>
                             </div>
