@@ -150,6 +150,8 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Image</label>
                                     <div class="col-sm-6">
+                                        <img class="form-img"
+                                        src="https://chhatt.s3.ap-south-1.amazonaws.com/construction/store/{{ $store->image }}">
                                         <input  type="file" accept="image/*" class="form-control" id="image"
                                             name="image" placeholder="Image">
                                     </div>
