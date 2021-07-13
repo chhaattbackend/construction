@@ -244,7 +244,7 @@ class StoreProductController extends Controller
      */
     public function store(Request $request)
     {
-        dd('h');
+    
         if (!$request->keyword) {
             if (auth()->user()->role->name == 'super admin') {
 
