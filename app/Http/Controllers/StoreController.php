@@ -8,6 +8,7 @@ use App\AreaThree;
 use App\AreaTwo;
 use App\BCategory;
 use App\City;
+use App\GlobalClass;
 use App\Store;
 use App\Unit;
 use App\User;
@@ -20,6 +21,11 @@ class StoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->globalclass = new GlobalClass();
+    }
     public function index(Request $request)
     {
         if(auth()->user()->role->name=='admin'){
@@ -93,7 +99,8 @@ class StoreController extends Controller
     public function store(Request $request)
     {
 
-            if (auth()->user()->role->name == 'super admin') {
+
+        if (auth()->user()->role->name == 'super admin') {
         if ($request->file('image')) {
             $a = strtolower($request->name);
             $slug = str_replace(' ' ,'-',$a);
