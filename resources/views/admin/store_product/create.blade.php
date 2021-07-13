@@ -142,9 +142,7 @@
 
                                 </div>
                                 <div id="table" class="cards cards1">
-                                    <div id='loader' style='display: none;'>
-                                        <img src="{{ asset('images/bars.svg') }}" width='32px' height='32px'>
-                                    </div>
+
 
                                     @include('admin.store_product.ajaxcreate')
                                 </div>
@@ -271,10 +269,7 @@
                     'brand_id': brand_id,
                     'keyword' : keyword,
                 },
-                beforeSend: function() {
-                    // Show image container
-                    $("#loader").show();
-                },
+
                 success: function(responese) {
 
                     // console.log(responese.pagination)
@@ -282,10 +277,6 @@
                     $('#pagination').html(responese.pagination);
 
                 },
-                complete: function(data) {
-                    // Hide image container
-                    $("#loader").hide();
-                }
 
             })
         }

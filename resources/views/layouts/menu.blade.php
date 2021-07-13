@@ -31,6 +31,67 @@
 
         </ul>
     </li>
+    <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-store-slash"></i>
+            <p>
+                Store
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview" style="display: none;">
+            <li class="nav-item">
+                <a href="{{ route('stores.index') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>List</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('stores.create') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Create</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('store.productview') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Product View</p>
+                </a>
+            </li>
+
+        </ul>
+    </li>
+    <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+            <i class="nav-icon fa fa-shopping-cart"></i>
+            <p>
+                Store Product
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview" style="display: none;">
+            <li class="nav-item">
+                <a href="{{ route('storeproducts.index') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>List</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('storeproducts.create') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Create</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('stor.personal') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Personal</p>
+                </a>
+            </li>
+
+
+        </ul>
+    </li>
 
     <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
@@ -546,67 +607,8 @@
 
     </ul>
 </li>
-<li class="nav-item has-treeview">
-    <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-store-slash"></i>
-        <p>
-            Store
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview" style="display: none;">
-        <li class="nav-item">
-            <a href="{{ route('stores.index') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>List</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('stores.create') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Create</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('store.productview') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Product View</p>
-            </a>
-        </li>
-
-    </ul>
-</li>
-<li class="nav-item has-treeview">
-    <a href="#" class="nav-link">
-        <i class="nav-icon fa fa-shopping-cart"></i>
-        <p>
-            Store Product
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview" style="display: none;">
-        <li class="nav-item">
-            <a href="{{ route('storeproducts.index') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>List</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('storeproducts.create') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Create</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('stor.personal') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Personal</p>
-            </a>
-        </li>
 
 
-    </ul>
-</li>
 <li class="nav-item has-treeview">
     <a href="#" class="nav-link">
         <i class="nav-icon fas fa-tools"></i>
