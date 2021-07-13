@@ -129,14 +129,14 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Open Timing</label>
                                     <div class="col-sm-6">
-                                        <input  type="text" class="form-control" id="open_timing"
+                                        <input  type="time" class="form-control" id="open_timing"
                                             name="open_timing" placeholder="Enter Open Timing">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Close Timing</label>
                                     <div class="col-sm-6">
-                                        <input  type="text" class="form-control" id="close_timing"
+                                        <input  type="time" class="form-control" id="close_timing"
                                             name="close_timing" placeholder="Enter Close Timing">
                                     </div>
                                 </div>
