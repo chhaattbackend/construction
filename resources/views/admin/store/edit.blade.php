@@ -112,7 +112,7 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Status</label>
                                     <div class="col-sm-6">
-                                        <select required name="status" class="form-control" id="status">
+                                        <select  name="status" class="form-control" id="status">
                                             <option @if ($store->status == 1) selected @endif value="1">Active</option>
                                             <option @if ($store->status == 0) selected @endif value="0">Inactive</option>
                                         </select>
@@ -121,28 +121,28 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">NIC</label>
                                     <div class="col-sm-6">
-                                        <input required type="number" value="{{ $store->nic }}" class="form-control"
+                                        <input  type="number" value="{{ $store->nic }}" class="form-control"
                                             id="nic" name="nic" placeholder="Enter NIC">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">ntn</label>
                                     <div class="col-sm-6">
-                                        <input required type="number" value="{{ $store->ntn }}" class="form-control"
+                                        <input  type="number" value="{{ $store->ntn }}" class="form-control"
                                             id="ntn" name="ntn" placeholder="Enter ntn">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Open Timing</label>
                                     <div class="col-sm-6">
-                                        <input required type="number" value="{{ $store->open_timing }}" class="form-control"
+                                        <input  type="number" value="{{ $store->open_timing }}" class="form-control"
                                             id="open_timing" name="open_timing" placeholder="Enter Open Timing">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Close Timing</label>
                                     <div class="col-sm-6">
-                                        <input required type="number" class="form-control"
+                                        <input  type="number" class="form-control"
                                             value="{{ $store->close_timing }}" id="close_timing" name="close_timing"
                                             placeholder="Enter Close Timing">
                                     </div>
@@ -157,7 +157,7 @@
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">featured</label>
                                     <div class="col-sm-6">
-                                        <select required name="featured" class="form-control" id="feautured">
+                                        <select  name="featured" class="form-control" id="feautured">
                                             <option @if ($store->featured == 1) selected @endif value="1">Active</option>
                                             <option @if ($store->featured == 0) selected @endif value="0">Inactive</option>
                                         </select>
