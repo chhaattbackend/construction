@@ -11,6 +11,7 @@ use App\Store;
 use App\StoreProduct;
 use App\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\Global_;
 
 class StoreProductController extends Controller
@@ -82,6 +83,7 @@ class StoreProductController extends Controller
             // dd('3');
             $products = Product::where('b_category_id', $request->b_category_id)->paginate(25);
             $show = 0;
+
             if ($request->store_id > 0) {
                 $storeproducts = StoreProduct::where('store_id', $request->store_id)->get();
                 $show = 1;
@@ -91,7 +93,8 @@ class StoreProductController extends Controller
             }
         }
         if ($request->store_id == 0 && $request->b_category_id == null && $request->brand_id == null) {
-            // dd('4');
+
+
             $storeproducts = StoreProduct::all();
             $show = 0;
             $products = Product::paginate(25);
@@ -110,21 +113,22 @@ class StoreProductController extends Controller
                 $products = Product::where('name', 'like', '%' . $request->keyword . '%')->paginate(25);
             }
         }
-
-
-
+        $brand =  DB::table('brands')
+            ->select('brands.name', 'brands.id')->distinct()
+            ->join('products', 'products.brand_id', '=', 'brands.id')
+            ->where(['products.b_category_id' => $request->b_category_id])
+            ->get();
 
         $stores = Store::all();
-        $brands = Brand::all();
+
         $units = Unit::all();
         $seacrh = null;
 
-        $data = view('admin.store_product.ajaxcreate', compact('products', 'stores', 'brands', 'units', 'storeproducts', 'seacrh', 'show'))->render();
+        $data = view('admin.store_product.ajaxcreate', compact('products', 'stores', 'brand', 'units', 'storeproducts', 'seacrh', 'show'))->render();
         return response()->json([
             'data' => $data,
+            'brand' => $brand,
             'pagination' => (string) $products->links()
-
-
         ]);
     }
 
@@ -249,7 +253,7 @@ class StoreProductController extends Controller
             if (auth()->user()->role->name == 'super admin') {
 
                 for ($i = 0; $i < count($request->product_ids); $i++) {
-                    $va = explode(' ',$request->product_ids[$i]);
+                    $va = explode(' ', $request->product_ids[$i]);
 
 
 

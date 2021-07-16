@@ -28,7 +28,6 @@ class AttributeController extends Controller
                 $pagination = $attributes->appends ( array (
                     'keyword' => $request->keyword
             ));
-
             }
 
         return view('admin.attribute.index', compact('attributes'));

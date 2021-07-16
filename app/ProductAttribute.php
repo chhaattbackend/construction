@@ -22,4 +22,6 @@ class ProductAttribute extends Model
     public function store(){
         return $this->belongsTo(Store::class,'store_id');
     }
+    
+
 }

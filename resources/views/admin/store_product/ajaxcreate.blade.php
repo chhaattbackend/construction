@@ -1,3 +1,15 @@
+{{-- <select class="form-control" name="brand_id" onchange="ajaxcall()" id="brand_id">
+    <option @if (request()->get('brand_id') == null) selected @endif
+        value="">Select
+    </option>
+    @foreach ($brand as $item)
+        <option @if (request()->get('brand_id') == $item->id) selected @endif value="{{ $item->id }}">
+            {{ $item->name }}</option>
+    @endforeach
+
+</select> --}}
+
+
 @forelse ($products as $key => $item)
     @php $same=false; @endphp
     @if ($show == 1)
@@ -12,8 +24,7 @@
 
     {{-- <option value="{{ $item->id }}">{{ $item->name }}</option> --}}
     <div class="card card1">
-        <input  type="checkbox" class="form-control" name="product_ids[]"
-            value="{{ $item->id . ' ' .$key}}" /><br>
+        <input type="checkbox" class="form-control" name="product_ids[]" value="{{ $item->id . ' ' . $key }}" /><br>
         @if ($same)
             <center><label for="" class="text-danger">Already added</label></center>
         @endif
@@ -50,10 +61,4 @@
 @endforelse
 
 
-{{-- <div class="card">
-            <input type="checkbox" name="checkedproducts[]" value="2" />
-            </div>
 
-                            <div class="card">
-                <input type="checkbox" name="checkedproducts[]" value="3" />
-                    </div> --}}

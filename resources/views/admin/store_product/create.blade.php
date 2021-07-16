@@ -85,7 +85,7 @@
                                                         <label class="mb-0">B Category:</label>
                                                     </div>
                                                     <div class="col-7 col-sm-9 w-100 px-0">
-                                                        <select class="w-100 form-control" onchange="ajaxcall()"
+                                                        <select class="w-100 form-control" onchange="ajaxcall(null, 'bCat')"
                                                             name="b_category_id" id="b_category_id">
                                                             <option @if (request()->get('b_category_id') == null) selected @endif value="">Select
                                                             </option>
@@ -105,16 +105,16 @@
                                                         <label class="mb-0">Brand</label>
                                                     </div>
                                                     <div class="col-9 col-sm-10 w-100 px-0">
-                                                        <select class="form-control" onchange="ajaxcall()" name="brand_id"
-                                                            id="brand_id">
-                                                            <option @if (request()->get('brand_id') == null) selected @endif value="">Select
+                                                        <select class="form-control" name="brand_id" id="brand_id"
+                                                            onchange="ajaxcall(null, 'brand')">
+
+                                                            <option id="brand" @if (request()->get('brand_id') == null) selected @endif value="">Select
                                                             </option>
                                                             @foreach ($brand as $item)
                                                                 <option @if (request()->get('brand_id') == $item->id) selected @endif
                                                                     value="{{ $item->id }}">
                                                                     {{ $item->name }}</option>
                                                             @endforeach
-
                                                         </select>
                                                     </div>
                                                 </div>
@@ -124,9 +124,8 @@
                                                 <div class="card-tools">
 
                                                     <div class="input-group flex-nowrap w-100">
-                                                        <input type="text"  onchange="ajaxcall()" name="keyword"
-                                                            id="keyword" class="form-control float-right"
-                                                            placeholder="Search">
+                                                        <input type="text" onchange="ajaxcall()" name="keyword" id="keyword"
+                                                            class="form-control float-right" placeholder="Search">
 
                                                         <div class="input-group-append h-100">
                                                             <button type="button" class="btn btn-default mr-2"><i
@@ -169,7 +168,7 @@
 
     </div>
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
             // Card Multi Select
@@ -237,6 +236,10 @@
     </style>
     <script>
         $(document).on('click', '.pagination a', function(event) {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
             event.preventDefault();
             var href = $(this).attr('href');
             var page = $(this).attr('href').split('page=')[1];
@@ -248,12 +251,15 @@
             ajaxcall(page)
         });
 
-        function ajaxcall(page) {
+        var brandId;
+
+        function ajaxcall(page, inpType) {
 
             var store_id = $('#store_id').find(":selected").val();
             var b_category_id = $('#b_category_id').find(":selected").val();
             var brand_id = $('#brand_id').find(":selected").val();
-            var keyword =  $('#keyword').val();
+            var keyword = $('#keyword').val();
+            // $('#brand_id').find('option').not(':first').remove();
 
 
             $.ajax({
@@ -267,12 +273,40 @@
                     'store_id': store_id,
                     'b_category_id': b_category_id,
                     'brand_id': brand_id,
-                    'keyword' : keyword,
+                    'keyword': keyword,
                 },
 
                 success: function(responese) {
 
-                    // console.log(responese.pagination)
+                    brandId = responese.brand;
+                    // console.log(brandId);
+                    // if(brandId == undefined){
+                    //     console.log('UNDEFINED');
+
+                    // }
+
+                    if (brandId.length > 0 && brandId != undefined) {
+                        if (inpType != "brand") {
+                            $("#brand_id").html("");
+                            $.each(brandId, function(key, value) {
+                                const {
+                                    name,
+                                    id
+                                } = value;
+
+                                $("#brand_id").append(
+                                    `<option value="${id}">${name}</option>`
+                                );
+                            });
+                        }
+                    } else if (inpType === "bCat") {
+                        $("#brand_id").html("");
+                    }
+
+
+
+
+
                     $('#table').html(responese.data);
                     $('#pagination').html(responese.pagination);
 
@@ -280,8 +314,5 @@
 
             })
         }
-
-
-
     </script>
 @endsection

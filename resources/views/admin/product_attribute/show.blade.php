@@ -24,10 +24,11 @@
                             @csrf
 
                             <div class="card-body">
-                                
+
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Product ID</label>
                                     <div class="col-sm-6">
+                                        <input type="hidden" value="{{ url()->previous() }}" name="previous_url">
                                         <select required name="product_id" class="form-control" id="product_id">
                                             @forelse ($products as $item)
                                                 <option @if ($item->id == $productattribute->product_id) selected @endif value="{{ $item->id }}">

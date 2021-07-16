@@ -21,33 +21,26 @@ class ProductAttributeController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->ajax()) {
+        if (!$request->keyword) {
+            $productattributes = ProductAttribute::paginate(25);
+        } else {
+            $seacrh = $request->keyword;
+            $productattributes = ProductAttribute::whereHas('store', function ($query) use ($seacrh) {
+                $query->where('name', 'like', '%' . $seacrh . '%');
+            })->orWhereHas('product', function ($query) use ($seacrh) {
+                $query->where('name', 'like', '%' . $seacrh . '%');
+            })->orWhereHas('attribute', function ($query) use ($seacrh) {
+                $query->where('name', 'like', '%' . $seacrh . '%');
+            })->orWhere('desc', 'like', '%' . $seacrh . '%')
+            ->orWhere('id', $seacrh)->paginate(25)->setPath('');
 
-            if ($request->page != null && $request->keyword != null) {
-                $keyword = $request->keyword;
-                $productattributes = ProductAttribute::where('product', 'LIKE', "%{$request->keyword}%")
-                    ->orWhere('attribute', 'LIKE', "%{$request->keyword}%")
-                    ->orWhere('desc', 'LIKE', "%{$request->keyword}%")
-                    ->paginate(25);
-                $productattributes->withPath('?keyword=' . $request->keyword);
-                return view('admin.product_attribute.index', compact('productattributes', 'keyword'));
-            }
+            $pagination = $productattributes->appends(array(
+                'keyword' => $request->keyword
+            ));
         }
-        if ($request->ajax()) {
-            if ($request->keyword != null) {
-                $keyword = $request->keyword;
-                $productattributes = ProductAttribute::where('product', 'LIKE', "%{$request->keyword}%")
-                    ->orWhere('attribute', 'LIKE', "%{$request->keyword}%")
-                    ->orWhere('desc', 'LIKE', "%{$request->keyword}%")
-                    ->paginate(25);
-                $productattributes->withPath('?keyword=' . $request->keyword);
-            } else {
-                $keyword = '';
-                $productattributes = ProductAttribute::paginate(25);
-            }
-            return view('admin.product_attribute.search', compact('productattributes', 'keyword'));
-        }
-        $productattributes = ProductAttribute::paginate(25);
+
+
+
         return view('admin.product_attribute.index', compact('productattributes'));
     }
 
@@ -165,23 +158,20 @@ class ProductAttributeController extends Controller
                     'desc' => $des,
                 ]);
             }
+            return redirect()->away($request->previous_url);
+        } else {
 
-            return redirect()->route('productattributes.index');
-        }
-        else{
+            foreach ($request->attribute_id as $key => $item) {
 
-        foreach ($request->attribute_id as $key => $item) {
-
-            $des = $request->desc[$key];
-            $old_id = $request->old_id[$key];
-            $productattribute = ProductAttribute::where('product_id', $product->id)->where('attribute_id', $old_id)->first();
-            $productattribute->update([
-                'desc' => $des,
-                'attribute_id' => $item
-            ]);
-            return redirect()->route('productattributes.index');
+                $des = $request->desc[$key];
+                $old_id = $request->old_id[$key];
+                $productattribute = ProductAttribute::where('product_id', $product->id)->where('attribute_id', $old_id)->first();
+                $productattribute->update([
+                    'desc' => $des,
+                    'attribute_id' => $item
+                ]);
+                return redirect()->route('productattributes.index');
+            }
         }
     }
-    }
-
 }
