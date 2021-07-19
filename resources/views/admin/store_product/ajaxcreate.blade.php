@@ -24,7 +24,10 @@
 
     {{-- <option value="{{ $item->id }}">{{ $item->name }}</option> --}}
     <div class="card card1">
-        <input type="checkbox" class="form-control" name="product_ids[]" value="{{ $item->id . ' ' . $key }}" /><br>
+        @csrf
+        <input type="checkbox" class="form-control" name="product_ids[]"
+            value="{{ $item->id . ' ' . $key }}"  />
+        <br>
         @if ($same)
             <center><label for="" class="text-danger">Already added</label></center>
         @endif
@@ -59,6 +62,3 @@
 @empty
 
 @endforelse
-
-
-

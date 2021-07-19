@@ -12,6 +12,8 @@ class BCategory extends Model
         'name',
         'image',
         'roman',
+        'slug',
+
     ];
     public function category(){
         return $this->belongsTo(ACategory::class,'a_category_id');

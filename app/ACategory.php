@@ -9,13 +9,15 @@ class ACategory extends Model
     protected $fillable=[
         'id',
         'name',
-        'image'
+        'image',
+        'slug',
+
     ];
 
     // public function subcategories(){
     //     return $this->hasMany('App\BCategory', 'a_category_id','id');
     // }
-    
+
 
 
 

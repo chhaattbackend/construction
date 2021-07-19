@@ -30,6 +30,7 @@
         }
 
     </style>
+
     <div class="container-fluid">
         <div class="row">
             <meta hidden name="csrf-token" content="{{ csrf_token() }}" />
@@ -169,6 +170,7 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script>
         $(document).ready(function() {
             // Card Multi Select
@@ -180,6 +182,27 @@
                 }
             });
         });
+
+
+
+
+        // var app = @json($products).data;
+        // var appArray = [...app];
+
+        // function handleChange(e) {
+        //     var array =[];
+        //     const getId = parseInt(e.value.split(" ")[0]);
+        //     const boolConvert = e.checked == true && 1 || 0;
+        //     const gettingData = appArray.filter((prev) => prev.id === getId);
+        //     gettingData[0].checked = boolConvert;
+        //     array.push(getId);
+        //     console.log(array)
+
+        //     // ajaxcall();
+        //     // console.log(gettingData);
+        //     // console.log(appArray);
+        // }
+        // console.log(array)
     </script>
 
     <style>
@@ -238,7 +261,7 @@
         $(document).on('click', '.pagination a', function(event) {
             window.scrollTo({
                 top: 0,
-                behavior: 'smooth'
+                // behavior: 'smooth'
             });
             event.preventDefault();
             var href = $(this).attr('href');
@@ -253,14 +276,13 @@
 
         var brandId;
 
+
         function ajaxcall(page, inpType) {
 
             var store_id = $('#store_id').find(":selected").val();
             var b_category_id = $('#b_category_id').find(":selected").val();
             var brand_id = $('#brand_id').find(":selected").val();
             var keyword = $('#keyword').val();
-            // $('#brand_id').find('option').not(':first').remove();
-
 
             $.ajax({
                 type: "POST",
@@ -279,12 +301,6 @@
                 success: function(responese) {
 
                     brandId = responese.brand;
-                    // console.log(brandId);
-                    // if(brandId == undefined){
-                    //     console.log('UNDEFINED');
-
-                    // }
-
                     if (brandId.length > 0 && brandId != undefined) {
                         if (inpType != "brand") {
                             $("#brand_id").html("");
@@ -302,11 +318,6 @@
                     } else if (inpType === "bCat") {
                         $("#brand_id").html("");
                     }
-
-
-
-
-
                     $('#table').html(responese.data);
                     $('#pagination').html(responese.pagination);
 

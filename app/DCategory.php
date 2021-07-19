@@ -11,6 +11,8 @@ class DCategory extends Model
         'c_category_id',
         'name',
         'image',
+        'slug',
+
     ];
     public function category(){
         return $this->belongsTo(CCategory::class,'c_category_id');

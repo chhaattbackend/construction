@@ -22,6 +22,8 @@ class Product extends Model
         'thumbnail',
         'image',
         'unit_id',
+        'slug',
+
     ];
 
     public function a_category(){
