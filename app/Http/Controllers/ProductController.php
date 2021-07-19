@@ -31,24 +31,23 @@ class ProductController extends Controller
     {
         if (!$request->keyword) {
             $products = Product::paginate(25);
-    }
-    else {
-        $seacrh = $request->keyword;
-                $products = Product::whereHas('a_category', function ($query) use ($seacrh) {
-                    $query->where('name', 'like', '%' . $seacrh . '%');
-                })->orWhereHas('b_category', function ($query) use ($seacrh) {
-                    $query->where('name', 'like', '%' . $seacrh . '%');
-                })->orWhereHas('c_category', function ($query) use ($seacrh) {
-                    $query->where('name', 'like', '%' . $seacrh . '%');
-                })->orWhereHas('d_category', function ($query) use ($seacrh) {
-                    $query->where('name', 'like', '%' . $seacrh . '%');
-                })->orWhere('name', 'like', '%' . $seacrh . '%')
-                ->orWhere('id',$seacrh)->paginate(25)->setPath('');
+        } else {
+            $seacrh = $request->keyword;
+            $products = Product::whereHas('a_category', function ($query) use ($seacrh) {
+                $query->where('name', 'like', '%' . $seacrh . '%');
+            })->orWhereHas('b_category', function ($query) use ($seacrh) {
+                $query->where('name', 'like', '%' . $seacrh . '%');
+            })->orWhereHas('c_category', function ($query) use ($seacrh) {
+                $query->where('name', 'like', '%' . $seacrh . '%');
+            })->orWhereHas('d_category', function ($query) use ($seacrh) {
+                $query->where('name', 'like', '%' . $seacrh . '%');
+            })->orWhere('name', 'like', '%' . $seacrh . '%')
+                ->orWhere('id', $seacrh)->paginate(25)->setPath('');
 
-                $pagination = $products->appends(array(
-                    'keyword' => $request->keyword
-                ));
-            }
+            $pagination = $products->appends(array(
+                'keyword' => $request->keyword
+            ));
+        }
 
         return view('admin.product.index', compact('products'));
     }
@@ -68,7 +67,7 @@ class ProductController extends Controller
         $fcategories = FCategory::all();
         $units = Unit::all();
         $brand = Brand::all();
-        return view('admin.product.create', compact('acategories', 'bcategories', 'units', 'ccategories', 'dcategories', 'ecategories', 'fcategories','brand'));
+        return view('admin.product.create', compact('acategories', 'bcategories', 'units', 'ccategories', 'dcategories', 'ecategories', 'fcategories', 'brand'));
     }
 
     /**
@@ -81,11 +80,15 @@ class ProductController extends Controller
     {
         if (auth()->user()->role->name == 'super admin') {
             if ($request->file('image')) {
+                $a = strtolower($request->name);
+                $slug = str_replace(' ', '-', $a);
 
                 $filename = $this->globalclass->storeS3($request->file('image'), 'construction/product');
-                Product::create($request->except('image') + ["image" => $filename]);
+                Product::create($request->except('image', 'slug') + ["image" => $filename, 'slug' => $slug]);
             } else {
-                Product::create($request->except('image'));
+                $a = strtolower($request->name);
+                $slug = str_replace(' ', '-', $a);
+                Product::create($request->except('image', 'slug') + ['slug' => $slug]);
             }
         }
         return redirect()->route('products.create');
@@ -120,7 +123,7 @@ class ProductController extends Controller
         $fcategories = FCategory::all();
         $brand = Brand::all();
         $units = Unit::all();
-        return view('admin.product.edit', compact('product', 'acategories', 'bcategories', 'units', 'ccategories', 'dcategories', 'ecategories', 'fcategories','brand'));
+        return view('admin.product.edit', compact('product', 'acategories', 'bcategories', 'units', 'ccategories', 'dcategories', 'ecategories', 'fcategories', 'brand'));
     }
 
     /**
@@ -135,29 +138,37 @@ class ProductController extends Controller
         if ($request->bool12 == 1) {
             if ($request->file('image')) {
 
+                $a = strtolower($request->name);
+                $slug = str_replace(' ', '-', $a);
+
                 $filename = $this->globalclass->storeS3($request->file('image'), 'construction/product');
-                Product::create($request->except('image') + ["image" => $filename]);
+                Product::create($request->except('image', 'slug') + ["image" => $filename, 'slug' => $slug]);
             } else {
-                Product::create($request->except('image'));
+
+                $a = strtolower($request->name);
+                $slug = str_replace(' ', '-', $a);
+
+                Product::create($request->except('image', 'slug') + ['slug' => $slug]);
             }
         }
         if ($request->bool12 == 0) {
             $product = Product::find($id);
             if ($request->file('image')) {
 
-                $filename = $this->globalclass->storeS3($request->file('image'), 'construction/product');
-                $product->update($request->except('image') + ["image" => $filename]);
-            } else {
-                $product->update($request->except('image'));
-            }
+                $a = strtolower($request->name);
+                $slug = str_replace(' ', '-', $a);
 
+                $filename = $this->globalclass->storeS3($request->file('image'), 'construction/product');
+                $product->update($request->except('image', 'slug') + ["image" => $filename, 'slug' => $slug]);
+            } else {
+                $a = strtolower($request->name);
+                $slug = str_replace(' ', '-', $a);
+
+                $product->update($request->except('image', 'slug') + ['slug' => $slug]);
+            }
         }
 
         return redirect()->away($request->previous_url);
-
-
-
-
     }
 
     /**
@@ -167,14 +178,16 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {   if(auth()->user()->email == 'chhattofficial@chhatt.com'){
-        $item = Product::find($id);
-        $item->delete();
-    }
+    {
+        if (auth()->user()->email == 'chhattofficial@chhatt.com') {
+            $item = Product::find($id);
+            $item->delete();
+        }
         return redirect()->back();
     }
-    public function list(Request $request){
-            dd($request->all);
+    public function list(Request $request)
+    {
+        dd($request->all);
         // $product = Product::find();
 
         // Product::create([
@@ -199,6 +212,4 @@ class ProductController extends Controller
             Product::create($request->except('image'));
         }
     }
-
-    }
-
+}

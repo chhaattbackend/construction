@@ -116,7 +116,7 @@ class StoreController extends Controller
 
             $area = AreaThree::where('id',$request->area_three_id)->first();
             // $area_one_id = AreaTwo::where('id',$area_two_id->areaTwo()->id)->get();
-            Store::create($request->except('area_two_id','area_one_id') + ['area_one_id' => $area->areaOne->id , 'area_two_id' => $area->areaTwo->id ,'slug' =>$slug ]);
+            Store::create($request->except('area_two_id','area_one_id','slug') + ['area_one_id' => $area->areaOne->id , 'area_two_id' => $area->areaTwo->id ,'slug' =>$slug ]);
 
         }
     }
@@ -165,12 +165,16 @@ class StoreController extends Controller
         if ($request->file('image')) {
             $filename = $this->globalclass->storeS3($request->file('image'), 'construction/store');
 
-            $area = AreaThree::where('id',$request->area_three_id)->first();
-            $store->update($request->except('image','area_two_id','area_one_id') + ['image' => $filename , 'area_one_id' => $area->area_one_id , 'area_two_id' => $area->area_two_id]);
-        } else {
-            $area = AreaThree::where('id',$request->area_three_id)->first();
+            $a = strtolower($request->name);
+            $slug = str_replace(' ' ,'-',$a);
 
-            $store->update($request->except('area_two_id','area_one_id') + ['area_one_id' => $area->area_one_id , 'area_two_id' => $area->area_two_id]);
+            $area = AreaThree::where('id',$request->area_three_id)->first();
+            $store->update($request->except('image','area_two_id','area_one_id','slug') + ['image' => $filename , 'area_one_id' => $area->area_one_id , 'area_two_id' => $area->area_two_id , 'slug' =>$slug]);
+        } else {
+            $a = strtolower($request->name);
+            $slug = str_replace(' ' ,'-',$a);
+            $area = AreaThree::where('id',$request->area_three_id)->first();
+            $store->update($request->except('area_two_id','area_one_id','slug') + ['area_one_id' => $area->area_one_id , 'area_two_id' => $area->area_two_id , 'slug' =>$slug]);
         }
     }
         return redirect()->route('stores.index');

@@ -62,6 +62,7 @@ class ECategoryController extends Controller
     public function store(Request $request)
     {   if (auth()->user()->role->name == 'super admin') {
         ECategory::create($request->all());
+        
     }
         return redirect()->route('ecategories.index');
     }

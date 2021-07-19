@@ -65,11 +65,17 @@ class ACategoryController extends Controller
 
         if($request->file('image')){
 
+            $a = strtolower($request->name);
+            $slug = str_replace(' ' ,'-',$a);
+
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/acategories');
-            ACategory::create($request->except('image') + ["image" => $filename]);
+            ACategory::create($request->except('image' ,'slug') + ["image" => $filename ,'slug' =>$slug ]);
         }
         else{
-            Acategory::create($request->except('image'));
+            $a = strtolower($request->name);
+            $slug = str_replace(' ' ,'-',$a);
+
+            Acategory::create($request->except('image','slug') + ['slug' =>$slug ]);
         }
     }
         return redirect()->route('acategories.index');

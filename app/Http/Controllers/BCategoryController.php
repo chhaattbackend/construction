@@ -58,12 +58,18 @@ class BCategoryController extends Controller
     public function store(Request $request)
     {   if (auth()->user()->role->name == 'super admin') {
         if($request->file('image')){
+
+            $a = strtolower($request->name);
+            $slug = str_replace(' ' ,'-',$a);
+
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/bcategories');
-            BCategory::create($request->except('image') + ["image" => $filename]);
+            BCategory::create($request->except('image','slug') + ["image" => $filename , 'slug' =>$slug]);
 
         }
         else{
-            Bcategory::create($request->except('image'));
+            $a = strtolower($request->name);
+            $slug = str_replace(' ' ,'-',$a);
+            Bcategory::create($request->except('image','slug') + ['slug' =>$slug]);
         }
     }
         return redirect()->route('bcategories.index');
@@ -108,12 +114,19 @@ class BCategoryController extends Controller
         $b_category=BCategory::find($id);
 
         if($request->file('image')){
+
+            $a = strtolower($request->name);
+            $slug = str_replace(' ' ,'-',$a);
+
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/bcategories');
-            $b_category->update($request->except('image') + ["image" => $filename]);
+            $b_category->update($request->except('image' , 'slug') + ["image" => $filename , 'slug' =>$slug]);
 
         }
         else{
-            $b_category->update($request->except('image'));
+            $a = strtolower($request->name);
+            $slug = str_replace(' ' ,'-',$a);
+            
+            $b_category->update($request->except('image','slug') + ['slug' =>$slug]);
         }
 
 
