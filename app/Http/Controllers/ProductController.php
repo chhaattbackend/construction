@@ -160,8 +160,8 @@ class ProductController extends Controller
                 $a = strtolower($request->name);
                 $slug = str_replace(' ', '-', $a);
 
-                $filename = $this->globalclass->storeS3($request->file('image'), 'construction/product');
-                $product->update($request->except('image', 'slug') + ["image" => $filename, 'slug' => $slug]);
+                $this->globalclass->storeMultipleS3($request->file('images'), 'construction/product', $product->id);
+                $product->update($request->except('image', 'slug') + ['slug' => $slug]);
             } else {
                 $a = strtolower($request->name);
                 $slug = str_replace(' ', '-', $a);
