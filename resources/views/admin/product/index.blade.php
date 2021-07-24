@@ -115,7 +115,7 @@
                                     <td>{{ $item->quantity }}</td>
                                     <td>{{ $item->thumbnail }}</td>
                                     <td>{{ $item->image }}</td>
-                                    <td>{{ $item->unit_id }}</td>
+                                    <td>{{ $item->unit->name }}</td>
 
                                 </tr>
                             @empty

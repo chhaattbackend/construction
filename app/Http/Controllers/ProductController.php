@@ -87,7 +87,7 @@ class ProductController extends Controller
                 $a = strtolower($request->name);
                 $slug = str_replace(' ', '-', $a);
                 $product =   Product::create($request->except('image', 'slug') + ['slug' => $slug]);
-                $this->globalclass->storeMultipleS3($request->file('images'),'construction/product', $product->id );
+                $this->globalclass->storeMultipleS3($request->file('images'), 'construction/product', $product->id);
             } else {
                 $a = strtolower($request->name);
                 $slug = str_replace(' ', '-', $a);
@@ -139,13 +139,12 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         if ($request->bool12 == 1) {
-            if ($request->file('image')) {
+            if ($request->file('images')) {
 
                 $a = strtolower($request->name);
                 $slug = str_replace(' ', '-', $a);
-
-                $filename = $this->globalclass->storeS3($request->file('image'), 'construction/product');
-                Product::create($request->except('image', 'slug') + ["image" => $filename, 'slug' => $slug]);
+                $product =   Product::create($request->except('image', 'slug') + ['slug' => $slug]);
+                $this->globalclass->storeMultipleS3($request->file('images'), 'construction/product', $product->id);
             } else {
 
                 $a = strtolower($request->name);
@@ -156,7 +155,7 @@ class ProductController extends Controller
         }
         if ($request->bool12 == 0) {
             $product = Product::find($id);
-            if ($request->file('image')) {
+            if ($request->file('images')) {
 
                 $a = strtolower($request->name);
                 $slug = str_replace(' ', '-', $a);
