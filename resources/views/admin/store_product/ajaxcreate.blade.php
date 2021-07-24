@@ -25,9 +25,12 @@
     {{-- <option value="{{ $item->id }}">{{ $item->name }}</option> --}}
     <div class="card card1">
         @csrf
-        <input type="checkbox" class="form-control" name="product_ids[]"
-            value="{{ $item->id . ' ' . $key }}"  />
-        <br>
+        <input type="checkbox"    class="form-control" name="product_ids[]" onchange="handleChange(this)"
+
+            value="{{ $item->id . ' ' . $key }}"   />
+
+<br>
+
         @if ($same)
             <center><label for="" class="text-danger">Already added</label></center>
         @endif

@@ -172,9 +172,38 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
+        // var array = [];
+
+        // function get() {
+
+        //     var product1 = @json($products).data
+        //     for (var i = 0; i < product1.length; i++) {
+
+
+
+        //         if (array.indexOf(1) !== -1) {
+        //             document.getElementById("myCheck").checked = true;
+        //             console.log("exists!")
+
+        //         } else {
+        //             document.getElementById("myCheck").checked = false;
+        //             console.log("Value not exists!")
+
+        //         }
+
+        //     }
+        // }
+
         $(document).ready(function() {
+
+
+
+
+
             // Card Multi Select
             $('input[type=checkbox]').click(function() {
+
+
                 if ($(this).parent().hasClass('active')) {
                     $(this).parent().removeClass('active');
                 } else {
@@ -186,23 +215,20 @@
 
 
 
-        // var app = @json($products).data;
-        // var appArray = [...app];
+        var app = @json($products).data;
+        var appArray = [...app];
 
-        // function handleChange(e) {
-        //     var array =[];
-        //     const getId = parseInt(e.value.split(" ")[0]);
-        //     const boolConvert = e.checked == true && 1 || 0;
-        //     const gettingData = appArray.filter((prev) => prev.id === getId);
-        //     gettingData[0].checked = boolConvert;
-        //     array.push(getId);
-        //     console.log(array)
+        function handleChange(e) {
+            const getId = Number(e.value.split(" ")[0]);
+            const boolConvert = e.checked == true && 1 || 0;
+            const gettingData = appArray.filter((prev) => prev.id === getId);
+            gettingData[0].checked = boolConve rt;
+            // array.push(getId);
 
-        //     // ajaxcall();
-        //     // console.log(gettingData);
-        //     // console.log(appArray);
-        // }
-        // console.log(array)
+            // console.log(gettingData);
+            console.log(appArray);
+        }
+        console.log(appArray);
     </script>
 
     <style>
@@ -259,6 +285,8 @@
     </style>
     <script>
         $(document).on('click', '.pagination a', function(event) {
+
+
             window.scrollTo({
                 top: 0,
                 // behavior: 'smooth'
