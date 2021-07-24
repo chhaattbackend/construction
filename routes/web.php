@@ -72,6 +72,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('cities', 'CityController');
     Route::resource('countries', 'CountryController');
     Route::resource('products', 'ProductController');
+    Route::resource('productimages' ,'ProductImageController');
+    Route::get('productimages/delete/{id}', 'ProductImageController@destroy')->name('productimages.delete');
     Route::resource('productattributes', 'ProductAttributeController');
     Route::resource('productdetails', 'ProductDetailController');
     Route::resource('productreviews', 'ProductReviewController');

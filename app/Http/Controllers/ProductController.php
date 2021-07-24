@@ -22,7 +22,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
+    public $globalclass;
     public function __construct()
     {
         $this->globalclass = new GlobalClass();
@@ -48,6 +48,9 @@ class ProductController extends Controller
                 'keyword' => $request->keyword
             ));
         }
+
+
+
 
         return view('admin.product.index', compact('products'));
     }
@@ -79,12 +82,12 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         if (auth()->user()->role->name == 'super admin') {
-            if ($request->file('image')) {
+
+            if ($request->file('images')) {
                 $a = strtolower($request->name);
                 $slug = str_replace(' ', '-', $a);
-
-                $filename = $this->globalclass->storeS3($request->file('image'), 'construction/product');
-                Product::create($request->except('image', 'slug') + ["image" => $filename, 'slug' => $slug]);
+                $product =   Product::create($request->except('image', 'slug') + ['slug' => $slug]);
+                $this->globalclass->storeMultipleS3($request->file('images'),'construction/product', $product->id );
             } else {
                 $a = strtolower($request->name);
                 $slug = str_replace(' ', '-', $a);
@@ -100,10 +103,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        $product = Product::find($id);
-        return view('admin.product.show', compact('product'));
+
+        return view('admin.product_image.edit', compact('product'));
     }
 
     /**

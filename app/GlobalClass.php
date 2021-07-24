@@ -61,8 +61,8 @@ class GlobalClass extends Model
         $exe = $file->getClientOriginalName();
         $filename = time() . '-' . $exe;
         $destinationPath = public_path('/images/nikal');
-        $file->move($destinationPath,$filename);
-        $first = $destinationPath.'/'.$filename;
+        $file->move($destinationPath, $filename);
+        $first = $destinationPath . '/' . $filename;
 
         $img = Image::make($destinationPath . '/' . $filename);
         $img->insert(public_path('images/watermark.png'), 'center');
@@ -72,11 +72,49 @@ class GlobalClass extends Model
         $inserted = Image::make($destinationPath . '/' . 'second' . $filename);
         $image = Image::make($inserted)->resize(400, 300)->encode('png');
 
-        $path1 = Storage::disk('s3')->put($path.'/'.$filename , (string)$image);
+        $path1 = Storage::disk('s3')->put($path . '/' . $filename, (string)$image);
 
         @unlink($first);
         @unlink($second);
         // $file->storeAs($path, $filename, 's3');
         return $filename;
+    }
+    public function storeMultipleS3($files, $path, $product_id)
+    {
+        foreach ($files as $key => $file) {
+
+            $exe = $file->getClientOriginalName();
+            $filename = time() . '-' . $exe;
+            $destinationPath = public_path('/images/nikal');
+            $file->move($destinationPath, $filename);
+            $first = $destinationPath . '/' . $filename;
+
+            $img = Image::make($destinationPath . '/' . $filename);
+            $img->insert(public_path('images/watermark.png'), 'center');
+            $img->save($destinationPath . '/' . 'second' . $filename);
+            $second = $destinationPath . '/' . 'second' . $filename;
+
+            $inserted = Image::make($destinationPath . '/' . 'second' . $filename);
+            $image = Image::make($inserted)->resize(400, 300)->encode('png');
+
+            $path1 = Storage::disk('s3')->put($path . '/' . $filename, (string)$image);
+
+            @unlink($first);
+            @unlink($second);
+            // $exe = $file->getClientOriginalName();
+            // $filename = time() . '-' . $exe;
+            // $file->storeAs($path, $filename, 's3');
+
+
+            // $destinationPath = 'public/';
+            // $originalFile = $file->getClientOriginalName();
+            // $filename1=strtotime(date('Y-m-d-H:isa')).$originalFile;
+            // $file->move($destinationPath, $filename);
+
+            ProductImage::create([
+                'product_id' => $product_id,
+                'name' => $filename,
+            ]);
+        }
     }
 }

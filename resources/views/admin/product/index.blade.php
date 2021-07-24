@@ -15,7 +15,7 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>Products</h1>
-                   
+
                 </div>
                 {{-- <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -61,6 +61,7 @@
                                 <th>ID</th>
                                 @role('super admin')
                                 <th>Action</th>
+                                <th>Edit Image</th>
                                 @endrole
                                 <th>A Category</th>
                                 <th>B Category</th>
@@ -95,6 +96,10 @@
                                                         class="fas fa-trash-alt"></i></button> </form>
                                         @endcan
 
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('products.show', $item->id) }}" class="float-left"
+                                            style="color:goldenrod"><i class="fas fa-edit"></i>EDIT</a>
                                     </td>
                                     @endrole
                                     <td>{{ optional($item->a_category)->name }}</td>

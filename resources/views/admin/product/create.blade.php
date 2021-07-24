@@ -185,7 +185,7 @@
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Image</label>
                                     <div class="col-sm-6">
                                         <input required type="file" accept="image/*" class="form-control" id="image"
-                                            name="image" placeholder="Insert Image">
+                                            name="images[]" placeholder="Insert Image" multiple>
 
                                     </div>
                                 </div>
