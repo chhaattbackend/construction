@@ -82,13 +82,12 @@ class GlobalClass extends Model
     public function storeMultipleS3($files, $path, $product_id)
     {
         foreach ($files as $key => $file) {
-
+            
             $exe = $file->getClientOriginalName();
             $filename = time() . '-' . $exe;
             $destinationPath = public_path('/images/nikal');
             $file->move($destinationPath, $filename);
             $first = $destinationPath . '/' . $filename;
-
             $img = Image::make($destinationPath . '/' . $filename);
             $img->insert(public_path('images/watermark.png'), 'center');
             $img->save($destinationPath . '/' . 'second' . $filename);
