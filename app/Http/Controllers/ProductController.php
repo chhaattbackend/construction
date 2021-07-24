@@ -190,7 +190,9 @@ class ProductController extends Controller
     }
     public function list(Request $request)
     {
-        dd($request->all);
+
+
+
         // $product = Product::find();
 
         // Product::create([
