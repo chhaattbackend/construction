@@ -82,7 +82,7 @@ class GlobalClass extends Model
     public function storeMultipleS3($files, $path, $product_id)
     {
         foreach ($files as $key => $file) {
-            
+
             $exe = $file->getClientOriginalName();
             $filename = time() . '-' . $exe;
             $destinationPath = public_path('/images/nikal');
@@ -94,7 +94,7 @@ class GlobalClass extends Model
             $second = $destinationPath . '/' . 'second' . $filename;
 
             $inserted = Image::make($destinationPath . '/' . 'second' . $filename);
-            $image = Image::make($inserted)->resize(400, 300)->encode('png');
+            $image = Image::make($inserted)->resize(700, 600)->encode('png');
 
             $path1 = Storage::disk('s3')->put($path . '/' . $filename, (string)$image);
 
