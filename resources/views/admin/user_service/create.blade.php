@@ -29,7 +29,7 @@
                                         <select required name="user_id" class="form-control" id="user_id">
                                             <option value="">Select Category</option>
                                             @forelse ($users as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name }}  - {{@$item->store->name}}</option>
                                             @empty
 
                                             @endforelse>
