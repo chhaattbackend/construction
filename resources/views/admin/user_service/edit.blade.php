@@ -31,7 +31,7 @@
                                             <option value="">Select Category</option>
                                             @forelse ($users as $item)
                                                 <option @if ($item->id == $userservice->user_id) selected @endif value="{{ $item->id }}">
-                                                    {{ $item->name }}</option>
+                                                    {{ $item->name }} - {{@$item->store->name}}</option>
                                             @empty
 
                                             @endforelse>
