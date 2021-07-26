@@ -19,17 +19,19 @@
                     <!-- /.card-header -->
                     <!-- form start -->
                     <div class="col-md-8">
-                        <form action="{{ route('storeservices.store') }}" method="POST" class="form-horizontal"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('userservices.update', $userservice->id) }}" method="POST"
+                            class="form-horizontal" enctype="multipart/form-data">
                             @csrf
+                            @method('put')
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Store ID</label>
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">User</label>
                                     <div class="col-sm-6">
                                         <select required name="store_id" class="form-control" id="store_id">
                                             <option value="">Select Category</option>
-                                            @forelse ($stores as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @forelse ($users as $item)
+                                                <option @if ($item->id == $userservice->user_id) selected @endif value="{{ $item->id }}">
+                                                    {{ $item->name }}</option>
                                             @empty
 
                                             @endforelse>
@@ -42,7 +44,8 @@
                                         <select required name="service_id" class="form-control" id="service_id">
                                             <option value="">Select Category</option>
                                             @forelse ($services as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option @if ($item->id == $userservice->service_id) selected @endif value="{{ $item->id }}">
+                                                    {{ $item->name }}</option>
                                             @empty
 
                                             @endforelse>
@@ -55,14 +58,15 @@
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Store Price</label>
                                     <div class="col-sm-6">
                                         <input required type="number" class="form-control" id="store_price"
-                                            name="store_price" placeholder="Enter Store Price">
+                                            name="store_price" placeholder="Enter Store Price"
+                                            value="{{ $userservice->store_price }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Quantity</label>
                                     <div class="col-sm-6">
                                         <input required type="number" class="form-control" id="qty" name="qty"
-                                            placeholder="Enter Quantity">
+                                            placeholder="Enter Quantity" value="{{ $userservice->qty }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -80,7 +84,8 @@
                                         <select name="unit_id" class="form-control" id="unit_id">
                                             <option value="">Select Category</option>
                                             @forelse ($units as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option @if ($item->id == $userservice->unit_id) selected @endif value="{{ $item->id }}">
+                                                    {{ $item->name }}</option>
                                             @empty
 
                                             @endforelse>

@@ -10,7 +10,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1> Store Service</h1>
+                    <h1> User Service</h1>
                 </div>
                 {{-- <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -34,15 +34,15 @@
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 335px;">
-                                <input type="text" name="table_search" id="table_search" class="form-control float-right"
+                                <input type="text" name="keyword" id="table_search" class="form-control float-right"
                                     placeholder="Search" style="height:37px;">
 
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-default mr-2" onclick="search()"><i
                                             class="fas fa-search"></i></button>
                                             @can('create')
-                                    <a href="{{ route('storeservices.create') }}"><button class="btn btn-primary">Add Store
-                                            Product</button></a>
+                                    <a href="{{ route('userservices.create') }}"><button class="btn btn-primary">Add User
+                                            Service</button></a>
                                             @endcan
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Store</th>
+                                    <th>User</th>
                                     <th>Service</th>
                                     <th>Store Price</th>
                                     <th>Quantity</th>
@@ -66,21 +66,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($storeservices as $item)
+                                @forelse ($userservices as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
-                                        <td>{{ $item->store->name }}</td>
+                                        <td>{{ @$item->user->name }}</td>
                                         <td>{{ @$item->service->name }}</td>
-                                        <td>{{ $item->store_price }}</td>
-                                        <td>{{ $item->qty }}</td>
-                                        <td>{{ $item->status == 1 ? 'Active' : 'Inactive' }}</td>
+                                        <td>{{ @$item->store_price }}</td>
+                                        <td>{{ @$item->qty }}</td>
+                                        <td>{{ @$item->status == 1 ? 'Active' : 'Inactive' }}</td>
                                         <td>{{ optional($item->unit)->name }}</td>
 
                                         <td>@can('edit')
-                                            <a href="{{ route('storeservices.edit', $item->id) }}" class="float-left"><i
+                                            <a href="{{ route('userservices.edit', $item->id) }}" class="float-left"><i
                                                     class="fas fa-edit"></i></a>@endcan
                                                     @can('delete')
-                                            <form action="{{ route('storeservices.destroy', $item->id) }}" method="POST">
+                                            <form action="{{ route('userservices.destroy', $item->id) }}" method="POST">
                                                 @method('delete') @csrf <button class="btn btn-link pt-0"><i
                                                         class="fas fa-trash-alt"></i></button> </form>
                                                         @endcan
@@ -93,7 +93,7 @@
                         </table>
                     </div>
                     <div class="align-right paginationstyle">
-                        {{ $storeservices->links() }}
+                        {{ $userservices->links() }}
                     </div>
                     <!-- /.card-body -->
                 </div>

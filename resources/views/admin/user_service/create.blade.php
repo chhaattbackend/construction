@@ -14,24 +14,22 @@
                 <!-- Horizontal Form -->
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Add Store Product</h3>
+                        <h3 class="card-title">Add User Service</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
                     <div class="col-md-8">
-                        <form action="{{ route('storeservices.update', $storeservice->id) }}" method="POST"
-                            class="form-horizontal" enctype="multipart/form-data">
+                        <form action="{{ route('userservices.store') }}" method="POST" class="form-horizontal"
+                            enctype="multipart/form-data">
                             @csrf
-                            @method('put')
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Store ID</label>
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">User</label>
                                     <div class="col-sm-6">
-                                        <select required name="store_id" class="form-control" id="store_id">
+                                        <select required name="user_id" class="form-control" id="user_id">
                                             <option value="">Select Category</option>
-                                            @forelse ($stores as $item)
-                                                <option @if ($item->id == $storeservice->store_id) selected @endif value="{{ $item->id }}">
-                                                    {{ $item->name }}</option>
+                                            @forelse ($users as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @empty
 
                                             @endforelse>
@@ -44,8 +42,7 @@
                                         <select required name="service_id" class="form-control" id="service_id">
                                             <option value="">Select Category</option>
                                             @forelse ($services as $item)
-                                                <option @if ($item->id == $storeservice->service_id) selected @endif value="{{ $item->id }}">
-                                                    {{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @empty
 
                                             @endforelse>
@@ -58,15 +55,14 @@
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Store Price</label>
                                     <div class="col-sm-6">
                                         <input required type="number" class="form-control" id="store_price"
-                                            name="store_price" placeholder="Enter Store Price"
-                                            value="{{ $storeservice->store_price }}">
+                                            name="store_price" placeholder="Enter Store Price">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Quantity</label>
                                     <div class="col-sm-6">
                                         <input required type="number" class="form-control" id="qty" name="qty"
-                                            placeholder="Enter Quantity" value="{{ $storeservice->qty }}">
+                                            placeholder="Enter Quantity">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -84,8 +80,7 @@
                                         <select name="unit_id" class="form-control" id="unit_id">
                                             <option value="">Select Category</option>
                                             @forelse ($units as $item)
-                                                <option @if ($item->id == $storeservice->unit_id) selected @endif value="{{ $item->id }}">
-                                                    {{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @empty
 
                                             @endforelse>

@@ -338,6 +338,7 @@
                                 $("#brand_id").append(`<option value="${id}">${name}</option>`);
 
                             });
+                            
                             $("#brand_id").val(responese.brandid);
                         }
                     }

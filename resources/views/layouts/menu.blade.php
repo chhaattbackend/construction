@@ -613,19 +613,19 @@
     <a href="#" class="nav-link">
         <i class="nav-icon fas fa-tools"></i>
         <p>
-            Store Service
+            User Service
             <i class="right fas fa-angle-left"></i>
         </p>
     </a>
     <ul class="nav nav-treeview" style="display: none;">
         <li class="nav-item">
-            <a href="{{ route('storeservices.index') }}" class="nav-link">
+            <a href="{{ route('userservices.index') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>List</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('storeservices.create') }}" class="nav-link">
+            <a href="{{ route('userservices.create') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Create</p>
             </a>

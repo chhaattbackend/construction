@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StoreService extends Model
+class UserService extends Model
 {
-    public function store(){
-        return $this->belongsTo(Store::class,'store_id');
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
     }
     public function service(){
         return $this->belongsTo(Service::class,'service_id');
@@ -17,7 +17,7 @@ class StoreService extends Model
     }
     protected $fillable=[
         'id',
-        'store_id',
+        'user_id',
         'service_id',
         'store_price',
         'qty',

@@ -46,9 +46,9 @@ class Store extends Model
         return $this->hasMany(StoreProduct::class,'store_id');
     }
 
-    public function storeservices(){
-        return $this->hasMany(StoreService::class,'store_id');
-    }
+    // public function userservices(){
+    //     return $this->hasMany(StoreService::class,'user_id');
+    // }
     public function areaOne()
     {
         return $this->belongsTo(AreaOne::class, 'area_one_id');

@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Service;
 use App\Store;
-use App\StoreService;
 use App\Unit;
+use App\User;
+use App\UserService;
 use Illuminate\Http\Request;
 
-class StoreServiceController extends Controller
+class UserServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,16 +18,16 @@ class StoreServiceController extends Controller
      */
     public function index(Request $request)
     {
-        $storeservices=StoreService::paginate(25);
+        $userservices=UserService::paginate(25);
 
         // if(auth()->user()->store==null){
-        //     return redirect()->route('storeservices.index');
+        //     return redirect()->route('userservices.index');
         // }
         // if (auth()->user()->role->name=='admin'){
-        //     $storeservices=StoreService::where('store_id',auth()->user()->store->id)->paginate(25);
+        //     $userservices=StoreService::where('store_id',auth()->user()->store->id)->paginate(25);
         // }
 
-        return view('admin.store_service.index',compact('storeservices'));
+        return view('admin.user_service.index',compact('userservices'));
     }
 
     /**
@@ -36,10 +37,10 @@ class StoreServiceController extends Controller
      */
     public function create()
     {
-        $stores=Store::all();
+        $users=User::all();
         $services=Service::all();
         $units=Unit::all();
-        return view('admin.store_service.create',compact('stores','services','units'));
+        return view('admin.user_service.create',compact('users','services','units'));
     }
 
     /**
@@ -50,9 +51,9 @@ class StoreServiceController extends Controller
      */
     public function store(Request $request)
     {   if (auth()->user()->role->name == 'super admin') {
-        StoreService::create($request->all());
+        UserService::create($request->all());
     }
-        return redirect()->route('storeservices.index');
+        return redirect()->route('userservices.index');
     }
 
     /**
@@ -63,8 +64,8 @@ class StoreServiceController extends Controller
      */
     public function show($id)
     {
-        $storeservice=StoreService::find($id);
-        return view('admin.store_service.show',compact('storeservice'));
+        $userservice=UserService::find($id);
+        return view('admin.user_service.show',compact('userservice'));
     }
 
     /**
@@ -75,11 +76,11 @@ class StoreServiceController extends Controller
      */
     public function edit($id)
     {
-        $storeservice=StoreService::find($id);
-        $stores=Store::all();
+        $userservice=UserService::find($id);
+        $users=User::all();
         $services=Service::all();
         $units=Unit::all();
-        return view('admin.store_service.edit',compact('storeservice','stores','services','units'));
+        return view('admin.user_service.edit',compact('userservice','users','services','units'));
     }
 
     /**
@@ -91,10 +92,10 @@ class StoreServiceController extends Controller
      */
     public function update(Request $request, $id)
     {   if (auth()->user()->role->name == 'super admin') {
-        $storeservice=StoreService::find($id);
-        $storeservice->update($request->all());
+        $userservice=UserService::find($id);
+        $userservice->update($request->all());
     }
-        return redirect()->route('storeservices.index');
+        return redirect()->route('userservices.index');
     }
 
     /**
@@ -105,7 +106,7 @@ class StoreServiceController extends Controller
      */
     public function destroy($id)
     {if(auth()->user()->email == 'chhattofficial@chhatt.com'){
-        $item=StoreService::find($id);
+        $item=UserService::find($id);
         $item->delete();
     }
         return redirect()->back();
