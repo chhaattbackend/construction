@@ -109,10 +109,10 @@
                                                         <select class="form-control" name="brand_id" id="brand_id"
                                                             onchange="ajaxcall(null, 'brand')">
 
-                                                            <option id="brand" @if (request()->get('brand_id') == null) selected @endif value="">Select
+                                                            <option id="brand"  value="">Select
                                                             </option>
                                                             @foreach ($brand as $item)
-                                                                <option @if (request()->get('brand_id') == $item->id) selected @endif
+                                                                <option
                                                                     value="{{ $item->id }}">
                                                                     {{ $item->name }}</option>
                                                             @endforeach
@@ -286,7 +286,6 @@
     <script>
         $(document).on('click', '.pagination a', function(event) {
 
-
             window.scrollTo({
                 top: 0,
                 // behavior: 'smooth'
@@ -296,14 +295,12 @@
             var page = $(this).attr('href').split('page=')[1];
             var url = $(this).attr('href').split('?')[1];
             var fullurl = "create?" + url;
-
             $(this).html('<i class="fa fa-circle-notch fa-spin"></i>')
             window.history.pushState('new', 'Title', fullurl);
             ajaxcall(page)
         });
 
         var brandId;
-
 
         function ajaxcall(page, inpType) {
 
@@ -332,20 +329,22 @@
                     if (brandId.length > 0 && brandId != undefined) {
                         if (inpType != "brand") {
                             $("#brand_id").html("");
+
                             $.each(brandId, function(key, value) {
                                 const {
                                     name,
                                     id
                                 } = value;
+                                $("#brand_id").append(`<option value="${id}">${name}</option>`);
 
-                                $("#brand_id").append(
-                                    `<option value="${id}">${name}</option>`
-                                );
                             });
+                            $("#brand_id").val(responese.brandid);
                         }
-                    } else if (inpType === "bCat") {
+                    }
+                    else if (inpType === "bCat") {
                         $("#brand_id").html("");
                     }
+                    console.log(responese.brandid);
                     $('#table').html(responese.data);
                     $('#pagination').html(responese.pagination);
 

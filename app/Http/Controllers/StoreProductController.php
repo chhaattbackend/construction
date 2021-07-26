@@ -44,6 +44,7 @@ class StoreProductController extends Controller
 
     public function ajax(Request $request)
     {
+        $brandid = $request->brand_id;
 
         if ($request->b_category_id != null && $request->brand_id != null && $request->store_id > 0) {
 
@@ -128,6 +129,7 @@ class StoreProductController extends Controller
         return response()->json([
             'data' => $data,
             'brand' => $brand,
+            'brandid'=> $brandid,
             'pagination' => (string) $products->links()
         ]);
     }
