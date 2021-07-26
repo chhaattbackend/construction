@@ -34,18 +34,18 @@
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 335px;">
-                                <input type="text" name="keyword" id="table_search" class="form-control float-right"
-                                    placeholder="Search" style="height:37px;">
-
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-default mr-2" onclick="search()"><i
-                                            class="fas fa-search"></i></button>
-                                            @can('create')
-                                    <a href="{{ route('userservices.create') }}"><button class="btn btn-primary">Add User
-                                            Service</button></a>
-                                            @endcan
-                                </div>
+                                <form action="{{ route('userservices.index') }}" style="display: flex;">
+                                    <input type="text" name="keyword" id="keyword" class="form-control float-right"
+                                        placeholder="Search" style="height:37px;">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default mr-2"><i
+                                                class="fas fa-search"></i></button>
+                                </form>
                             </div>
+                            @can('create')
+                                <a href="{{ route('userservices.create') }}"><button class="btn btn-primary">Add
+                                        User Service</button></a>
+                            @endcan
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -55,6 +55,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>User</th>
+                                    <th>Store</th>
                                     <th>Service</th>
                                     <th>Store Price</th>
                                     <th>Quantity</th>
@@ -66,10 +67,12 @@
                                 </tr>
                             </thead>
                             <tbody>
+
                                 @forelse ($userservices as $item)
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>{{ @$item->user->name }}</td>
+                                        <td>{{ @$item->user->store->name }}</td>
                                         <td>{{ @$item->service->name }}</td>
                                         <td>{{ @$item->store_price }}</td>
                                         <td>{{ @$item->qty }}</td>

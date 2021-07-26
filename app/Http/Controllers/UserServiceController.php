@@ -18,16 +18,27 @@ class UserServiceController extends Controller
      */
     public function index(Request $request)
     {
-        $userservices=UserService::paginate(25);
 
-        // if(auth()->user()->store==null){
-        //     return redirect()->route('userservices.index');
-        // }
-        // if (auth()->user()->role->name=='admin'){
-        //     $userservices=StoreService::where('store_id',auth()->user()->store->id)->paginate(25);
-        // }
+        if (!$request->keyword) {
+            $userservices = UserService::paginate(25);
+        } else {
+            $seacrh = $request->keyword;
+            $userservices = UserService::whereHas('user', function ($query) use ($seacrh) {
+                $query->where('name', 'like', '%' . $seacrh . '%');
+            })->orWhereHas('user', function ($query) use ($seacrh) {
+                $query->whereHas('store', function ($query) use ($seacrh) {
+                    $query->where('name', 'like', '%' . $seacrh . '%');
+                });
+            })->orWhereHas('service', function ($query) use ($seacrh) {
+                $query->where('name', 'like', '%' . $seacrh . '%');
+            })->paginate(25)->setPath('');
 
-        return view('admin.user_service.index',compact('userservices'));
+            $pagination = $userservices->appends(array(
+                'keyword' => $request->keyword
+            ));
+        }
+
+        return view('admin.user_service.index', compact('userservices'));
     }
 
     /**
@@ -37,10 +48,10 @@ class UserServiceController extends Controller
      */
     public function create()
     {
-        $users=User::all();
-        $services=Service::all();
-        $units=Unit::all();
-        return view('admin.user_service.create',compact('users','services','units'));
+        $users = User::all();
+        $services = Service::all();
+        $units = Unit::all();
+        return view('admin.user_service.create', compact('users', 'services', 'units'));
     }
 
     /**
@@ -50,9 +61,10 @@ class UserServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   if (auth()->user()->role->name == 'super admin') {
-        UserService::create($request->all());
-    }
+    {
+        if (auth()->user()->role->name == 'super admin') {
+            UserService::create($request->all());
+        }
         return redirect()->route('userservices.index');
     }
 
@@ -64,8 +76,8 @@ class UserServiceController extends Controller
      */
     public function show($id)
     {
-        $userservice=UserService::find($id);
-        return view('admin.user_service.show',compact('userservice'));
+        $userservice = UserService::find($id);
+        return view('admin.user_service.show', compact('userservice'));
     }
 
     /**
@@ -76,11 +88,11 @@ class UserServiceController extends Controller
      */
     public function edit($id)
     {
-        $userservice=UserService::find($id);
-        $users=User::all();
-        $services=Service::all();
-        $units=Unit::all();
-        return view('admin.user_service.edit',compact('userservice','users','services','units'));
+        $userservice = UserService::find($id);
+        $users = User::all();
+        $services = Service::all();
+        $units = Unit::all();
+        return view('admin.user_service.edit', compact('userservice', 'users', 'services', 'units'));
     }
 
     /**
@@ -91,10 +103,11 @@ class UserServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   if (auth()->user()->role->name == 'super admin') {
-        $userservice=UserService::find($id);
-        $userservice->update($request->all());
-    }
+    {
+        if (auth()->user()->role->name == 'super admin') {
+            $userservice = UserService::find($id);
+            $userservice->update($request->all());
+        }
         return redirect()->route('userservices.index');
     }
 
@@ -105,10 +118,11 @@ class UserServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {if(auth()->user()->email == 'chhattofficial@chhatt.com'){
-        $item=UserService::find($id);
-        $item->delete();
-    }
+    {
+        if (auth()->user()->email == 'chhattofficial@chhatt.com') {
+            $item = UserService::find($id);
+            $item->delete();
+        }
         return redirect()->back();
     }
 }
