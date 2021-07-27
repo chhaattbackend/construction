@@ -60,19 +60,12 @@ class CCategoryController extends Controller
     {   if (auth()->user()->role->name == 'super admin') {
         if($request->file('image')){
 
-            $a = strtolower($request->name);
-            $slug = str_replace(' ' ,'-',$a);
-
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/ccategories');
-            CCategory::create($request->except('image', 'slug') + ["image" => $filename , 'slug' =>$slug]);
-
+            CCategory::create($request->except('image', 'slug') + ["image" => $filename]);
         }
         else{
 
-            $a = strtolower($request->name);
-            $slug = str_replace(' ' ,'-',$a);
-
-            Ccategory::create($request->except('image' ,'slug') + ['slug' =>$slug]);
+            Ccategory::create($request->except('image'));
         }
     }
         return redirect()->route('ccategories.index');
@@ -116,19 +109,13 @@ class CCategoryController extends Controller
         $c_category=CCategory::find($id);
 
         if($request->file('image')){
-            $a = strtolower($request->name);
-            $slug = str_replace(' ' ,'-',$a);
 
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/ccategories');
-            $c_category->update($request->except('image' ,'slug') + ["image" => $filename , 'slug' =>$slug]);
+            $c_category->update($request->except('image') + ["image" => $filename]);
 
         }
         else{
-
-            $a = strtolower($request->name);
-            $slug = str_replace(' ' ,'-',$a);
-            
-            $c_category->update($request->except('image' ,'slug') + ['slug' =>$slug]);
+            $c_category->update($request->except('image'));
         }
     }
         return redirect()->route('ccategories.index');

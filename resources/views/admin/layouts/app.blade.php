@@ -275,6 +275,17 @@
          });
     });
      </script>
+     <script>
+        function slugGen(){
+            var name = $('#name').val()
+            var slugname =name.replace(/ /g, '-')
+            // var slug= name.split(/[\s,]+/ );
+
+            $('#slug').val(slugname)
+
+
+        }
+    </script>
 </body>
 
 </html>

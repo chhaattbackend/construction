@@ -84,14 +84,11 @@ class ProductController extends Controller
         if (auth()->user()->role->name == 'super admin') {
 
             if ($request->file('images')) {
-                $a = strtolower($request->name);
-                $slug = str_replace(' ', '-', $a);
-                $product =   Product::create($request->except('image', 'slug') + ['slug' => $slug]);
+
+                $product =   Product::create($request->except('image'));
                 $this->globalclass->storeMultipleS3($request->file('images'), 'construction/product', $product->id);
             } else {
-                $a = strtolower($request->name);
-                $slug = str_replace(' ', '-', $a);
-                Product::create($request->except('image', 'slug') + ['slug' => $slug]);
+                Product::create($request->except('image'));
             }
         }
         return redirect()->route('products.create');
@@ -140,33 +137,20 @@ class ProductController extends Controller
     {
         if ($request->bool12 == 1) {
             if ($request->file('images')) {
-
-                $a = strtolower($request->name);
-                $slug = str_replace(' ', '-', $a);
-                $product =   Product::create($request->except('image', 'slug') + ['slug' => $slug]);
+                $product =   Product::create($request->except('image', 'slug'));
                 $this->globalclass->storeMultipleS3($request->file('images'), 'construction/product', $product->id);
             } else {
-
-                $a = strtolower($request->name);
-                $slug = str_replace(' ', '-', $a);
-
-                Product::create($request->except('image', 'slug') + ['slug' => $slug]);
+                Product::create($request->except('image'));
             }
         }
         if ($request->bool12 == 0) {
             $product = Product::find($id);
             if ($request->file('images')) {
 
-                $a = strtolower($request->name);
-                $slug = str_replace(' ', '-', $a);
-
                 $this->globalclass->storeMultipleS3($request->file('images'), 'construction/product', $product->id);
-                $product->update($request->except('image', 'slug') + ['slug' => $slug]);
+                $product->update($request->except('image'));
             } else {
-                $a = strtolower($request->name);
-                $slug = str_replace(' ', '-', $a);
-
-                $product->update($request->except('image', 'slug') + ['slug' => $slug]);
+                $product->update($request->except('image'));
             }
         }
 

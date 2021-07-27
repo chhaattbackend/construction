@@ -56,15 +56,12 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         if (auth()->user()->role->name == 'super admin') {
-            $a = strtolower($request->name);
-            $slug = str_replace(' ', '-', $a);
+
             if ($request->file('image')) {
-
-
                 $filename = $this->globalclass->storeS3($request->file('image',), 'construction/brand');
-                Brand::create($request->except('image','slug') + ["image" => $filename , 'slug' => $slug]);
+                Brand::create($request->except('image') + ["image" => $filename]);
             } else {
-                Brand::create($request->except('image','slug') + ['slug' => $slug]);
+                Brand::create($request->except('image'));
             }
         }
         return redirect()->route('brands.index');
@@ -103,12 +100,10 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {   $brand = Brand::find($id);
-        $a = strtolower($request->name);
-            $slug = str_replace(' ', '-', $a);
-        if ($request->file('image')) {
 
+        if ($request->file('image')) {
             $filename = $this->globalclass->storeS3($request->file('image'), 'construction/brand');
-            $brand->update($request->except('image','slug') + ["image" => $filename , "slug" =>  $slug]);
+            $brand->update($request->except('image') + ["image" => $filename]);
         } else {
             $brand->update($request->except('image'));
         }

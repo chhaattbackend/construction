@@ -35,7 +35,7 @@
             <center><label for="" class="text-danger">Already added</label></center>
         @endif
         <img class="m-auto" style="height: 150px ; width: 200px ; object-fit: contain; "
-            src="https://chhatt.s3.ap-south-1.amazonaws.com/construction/product/{{ $item->image }}" />
+            src="https://chhatt.s3.ap-south-1.amazonaws.com/construction/product/{{ $item->images[0]->name }}" />
         <p class="text-center border-bottom border-3 border-dark pb-2" style="word-wrap:break-line;">
             <strong> {{ $item->name }} </strong>
         </p>
