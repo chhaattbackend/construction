@@ -45,7 +45,38 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
-                        @livewire('search')
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Store</th>
+                                    <th>Phone</th>
+                                    @role('super admin')
+                                    <th>Action</th>
+                                @endrole
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($users as $item)
+                                    <tr>
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ @$item->store->name }}</td>
+                                        <td>{{ @$item->store->phone }}</td>
+                                        <td>@can('edit')
+                                            <a href="{{ route('users.edit', $item->id) }}" class="float-left">
+                                                {{$item->status==1 ? 'Active' : 'InActive'}}
+                                            </a>
+                                            @endcan
+
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <p>No Data Found</p>
+                                @endforelse
+                            </tbody>
+                        </table>
                     </div>
                     <div class="align-right paginationstyle">
                         {{-- {{ $users->links() }} --}}
