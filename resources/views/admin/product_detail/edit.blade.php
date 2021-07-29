@@ -14,7 +14,7 @@
                 <!-- Horizontal Form -->
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Add Product Details</h3>
+                        <h3 class="card-title">Edit Product Details</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->

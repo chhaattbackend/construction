@@ -14,7 +14,7 @@
                 <!-- Horizontal Form -->
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Add Store</h3>
+                        <h3 class="card-title">Edit Store</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -25,7 +25,7 @@
                             @method('put')
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">User ID</label>
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">User</label>
                                     <div class="col-sm-6">
                                         <select required name="user_id" class="form-control" id="user_id">
                                             <option value="">Select Category</option>
@@ -39,7 +39,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">City ID</label>
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">City</label>
                                     <div class="col-sm-6">
                                         <select required name="city_id" class="form-control" id="city_id">
                                             <option value="">Select Category</option>

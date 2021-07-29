@@ -75,108 +75,13 @@
 
     <body>
         <center>
-            @foreach ($store->storeproducts as $item)
-
-                <table>
-
-                    <tbody>
-                        <tr>
-                            <td>Product Name: </td>
-                            <td>{{ @$item->product->name }}</td>
-                        </tr>
-                        <tr>
-                            <td>Product Price: </td>
-                            <td>{{ @$item->product->price }}</td>
-                        </tr>
-                        <tr>
-                            <td>Store Name: </td>
-                            <td>{{ @$store->name }}</td>
-                        </tr>
-                        <tr>
-                            <td>Brand: </td>
-                            <td>{{ @$item->brand->name }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                {{-- <h6 class="float-left" for="">Product Name: </h6><p>{{$item->product->name}}</p>
-            <h6 class="float-left" for="">Product Price: </h6><p>{{$item->product->price}}</p>
-            <h6 class="float-left" for="">Product Store Name: </h6><p>{{$store->name}}</p> --}}
-                <h6>Product Attributes</h6>
-                <table>
-                    <thead>
-                        <th>Name: </th>
-                        <th>Description: </th>
-                    </thead>
-                    <tbody>
-                        @foreach ($item->product->attributes as $attributes)
-
-                            <tr>
-                                <td class="bold">
-                                    {{ @$attributes->attribute->name }}
-                                </td>
-                                <td>
-                                    {{ @$attributes->desc }}
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <hr>
-            @endforeach
+            <h1> <u> DAILY REPORT </u></h1>
+            <div>
+                <h2>Stores : {{$stores->count()}}</h2>
+                <h2>Product : {{$products->count()}}</h2>
+                <h2>Store Products : {{$store_products->count()}}</h2>
+            </div>
         </center>
-        <center>
-            {{-- <h3>Services</h3>
-            @foreach ($store->storeservices as $item) --}}
-{{--
-                <table>
-
-                    <tbody>
-                        <tr>
-                            <td>Service Name: </td>
-                            <td>{{ @$item->service->name }}</td>
-                        </tr>
-                        <tr>
-                            <td>Service Price: </td>
-                            <td>{{ @$item->service->price }}</td>
-                        </tr>
-                        <tr>
-                            <td>Store Name: </td>
-                            <td>{{ @$store->name }}</td>
-                        </tr>
-                        <tr>
-                            <td>Service Type: </td>
-                            <td>{{ @$item->service->category->name }}</td>
-                        </tr>
-                    </tbody>
-                </table> --}}
-
-                {{-- <h6 class="float-left" for="">Product Name: </h6><p>{{$item->product->name}}</p>
-        <h6 class="float-left" for="">Product Price: </h6><p>{{$item->product->price}}</p>
-        <h6 class="float-left" for="">Product Store Name: </h6><p>{{$store->name}}</p> --}}
-                {{-- <h6>Product Attributes</h6>
-    <table>
-    <thead>
-        <th>Name: </th>
-        <th>Description: </th>
-    </thead>
-    <tbody>
-        @foreach ($item->product->attributes as $attributes)
-
-        <tr>
-            <td class="bold">
-                {{$attributes->attribute->name}}
-            </td>
-            <td>
-                {{$attributes->desc}}
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-    </table> --}}
-                {{-- <hr>
-            @endforeach
-        </center> --}}
     </body>
 
     </html>

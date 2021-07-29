@@ -61,4 +61,8 @@ class Store extends Model
     {
         return $this->belongsTo(AreaThree::class, 'area_three_id');
     }
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
 }

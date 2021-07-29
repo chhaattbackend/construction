@@ -14,7 +14,7 @@
                 <!-- Horizontal Form -->
                 <div class="card card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Add Area three</h3>
+                        <h3 class="card-title">Edit Area three</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->

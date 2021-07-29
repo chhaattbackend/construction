@@ -82,6 +82,7 @@
         }
 
     </style>
+    @livewireStyles
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -286,6 +287,7 @@
 
         }
     </script>
+    @livewireScripts
 </body>
 
 </html>

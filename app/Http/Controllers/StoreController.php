@@ -28,6 +28,8 @@ class StoreController extends Controller
     }
     public function index(Request $request)
     {
+        
+
         if (auth()->user()->role->name == 'admin') {
 
             $stores = Store::where('user_id', auth()->user()->id)->paginate(25);
