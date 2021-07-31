@@ -11,7 +11,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-      
+
         <!-- Styles -->
 
     </head>
@@ -19,7 +19,7 @@
 
     <body>
         <center style="padding-top: 15%">
-            <div class='card el-tilt' data-tilt style="width: 20rem; height: 30rem">
+            <div class='card el-tilt' data-tilt data-tilt-scale='1.2' style="width: 20rem; height: 30rem">
                 <div class="card-body">
                     <p class="card-text ">
                     <h2 class="font-italic">Daily Report</h2>
@@ -38,14 +38,16 @@
 
         </center>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
-        <script src="https://unpkg.com/tilt.js@1.2.1/dest/tilt.jquery.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
     </body>
 
-    <script>
-        $(document).ready(function() {
-            $('.el-tilt').tilt();
-        });
-    </script>
+        {{-- <script>
+            $(document).ready(function() {
+                $('.el-tilt').tilt({
+                    scale: 1.2
+                })
+            });
+        </script> --}}
+
 
 @endsection
