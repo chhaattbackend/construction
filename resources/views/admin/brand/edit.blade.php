@@ -32,6 +32,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Slug</label>
+                                    <div class="col-sm-6">
+                                        <input required type="text" value="{{ $brand->slug }}" class="form-control" id="slug" name="slug"
+                                            placeholder="Enter Slug">
+                                    </div>
+                                    <div class="col-1">
+                                    <i onclick="slugGen()" class="fas fa-bars"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
                                     <div class="col-sm-6">
                                         <img class="form-img"
