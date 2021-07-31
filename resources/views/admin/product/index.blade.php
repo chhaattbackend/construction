@@ -109,13 +109,13 @@
                                     <td>{{ optional($item->e_category)->name }}</td>
                                     <td>{{ optional($item->f_category)->name }}</td>
                                     <td>{{ @$item->brand->name }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->description }}</td>
-                                    <td>{{ $item->price }}</td>
-                                    <td>{{ $item->quantity }}</td>
-                                    <td>{{ $item->thumbnail }}</td>
-                                    <td>{{ $item->image }}</td>
-                                    <td>{{ $item->unit->name }}</td>
+                                    <td>{{ @$item->name }}</td>
+                                    <td>{{ @$item->description }}</td>
+                                    <td>{{ @$item->price }}</td>
+                                    <td>{{ @$item->quantity }}</td>
+                                    <td>{{ @$item->thumbnail }}</td>
+                                    <td>{{ @$item->image }}</td>
+                                    <td>{{ @$item->unit->name }}</td>
 
                                 </tr>
                             @empty
