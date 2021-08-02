@@ -61,7 +61,7 @@ class CCategoryController extends Controller
         if($request->file('image')){
 
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/ccategories');
-            CCategory::create($request->except('image', 'slug') + ["image" => $filename]);
+            CCategory::create($request->except('image') + ["image" => $filename]);
         }
         else{
 

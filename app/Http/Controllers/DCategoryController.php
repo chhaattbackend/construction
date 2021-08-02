@@ -62,7 +62,6 @@ class DCategoryController extends Controller
         if (auth()->user()->role->name == 'super admin') {
         if($request->file('image')){
 
-
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/dcategories');
             DCategory::create($request->except('image') + ["image" => $filename]);
 
@@ -113,7 +112,7 @@ class DCategoryController extends Controller
     {   if (auth()->user()->role->name == 'super admin') {
         $d_category=DCategory::find($id);
         if($request->file('image')){
-
+            
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/dcategories');
             $d_category->update($request->except('image') + ["image" => $filename]);
 

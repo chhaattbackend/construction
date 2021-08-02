@@ -37,6 +37,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Area</label>
+                                    <div class="col-sm-6">
+                                        <select  class="form-control js-example-basic-single" name="area_three_id" id="area_three_id">
+                                            <option disabled selected value="">Select Area</option>
+                                            @foreach ($areathrees as $item)
+                                                <option value="{{ $item->id }}">{{ @$item->name }} - {{@$item->areaTwo->name}} - {{@$item->areaOne->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Service ID</label>
                                     <div class="col-sm-6">
                                         <select required name="service_id" class="form-control" id="service_id">

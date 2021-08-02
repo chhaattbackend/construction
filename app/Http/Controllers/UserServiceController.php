@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AreaThree;
 use App\Service;
 use App\Store;
 use App\Unit;
@@ -51,7 +52,8 @@ class UserServiceController extends Controller
         $users = User::all();
         $services = Service::all();
         $units = Unit::all();
-        return view('admin.user_service.create', compact('users', 'services', 'units'));
+        $areathrees = AreaThree::all();
+        return view('admin.user_service.create', compact('users', 'services', 'units', 'areathrees'));
     }
 
     /**
@@ -63,7 +65,9 @@ class UserServiceController extends Controller
     public function store(Request $request)
     {
         if (auth()->user()->role->name == 'super admin') {
-            UserService::create($request->all());
+            $area = AreaThree::where('id',$request->area_three_id)->first();
+            UserService::create($request->except('area_one_id','area_two_id') + ['area_one_id' =>$area->areaOne->id , 'area_two_id' => $area->areaTwo->id ]);
+
         }
         return redirect()->route('userservices.index');
     }
@@ -92,7 +96,9 @@ class UserServiceController extends Controller
         $users = User::all();
         $services = Service::all();
         $units = Unit::all();
-        return view('admin.user_service.edit', compact('userservice', 'users', 'services', 'units'));
+        $areathrees = AreaThree::all();
+
+        return view('admin.user_service.edit', compact('userservice', 'users', 'services', 'units','areathrees'));
     }
 
     /**
@@ -106,7 +112,8 @@ class UserServiceController extends Controller
     {
         if (auth()->user()->role->name == 'super admin') {
             $userservice = UserService::find($id);
-            $userservice->update($request->all());
+            $area = AreaThree::where('id',$request->area_three_id)->first();
+            $userservice->update($request->except('area_one_id','area_two_id') + ['area_one_id' =>$area->areaOne->id , 'area_two_id' => $area->areaTwo->id ]);
         }
         return redirect()->route('userservices.index');
     }

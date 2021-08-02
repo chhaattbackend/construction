@@ -28,7 +28,7 @@ class StoreController extends Controller
     }
     public function index(Request $request)
     {
-        
+
 
         if (auth()->user()->role->name == 'admin') {
 
@@ -151,17 +151,12 @@ class StoreController extends Controller
 
             if ($request->file('image')) {
                 $filename = $this->globalclass->storeS3($request->file('image'), 'construction/store');
-
-                $a = strtolower($request->name);
-                $slug = str_replace(' ', '-', $a);
-
                 $area = AreaThree::where('id', $request->area_three_id)->first();
-                $store->update($request->except('image', 'area_two_id', 'area_one_id', 'slug') + ['image' => $filename, 'area_one_id' => $area->area_one_id, 'area_two_id' => $area->area_two_id, 'slug' => $slug]);
+                $store->update($request->except('image', 'area_two_id', 'area_one_id') + ['image' => $filename, 'area_one_id' => $area->area_one_id, 'area_two_id' => $area->area_two_id]);
             } else {
-                $a = strtolower($request->name);
-                $slug = str_replace(' ', '-', $a);
+
                 $area = AreaThree::where('id', $request->area_three_id)->first();
-                $store->update($request->except('area_two_id', 'area_one_id', 'slug') + ['area_one_id' => $area->area_one_id, 'area_two_id' => $area->area_two_id, 'slug' => $slug]);
+                $store->update($request->except('area_two_id', 'area_one_id') + ['area_one_id' => $area->area_one_id, 'area_two_id' => $area->area_two_id]);
             }
         }
         return redirect()->route('stores.index');

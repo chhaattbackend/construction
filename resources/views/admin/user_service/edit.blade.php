@@ -39,6 +39,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Area</label>
+                                    <div class="col-sm-6">
+                                        <select required name="area_three_id" class="form-control" id="area_three_id">
+                                            <option value="">Select Category</option>
+                                            @forelse ($areathrees as $item)
+                                            <option disabled  value="">Select Area</option>
+                                                <option @if ($item->id == $userservice->area_three_id) selected @endif value="{{ $item->id }}">
+                                                    {{ $item->name }} - {{@$item->areaTwo->name}} - {{@$item->areaOne->name}}</option>
+                                            @empty
+
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Service ID</label>
                                     <div class="col-sm-6">
                                         <select required name="service_id" class="form-control" id="service_id">

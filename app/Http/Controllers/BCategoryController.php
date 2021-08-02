@@ -60,7 +60,7 @@ class BCategoryController extends Controller
         if($request->file('image')){
 
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/bcategories');
-            BCategory::create($request->except('image','slug') + ["image" => $filename]);
+            BCategory::create($request->except('image') + ["image" => $filename]);
         }
         else{
             Bcategory::create($request->except('image'));
@@ -108,19 +108,14 @@ class BCategoryController extends Controller
         $b_category=BCategory::find($id);
 
         if($request->file('image')){
-
-            $a = strtolower($request->name);
-            $slug = str_replace(' ' ,'-',$a);
-
+            
             $filename = $this->globalclass->storeS3($request->file('image'),'construction/bcategories');
-            $b_category->update($request->except('image' , 'slug') + ["image" => $filename , 'slug' =>$slug]);
+            $b_category->update($request->except('image') + ["image" => $filename]);
 
         }
         else{
-            $a = strtolower($request->name);
-            $slug = str_replace(' ' ,'-',$a);
 
-            $b_category->update($request->except('image','slug') + ['slug' =>$slug]);
+            $b_category->update($request->except('image'));
         }
 
 
