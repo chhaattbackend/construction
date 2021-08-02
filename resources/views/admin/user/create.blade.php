@@ -35,7 +35,7 @@
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
                                     <div class="col-sm-6">
                                         <input required type="password" class="form-control"
-                                            placeholder="Password">
+                                            placeholder="Password" name="password">
                                     </div>
                                 </div>
 

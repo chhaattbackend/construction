@@ -17,6 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        // auth()->user()->assignRole('super admin');
+        // auth()->user()->givePermissionTo('delete');
+
         $users = User::all();
         return view('admin.user.index', compact('users'));
     }
@@ -138,7 +141,7 @@ class UserController extends Controller
     {   if (auth()->user()->email == 'chhattofficial@chhatt.com') {
 
         $user = User::find($id);
-       
+
         $user->update($request->except('password')+['password' => Hash::make($request->password)]);
     }
         return redirect()->route('users.index');
