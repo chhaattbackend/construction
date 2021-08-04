@@ -244,7 +244,7 @@
                                             method="POST" class="form-horizontal" enctype="multipart/form-data">
                                             @csrf
                                             <input hidden type="text" name='bool12' id="test12222" value="0">
-                                            <button type="button" id="maderchod" class="btn btn-danger pt-0"
+                                            <button type="button" id="made" class="btn btn-danger pt-0"
                                                 onclick="add()">ASSIGN</button>
                                         </form>
                                     </div>
@@ -275,7 +275,7 @@
             a = document.getElementById('test12222');
             a.value = '1';
            a.backgroundcolor='blue !important';
-           $("#maderchod").css('background-color', ' green');
+           $("#made").css('background-color', ' green');
         }
     </script>
 @endsection

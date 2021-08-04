@@ -136,8 +136,9 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         if ($request->bool12 == 1) {
+
             if ($request->file('images')) {
-                $product =   Product::create($request->except('image', 'slug'));
+                $product =   Product::create($request->except('image'));
                 $this->globalclass->storeMultipleS3($request->file('images'), 'construction/product', $product->id);
             } else {
                 Product::create($request->except('image'));

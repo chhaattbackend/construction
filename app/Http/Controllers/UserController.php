@@ -72,7 +72,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    { if (auth()->user()->email == 'chhattofficial@chhatt.com'){
+    { if (auth()->user()->email == 'chhattofficial@chhatt.com' || auth()->user()->email == 'muneeb@chhatt.com'){
         $roles = Role::all();
         return view('admin.user.create',compact('roles'));
     }
@@ -87,7 +87,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {   if (auth()->user()->email == 'chhattofficial@chhatt.com' || auth()->user()->email == 'muneeb@chhatt.com' ) {
-        
+
         User::create($request->except('password')+['password' => Hash::make($request->password)]);
     }
         return redirect()->route('users.index');
@@ -123,7 +123,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   if (auth()->user()->email == 'chhattofficial@chhatt.com') {
+    {   if (auth()->user()->email == 'chhattofficial@chhatt.com' || auth()->user()->email == 'muneeb@chhatt.com') {
         $user = User::find($id);
         $roles = Role::all();
         return view('admin.user.edit', compact('user','roles'));
@@ -140,10 +140,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   if (auth()->user()->email == 'chhattofficial@chhatt.com') {
-
+    {   if (auth()->user()->email == 'chhattofficial@chhatt.com'|| auth()->user()->email == 'muneeb@chhatt.com') {
         $user = User::find($id);
-
         $user->update($request->except('password')+['password' => Hash::make($request->password)]);
     }
         return redirect()->route('users.index');
@@ -158,7 +156,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         // dd('h');
-        if(auth()->user()->email == 'chhattofficial@chhatt.com'){
+        if(auth()->user()->email == 'chhattofficial@chhatt.com'|| auth()->user()->email == 'muneeb@chhatt.com'){
         $item = User::find($id);
         $item->delete();
         }
