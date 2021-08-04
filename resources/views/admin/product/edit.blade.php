@@ -135,8 +135,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-
-
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Brand :</label>
                                     <div class="col-sm-6">
                                         <select class="form-control" name="brand_id" id="brand_id">
@@ -145,18 +143,17 @@
                                                 <option @if ($item->id == $product->brand_id) selected @endif value="{{ $item->id }}">
                                                     {{ $item->name }}</option>
                                             @empty
-
                                             @endforelse
-
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control" value="{{ $product->name }}" id="name"
                                             name="name" placeholder="Enter Name">
+                                            <input hidden type="text" name="created_by" value="{{auth()->user()->email}}">
 
                                     </div>
                                 </div>

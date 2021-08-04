@@ -65,7 +65,7 @@
                                         <td>{{ @$item->store->name }}</td>
                                         <td>{{ @$item->store->phone }}</td>
                                         <td>@can('edit')
-                                            <a href="{{ route('users.edit', $item->id) }}" class="float-left">
+                                            <a href="{{ route('users.show', $item->id) }}" class="float-left">
                                                 {{$item->status==1 ? 'Active' : 'InActive'}}
                                             </a>
                                             @endcan

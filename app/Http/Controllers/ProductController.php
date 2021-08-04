@@ -85,7 +85,7 @@ class ProductController extends Controller
 
 
             if ($request->file('images')) {
-                
+
                 $product =   Product::create($request->except('image'));
                 $this->globalclass->storeMultipleS3($request->file('images'), 'construction/product', $product->id);
             } else {
@@ -150,9 +150,9 @@ class ProductController extends Controller
             if ($request->file('images')) {
 
                 $this->globalclass->storeMultipleS3($request->file('images'), 'construction/product', $product->id);
-                $product->update($request->except('image'));
+                $product->update($request->except('image','created_by'));
             } else {
-                $product->update($request->except('image'));
+                $product->update($request->except('image','created_by'));
             }
         }
 
