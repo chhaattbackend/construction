@@ -20,6 +20,7 @@ class UserController extends Controller
         // auth()->user()->assignRole('super admin');
         // auth()->user()->givePermissionTo('delete');
 
+
         $users = User::all();
         return view('admin.user.index', compact('users'));
     }
@@ -85,7 +86,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   if (auth()->user()->email == 'chhattofficial@chhatt.com') {
+    {   if (auth()->user()->email == 'chhattofficial@chhatt.com' || auth()->user()->email == 'muneeb@chhatt.com' ) {
+        
         User::create($request->except('password')+['password' => Hash::make($request->password)]);
     }
         return redirect()->route('users.index');

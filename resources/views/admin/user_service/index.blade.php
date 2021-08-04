@@ -35,7 +35,7 @@
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 335px;">
                                 <form action="{{ route('userservices.index') }}" style="display: flex;">
-                                    <input type="text" name="keyword" id="keyword" class="form-control float-right"
+                                    <input  type="text" name="keyword" id="keyword" class="form-control float-right"
                                         placeholder="Search" style="height:37px;">
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-default mr-2"><i
@@ -56,6 +56,7 @@
                                     <th>ID</th>
                                     <th>User</th>
                                     <th>Store</th>
+                                    <th>Area</th>
                                     <th>Service</th>
                                     <th>Store Price</th>
                                     <th>Quantity</th>
@@ -73,6 +74,7 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ @$item->user->name }}</td>
                                         <td>{{ @$item->user->store->name }}</td>
+                                        <td>{{ @$item->areaThree->name}}-{{ @$item->areaTwo->name}}-{{ @$item->areaOne->name}}</td>
                                         <td>{{ @$item->service->name }}</td>
                                         <td>{{ @$item->store_price }}</td>
                                         <td>{{ @$item->qty }}</td>
