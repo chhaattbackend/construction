@@ -83,8 +83,9 @@ class ProductController extends Controller
     {
         if (auth()->user()->role->name == 'super admin') {
 
-            if ($request->file('images')) {
 
+            if ($request->file('images')) {
+                
                 $product =   Product::create($request->except('image'));
                 $this->globalclass->storeMultipleS3($request->file('images'), 'construction/product', $product->id);
             } else {

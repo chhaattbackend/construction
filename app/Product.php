@@ -23,6 +23,7 @@ class Product extends Model
         'image',
         'unit_id',
         'slug',
+        'created_by',
 
     ];
 

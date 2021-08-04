@@ -92,8 +92,6 @@
                                 </div>
 
                                 <div class="form-group row">
-
-
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Category E :</label>
                                     <div class="col-sm-6">
                                         <select class="form-control" name="e_category_id" id="e_category_id">
@@ -109,8 +107,6 @@
                                 </div>
 
                                 <div class="form-group row">
-
-
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Category F :</label>
                                     <div class="col-sm-6">
                                         <select class="form-control" name="f_category_id" id="f_category_id">
@@ -146,8 +142,8 @@
                                     <div class="col-sm-6">
                                         <input required type="text" class="form-control" id="name" name="name"
                                             placeholder="Enter Name">
-
                                     </div>
+                                    <input hidden type="text" name="created_by" value="{{auth()->user()->email}}">
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Slug</label>
