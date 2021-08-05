@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ config('app.name') }}</title>
+    @livewireStyles
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Latest compiled and minified CSS -->
 
@@ -287,7 +288,7 @@
 
         }
     </script>
-    @livewireScripts
+  
 </body>
-
+@livewireScripts
 </html>
