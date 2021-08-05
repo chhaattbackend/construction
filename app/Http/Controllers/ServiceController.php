@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\ACategory;
+use App\AreaThree;
 use App\BCategory;
 use App\GlobalClass;
 use App\Service;
 use App\ServiceType;
 use App\Unit;
+use App\User;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -53,8 +55,10 @@ class ServiceController extends Controller
     public function create()
     {
         $servicetypes=ServiceType::all();
+        $users = User::all();
+        $areathrees =AreaThree::all();
         $units=Unit::all();
-        return view('admin.service.create',compact('servicetypes','units'));
+        return view('admin.service.create',compact('servicetypes','units','users','areathrees'));
     }
 
     /**
@@ -102,8 +106,10 @@ class ServiceController extends Controller
         $acategories=ACategory::all();
         $bcategories=BCategory::all();
         $units=Unit::all();
+        $users = User::all();
+        $areathrees = AreaThree::all();
         $servicetypes=ServiceType::all();
-        return view('admin.service.edit',compact('service','acategories','bcategories','units','servicetypes'));
+        return view('admin.service.edit',compact('service','acategories','bcategories','units','servicetypes','users','areathrees'));
     }
 
     /**

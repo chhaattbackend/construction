@@ -41,6 +41,35 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">User</label>
+                                    <div class="col-sm-6">
+                                        <select required name="store_id" class="form-control" id="store_id">
+                                            <option value="">Select Category</option>
+                                            @forelse ($users as $item)
+                                                <option @if ($item->id == $service->user_id) selected @endif value="{{ $item->id }}">
+                                                    {{ $item->name }} - {{@$item->store->name}}</option>
+                                            @empty
+
+                                            @endforelse>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Area</label>
+                                    <div class="col-sm-6">
+                                        <select required name="area_three_id" class="form-control" id="area_three_id">
+                                            <option value="">Select Category</option>
+                                            @forelse ($areathrees as $item)
+                                            <option disabled  value="">Select Area</option>
+                                                <option @if ($item->id == $service->area_three_id) selected @endif value="{{ $item->id }}">
+                                                    {{ $item->name }} - {{@$item->areaTwo->name}} - {{@$item->areaOne->name}}</option>
+                                            @empty
+
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-6">
                                         <input required type="text" class="form-control" id="name" name="name"

@@ -40,11 +40,34 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">User</label>
+                                    <div class="col-sm-6">
+                                        <select required name="user_id" class="form-control" id="user_id">
+                                            <option value="">Select Category</option>
+                                            @forelse ($users as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}  - {{@$item->store->name}}</option>
+                                            @empty
+
+                                            @endforelse>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Area</label>
+                                    <div class="col-sm-6">
+                                        <select  class="form-control js-example-basic-single" name="area_three_id" id="area_three_id">
+                                            <option disabled selected value="">Select Area</option>
+                                            @foreach ($areathrees as $item)
+                                                <option value="{{ $item->id }}">{{ @$item->name }} - {{@$item->areaTwo->name}} - {{@$item->areaOne->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-6">
                                         <input required type="text" class="form-control" id="name" name="name"
                                             placeholder="Enter Name">
-
                                     </div>
                                 </div>
                                 <div class="form-group row">
