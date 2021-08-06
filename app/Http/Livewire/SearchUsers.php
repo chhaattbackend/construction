@@ -14,13 +14,7 @@ class SearchUsers extends Component
     public function render()
     {
         $searchTerm = '%'.$this->searchTerm.'%';
-        $users = User::where('name','LIKE',$searchTerm)->paginate(10)->setPath('');
-
-       
+        $users = User::where('name','LIKE',$searchTerm)->get();
         return view('livewire.search-users',['users' =>$users]);
-
-        // return view('livewire.search-users', [
-        //     'users' => User::where('name', $searchTerm)->paginate(10),
-        // ]);
     }
 }
